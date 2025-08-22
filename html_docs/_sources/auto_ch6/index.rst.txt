@@ -1,0 +1,221 @@
+:orphan:
+
+:orphan:
+
+Chapter 6: Applications to machine learning : supervised, unsupervised and generative methods
+=============================================================================================
+
+This gallery contains examples and tutorials for Chapter 6. The examples demonstrate how to use
+the CodPy library for various machine learning and regression tasks.
+
+Each example includes code and outputs, such as plots or results, to help you understand
+how the library works.
+
+Below are the examples for this chapter:
+
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="We show how to reproduce the results of the chapter 6.2.1 - Application to supervised machine learning - Regression problem: housing price prediction of the book. We will compare the codpy model with other standard regression methods. The goal is to show the codpy model capacity to fit the training data.">
+
+.. only:: html
+
+  .. image:: /auto_ch6/images/thumb/sphx_glr_ch6_housing_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_ch6_ch6_housing.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">6.1 Supervised learning: reproducibility illustration with housing prices</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Here we reproduce the results of chapter 6.2.2 - Classification problem: handwritten digits. We will compare different models with codpy for a classification task, scoring models on unseen data.">
+
+.. only:: html
+
+  .. image:: /auto_ch6/images/thumb/sphx_glr_ch6_mnist_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_ch6_ch6_mnist.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">6.2 Supervised learning: benchmarks of methods with MNIST</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="We show how to reproduce the results of the chapter 6.3.2 - Application to supervised machine learning - Classification problem: handwritten digits of the book. We will compare the codpy MMD minimization-based algorithm with scikit learn k-means in an unsupervised setting. The goal is to show the different scores as we increase the number of centroids Ny used for clustering.">
+
+.. only:: html
+
+  .. image:: /auto_ch6/images/thumb/sphx_glr_ch6_Clustering_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_ch6_ch6_Clustering.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">6.3 Unsupervised learning: Clustering - MNIST</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="We show how to reproduce the results of the chapter 6.3.2 - Application to supervised machine learning - Classification problem: handwritten digits of the book. We will compare the codpy MMD minimization-based algorithm with scikit learn k-means in an unsupervised setting. The goal is to show the different scores as we increase the number of centroids Ny used for clustering.">
+
+.. only:: html
+
+  .. image:: /auto_ch6/images/thumb/sphx_glr_ch6_ClustMNIST_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_ch6_ch6_ClustMNIST.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">6.3 Unsupervised learning: Clustering - MNIST</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="We show how to reproduce the results of the chapter 6.3.3 - Credit card fraud dectection.  We will compare the codpy MMD minimization-based algorithm with scikit learn k-means in an unsupervised setting.  The goal is to show the different scores as we increase the number of centroids Ny used for clustering. ">
+
+.. only:: html
+
+  .. image:: /auto_ch6/images/thumb/sphx_glr_ch6_CreditCardFraud_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_ch6_ch6_CreditCardFraud.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">6.4 Unsupervised learning: Clustering - Fraud detection</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="We reproduce the Figure 6.10 from the book, reconstructing a new image not in the dataset. We train our model on the CelebA dataset, and then, using a test image, we reconstruct it from its latent representation.">
+
+.. only:: html
+
+  .. image:: /auto_ch6/images/thumb/sphx_glr_ch6_9_CelebA_reconstruction_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_ch6_ch6_9_CelebA_reconstruction.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">6.4.1 Generating complex distributions</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="We reproduce the Figure 6.9 from the book, generating images from the CelebA dataset. We generate new images from different latent dimension spaces, and compare them to the closest images in the dataset. We define &quot;closest&quot; using a distance metric in the latent space between images.">
+
+.. only:: html
+
+  .. image:: /auto_ch6/images/thumb/sphx_glr_ch6_9_CelebA_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_ch6_ch6_9_CelebA.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">6.4.1 Generating complex distributions from celebA dataset</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="We reproduce the Figure 6.15 from the book. We train a model on the CelebA dataset, conditionned on the features.  We then select 10 images with hats and eyeglasses, and slowly generate new images  By varying the strength of those features, resulting in a verion of &quot;no hats and eyeglasses&quot;">
+
+.. only:: html
+
+  .. image:: /auto_ch6/images/thumb/sphx_glr_ch6_9_transfert_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_ch6_ch6_9_transfert.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">6.4.5 Conditioning on discrete distributions of celebA dataset</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip=" We show how to reproduce the results of the chapter 6.3.4 - Application to unsupervised machine learning - Portfolio of stock clustering of the book. We will compare different clusters obtained with the codpy MMD minimization-based algorithm and scikit learn k-means.">
+
+.. only:: html
+
+  .. image:: /auto_ch6/images/thumb/sphx_glr_ch6_stockClustering_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_ch6_ch6_stockClustering.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">6.5 Unsupervised learning: Clustering - Stock Clustering</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="In this tutorial, we introduce the problem of conditional sampling, i.e., generating samples from a distribution \( p(y|x) \) using kernel-based models.">
+
+.. only:: html
+
+  .. image:: /auto_ch6/images/thumb/sphx_glr_ch6_iris_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_ch6_ch6_iris.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">6.7. Conditional Sampling</div>
+    </div>
+
+
+.. thumbnail-parent-div-close
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /auto_ch6/ch6_housing
+   /auto_ch6/ch6_mnist
+   /auto_ch6/ch6_Clustering
+   /auto_ch6/ch6_ClustMNIST
+   /auto_ch6/ch6_CreditCardFraud
+   /auto_ch6/ch6_9_CelebA_reconstruction
+   /auto_ch6/ch6_9_CelebA
+   /auto_ch6/ch6_9_transfert
+   /auto_ch6/ch6_stockClustering
+   /auto_ch6/ch6_iris
+
+
+
+.. only:: html
+
+ .. rst-class:: sphx-glr-signature
+
+    `Gallery generated by Sphinx-Gallery <https://sphinx-gallery.github.io>`_

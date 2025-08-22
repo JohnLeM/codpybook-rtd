@@ -5,4 +5,4 @@ build:
     python: "3.9"
   commands:
     - mkdir -p $READTHEDOCS_OUTPUT/html/
-    - cp -r docs/_build/* $READTHEDOCS_OUTPUT/html/
+    - cp -r html_docs/* $READTHEDOCS_OUTPUT/html/

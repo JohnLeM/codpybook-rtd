@@ -1,0 +1,669 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>6.4.1 Generating complex distributions from celebA dataset &mdash; CodPy Book 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=8d563738"></script>
+      <script src="../_static/doctools.js?v=9a2dae69"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script>let toggleHintShow = 'Click to show';</script>
+      <script>let toggleHintHide = 'Click to hide';</script>
+      <script>let toggleOpenOnPrint = 'true';</script>
+      <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+      <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+      <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="6.4.5 Conditioning on discrete distributions of celebA dataset" href="ch6_9_transfert.html" />
+    <link rel="prev" title="6.4.1 Generating complex distributions" href="ch6_9_CelebA_reconstruction.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            CodPy Book
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Chapter 2:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../auto_ch2/index.html">Chapter 2: Basic notions on reproducing kernels</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch2/ch2_2.html">2.2 Reproducing kernels and transformation maps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch2/ch2_ex1D.html">2.3 1D Periodic Function Extrapolation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch2/ch2_5.html">2.3.2 Applying maps to kernels</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch2/ch2_ex2D.html">2.4 2D Periodic Function Extrapolation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch2/ch2_discrepancy_functional.html">2.6.2 A study of the discrepancy functional</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Chapter 3:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../auto_ch3/index.html">Chapter 3: Discrete operators based on reproducing kernels</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch3/ch3_3_2.html">3.3.2 Partition of unity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch3/ch3_4_1.html">3.4.1 Gradient Operator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch3/ch3_4_2.html">3.4.2 Divergence Operator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch3/ch3_4_3.html">3.4.3  Inverse Laplace operator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch3/ch3_4_4.html">3.4.4 Integral operator - inverse gradient operator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch3/ch3_4_5.html">3.4.5  Integral operator - inverse divergence operator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch3/ch3_4_6.html">3.4.6 Leray-orthogonal operator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch3/ch3_4_7.html">3.4.7 Leray operator and Helmholtz-Hodge decomposition</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Chapter 4:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../auto_ch4/index.html">Chapter 4: Clustering strategies</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch4/ch4_2.html">4.2 Clustering</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Chapter 5:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../auto_ch5/index.html">Chapter 5: Optimal transport and statistical kernel methods</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch5/ch5_2.html">5.2 Optimal Transport: LSAP (Linear Sum Assignment Problem)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch5/ch5_33.html">5.3.3 Kernel Conditional Density</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch5/ch5_34.html">5.3.4 Kernel Conditional Expectation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch5/ch5_6_a.html">5.6.a Application of OT in Disitribution Sampling : 1D</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch5/ch5_6_b.html">5.6.b Application of OT in Disitribution Sampling : 2D</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch5/ch5_6_c.html">5.6.c Application of OT in Disitribution Sampling : High-Dimensional case</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch5/ch5_6_d.html">5.6.d Exploration Data Analysis of the Latent Space: Spherical Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch5/ch5_7.html">5.7. Conditional Sampling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch5/ch5_8.html">5.8. Conditional Sampling</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Chapter 6:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Chapter 6: Applications to machine learning : supervised, unsupervised and generative methods</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="ch6_housing.html">6.1 Supervised learning: reproducibility illustration with housing prices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ch6_mnist.html">6.2 Supervised learning: benchmarks of methods with MNIST</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ch6_Clustering.html">6.3 Unsupervised learning: Clustering - MNIST</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ch6_ClustMNIST.html">6.3 Unsupervised learning: Clustering - MNIST</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ch6_CreditCardFraud.html">6.4 Unsupervised learning: Clustering - Fraud detection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ch6_9_CelebA_reconstruction.html">6.4.1 Generating complex distributions</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">6.4.1 Generating complex distributions from celebA dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ch6_9_transfert.html">6.4.5 Conditioning on discrete distributions of celebA dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ch6_stockClustering.html">6.5 Unsupervised learning: Clustering - Stock Clustering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ch6_iris.html">6.7. Conditional Sampling</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Chapter 7:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../auto_ch7/index.html">Chapter 7: Application to partial differential equations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch7/ch7_invLaplace.html">7.01 Inverse Laplace Operator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch7/ch7_denoising.html">7.02 Denoising</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch7/ch7_heat_eq.html">7.03 Heat Equation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch7/ch7_heatLagrange.html">7.04 Lagrange Heat Equation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch7/ch7_convexHull.html">7.05 Convex Hull Algorithm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch7/ch7_AAD.html">7.06 Automatic Differentiation</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Chapter 8:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../kqlearning.html">KQLearning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../auto_ch8/index.html">Chapter 8: Reinforcement learning.</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch8/ch8_example.html">8.1 Using KAgents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch8/ch8_cartpole.html">8.2 Experiments - Cartpole</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch8/ch8_lunarlander.html">8.3 Experiments - LunarLander</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Chapter 9:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../auto_ch9/index.html">Chapter 9: Mathematical Finance.</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_get_market_data.html">9.01 Free time series modeling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_random_walk_log_normal.html">9.02 Random walks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_arma.html">9.03 ARMA(p,1) model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_garch.html">9.04 GARCH(1,1) model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_lagrange.html">9.05 Lagrange interpolation model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_additive.html">9.06 Additive noise map</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_conditionning.html">9.07 Conditionning model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_stoch_vol.html">9.08 Stochastic volatility model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_HestonCompare.html">9.10 Heston Process - Path comparison</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_isocontours.html">9.11 Heston Process - Intraday interpolation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_priceExtrapolation.html">9.12 Price extrapolation using KRR and Taylor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_greeks.html">9.13 Greeks output after correction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_rst.html">9.13 Reverse Stress Test</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_HestonRepro.html">9.9 Heston Process - Reproducibility</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../utils/ch9/ch9_utils.html">Chapter 9 utility functions</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">CodPy Book</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Chapter 6: Applications to machine learning : supervised, unsupervised and generative methods</a></li>
+      <li class="breadcrumb-item active">6.4.1 Generating complex distributions from celebA dataset</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/auto_ch6/ch6_9_CelebA.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="sphx-glr-download-link-note admonition note">
+<p class="admonition-title">Note</p>
+<p><a class="reference internal" href="#sphx-glr-download-auto-ch6-ch6-9-celeba-py"><span class="std std-ref">Go to the end</span></a>
+to download the full example code.</p>
+</div>
+<section class="sphx-glr-example-title" id="generating-complex-distributions-from-celeba-dataset">
+<span id="sphx-glr-auto-ch6-ch6-9-celeba-py"></span><h1>6.4.1 Generating complex distributions from celebA dataset<a class="headerlink" href="#generating-complex-distributions-from-celeba-dataset" title="Link to this heading"></a></h1>
+<p>We reproduce the Figure 6.9 from the book, generating images from the CelebA dataset.
+We generate new images from different latent dimension spaces, and compare them to the closest images in the dataset.
+We define “closest” using a distance metric in the latent space between images.</p>
+<section id="necessary-imports">
+<h2>Necessary Imports<a class="headerlink" href="#necessary-imports" title="Link to this heading"></a></h2>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">math</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">skimage.io</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">skimage.transform</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy</span><span class="w"> </span><span class="kn">import</span> <span class="n">optimize</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">codpy</span><span class="w"> </span><span class="kn">import</span> <span class="n">core</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">codpy.kernel</span><span class="w"> </span><span class="kn">import</span> <span class="n">Kernel</span><span class="p">,</span> <span class="n">Sampler</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">codpy.permutation</span><span class="w"> </span><span class="kn">import</span> <span class="n">scipy_lsap</span><span class="p">,</span> <span class="n">lsap</span><span class="p">,</span> <span class="n">map_invertion</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">codpy.conditioning</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">current_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span>
+    <span class="n">data_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">current_dir</span><span class="p">,</span> <span class="s2">&quot;data&quot;</span><span class="p">)</span>
+<span class="k">except</span> <span class="ne">NameError</span><span class="p">:</span>
+    <span class="n">current_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
+    <span class="n">data_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">current_dir</span><span class="p">,</span> <span class="s2">&quot;data&quot;</span><span class="p">)</span>
+
+<span class="n">proj_path</span> <span class="o">=</span> <span class="n">data_path</span>
+</pre></div>
+</div>
+</section>
+<section id="data-generator">
+<h2>Data Generator<a class="headerlink" href="#data-generator" title="Link to this heading"></a></h2>
+<p>The CelebA dataset comes with a .csv file containing attributes for each image, and corresponding file names.
+The actual image files can be found in a subfolder, where the file names match those in the .csv file.
+We define a class to handle the loading and processing of this dataset.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">CelebA_data_generator</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">main_folder</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;main_folder&quot;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_path</span><span class="p">,</span> <span class="s2">&quot;celebA&quot;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">images_folder</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">main_folder</span><span class="p">,</span> <span class="s2">&quot;img_align_celeba/img_align_celeba/&quot;</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">attributes_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">main_folder</span><span class="p">,</span> <span class="s2">&quot;list_attr_celeba.csv&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">main_folder</span><span class="p">)</span> <span class="ow">and</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">attributes_path</span><span class="p">)</span> <span class="ow">and</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">images_folder</span><span class="p">)):</span>
+            <span class="kn">import</span><span class="w"> </span><span class="nn">kagglehub</span>
+            <span class="n">dataset</span> <span class="o">=</span> <span class="n">kagglehub</span><span class="o">.</span><span class="n">dataset_download</span><span class="p">(</span><span class="s2">&quot;jessicali9530/celeba-dataset&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">main_folder</span> <span class="o">=</span> <span class="n">dataset</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">images_folder</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">main_folder</span><span class="p">,</span> <span class="s2">&quot;img_align_celeba/img_align_celeba/&quot;</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">attributes_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">main_folder</span><span class="p">,</span> <span class="s2">&quot;list_attr_celeba.csv&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">selected_features</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;selected_features&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">drop_features</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;drop_features&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">features_name</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__prepare</span><span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">__prepare</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Read the CSV, and only keep files matching selected features</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">attributes</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">attributes_path</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">feat</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">selected_features</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">attributes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">attributes</span><span class="p">[</span><span class="n">feat</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">feat</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">drop_features</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">attributes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">attributes</span><span class="p">[</span><span class="n">feat</span><span class="p">]</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">selected_features</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">drop_features</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="c1"># Gathering a list of real images paths</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">&quot;image_id&quot;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">image_path</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+        <span class="n">PIC_DIR</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">main_folder</span><span class="p">,</span> <span class="s2">&quot;img_align_celeba</span><span class="se">\\</span><span class="s2">img_align_celeba</span><span class="se">\\</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">image_path</span> <span class="o">=</span> <span class="p">[</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">PIC_DIR</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span> <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">image_path</span><span class="p">]</span>
+
+        <span class="c1"># This is now a DataFrame with the path to each image</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">attributes</span><span class="p">[</span><span class="s2">&quot;path&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">image_path</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">features_name</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">columns</span><span class="p">)[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+        <span class="c1"># We remove attributes which only appear once, as they do not provide useful information</span>
+        <span class="n">drop_unique</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">def</span><span class="w"> </span><span class="nf">helper</span><span class="p">(</span><span class="n">col</span><span class="p">):</span>
+            <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">attributes</span><span class="p">[</span><span class="n">col</span><span class="p">]))</span>
+            <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">drop_unique</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">col</span><span class="p">)</span>
+
+        <span class="p">[</span><span class="n">helper</span><span class="p">(</span><span class="n">col</span><span class="p">)</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">columns</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">drop_unique</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="c1"># self.attributes.reset_index(drop=True, inplace=True)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">num_features</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_images</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">image_ids</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">exclude_image_ids</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">conditionned_features</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="n">Nx</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;Nx&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>  <span class="c1"># Number of total images</span>
+        <span class="k">if</span> <span class="n">image_ids</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">Nx</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+                <span class="c1"># Sample small portion of the dataset</span>
+                <span class="n">random_state</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;seed&quot;</span><span class="p">,</span> <span class="mi">42</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">conditionned_features</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">exclude_image_ids</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                        <span class="n">image_ids</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span>
+                            <span class="n">Nx</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">random_state</span>
+                        <span class="p">)[</span><span class="s2">&quot;path&quot;</span><span class="p">]</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">image_ids</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">attributes</span><span class="p">[</span><span class="s2">&quot;path&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">index</span>
+                        <span class="n">image_ids</span> <span class="o">=</span> <span class="o">~</span><span class="n">image_ids</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">exclude_image_ids</span><span class="p">)</span>
+                        <span class="n">image_ids</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">image_ids</span><span class="p">]</span>
+
+                        <span class="n">image_ids</span> <span class="o">=</span> <span class="n">image_ids</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">Nx</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">random_state</span><span class="p">)[</span>
+                            <span class="s2">&quot;path&quot;</span>
+                        <span class="p">]</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">test</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+                    <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">conditionned_features</span><span class="p">:</span>
+                        <span class="n">test</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">attributes</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span>
+                    <span class="k">if</span> <span class="n">test</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">Nx</span> <span class="o">//</span> <span class="mi">2</span><span class="p">:</span>
+                        <span class="n">image_ids</span> <span class="o">=</span> <span class="n">test</span><span class="p">[</span><span class="s2">&quot;path&quot;</span><span class="p">]</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">image_ids</span> <span class="o">=</span> <span class="n">test</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">Nx</span> <span class="o">//</span> <span class="mi">2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">random_state</span><span class="p">)[</span>
+                            <span class="s2">&quot;path&quot;</span>
+                        <span class="p">]</span>
+                    <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">conditionned_features</span><span class="p">:</span>
+                        <span class="n">test</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">attributes</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+                    <span class="n">image_ids</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span>
+                        <span class="p">[</span>
+                            <span class="n">image_ids</span><span class="p">,</span>
+                            <span class="n">test</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">Nx</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">image_ids</span><span class="p">),</span> <span class="n">random_state</span><span class="o">=</span><span class="n">random_state</span><span class="p">)[</span>
+                                <span class="s2">&quot;path&quot;</span>
+                            <span class="p">],</span>
+                        <span class="p">]</span>
+                    <span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># Get entire dataset</span>
+                <span class="n">image_ids</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">attributes</span><span class="p">[</span><span class="s2">&quot;path&quot;</span><span class="p">]</span>
+
+        <span class="n">PIC_DIR</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+            <span class="s2">&quot;PIC_DIR&quot;</span><span class="p">,</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">main_folder</span><span class="p">,</span> <span class="s2">&quot;img_align_celeba</span><span class="se">\\</span><span class="s2">img_align_celeba</span><span class="se">\\</span><span class="s2">&quot;</span><span class="p">),</span>
+        <span class="p">)</span>
+        <span class="n">paths_images</span> <span class="o">=</span> <span class="p">[</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">PIC_DIR</span><span class="p">,</span> <span class="n">image_id</span><span class="p">)</span> <span class="k">for</span> <span class="n">image_id</span> <span class="ow">in</span> <span class="n">image_ids</span><span class="p">]</span>
+        <span class="n">images</span> <span class="o">=</span> <span class="n">get_images_list</span><span class="p">(</span>
+            <span class="n">list_pics</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">paths_images</span><span class="p">),</span> <span class="n">index</span><span class="o">=</span><span class="n">image_ids</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+        <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">images</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">N</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">images</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_images</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">attributes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">images</span><span class="o">.</span><span class="n">index</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">images</span><span class="p">,</span> <span class="n">images</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">attributes</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">get_images_list</span><span class="p">(</span><span class="n">list_pics</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">list_pics</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">([</span><span class="n">get_images_list</span><span class="p">(</span><span class="n">pic</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="k">for</span> <span class="n">pic</span> <span class="ow">in</span> <span class="n">list_pics</span><span class="p">])</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="p">[</span><span class="n">out</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">index</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">out</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">index</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">out</span>
+    <span class="n">output_shape</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;output_shape&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="n">pic</span> <span class="o">=</span> <span class="n">skimage</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">fname</span><span class="o">=</span><span class="n">list_pics</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">pic</span><span class="o">.</span><span class="n">dtype</span> <span class="o">!=</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="n">pic</span> <span class="o">=</span> <span class="n">pic</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">pic</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">output_shape</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">pic</span> <span class="o">=</span> <span class="n">skimage</span><span class="o">.</span><span class="n">transform</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span>
+            <span class="n">pic</span><span class="p">,</span> <span class="n">output_shape</span><span class="o">=</span><span class="n">output_shape</span><span class="p">,</span> <span class="n">anti_aliasing</span><span class="o">=</span><span class="kc">True</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;flat&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">):</span>
+            <span class="n">pic</span> <span class="o">=</span> <span class="n">pic</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+    <span class="c1"># imshow(pic),</span>
+    <span class="k">return</span> <span class="n">pic</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">basic_filter</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">reshape</span><span class="p">([</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">//</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+    <span class="n">x</span> <span class="o">-=</span> <span class="n">x</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">x</span> <span class="o">/=</span> <span class="n">x</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">tiles</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="n">SQ</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;N&quot;</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])))</span>
+    <span class="n">tile_shape</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;tile_shape&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">SQ</span><span class="p">,</span> <span class="n">SQ</span><span class="p">])</span>
+    <span class="n">pic_shape</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;pic_shape&quot;</span><span class="p">]</span>
+    <span class="n">Dz</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">/</span> <span class="p">(</span><span class="n">pic_shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">pic_shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+    <span class="nb">filter</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;filter&quot;</span><span class="p">,</span> <span class="n">basic_filter</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">filter</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+            <span class="n">x</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="nb">filter</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">n</span><span class="p">])</span>
+    <span class="k">if</span> <span class="n">Dz</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">img</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">pic_shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">pic_shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">Dz</span><span class="p">])</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">img</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">pic_shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">pic_shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">Dz</span><span class="p">])</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+        <span class="n">pic</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+        <span class="n">pic</span> <span class="o">=</span> <span class="n">pic</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="n">pic_shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">pic_shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">Dz</span><span class="p">))</span>
+        <span class="c1"># imshow(pic),</span>
+        <span class="n">img</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">pic</span>
+
+    <span class="n">out</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="n">tile_shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">pic_shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">tile_shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">pic_shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">Dz</span><span class="p">])</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">tile_shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">tile_shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
+            <span class="n">ind</span> <span class="o">=</span> <span class="n">j</span> <span class="o">*</span> <span class="n">tile_shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">k</span>
+            <span class="k">if</span> <span class="n">ind</span> <span class="o">&lt;</span> <span class="n">img</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+                <span class="n">out</span><span class="p">[</span>
+                    <span class="n">j</span> <span class="o">*</span> <span class="n">pic_shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">:</span> <span class="p">(</span><span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">pic_shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                    <span class="n">k</span> <span class="o">*</span> <span class="n">pic_shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="p">:</span> <span class="p">(</span><span class="n">k</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">pic_shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+                <span class="p">]</span> <span class="o">=</span> <span class="n">img</span><span class="p">[</span><span class="n">ind</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">out</span>
+</pre></div>
+</div>
+</section>
+<section id="configuration">
+<h2>Configuration<a class="headerlink" href="#configuration" title="Link to this heading"></a></h2>
+<p>We define parameters for the experiment. Input shape is the original image size.
+Rescale shape is the size to which images will be resized for processing, before being flattened and used in the model.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">config</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;input_shape&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">218</span><span class="p">,</span> <span class="mi">178</span><span class="p">],</span>
+    <span class="s2">&quot;rescale_shape&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">],</span>
+    <span class="s2">&quot;Nx&quot;</span><span class="p">:</span> <span class="mi">1000</span><span class="p">,</span>  <span class="c1"># Number of images to use for training</span>
+    <span class="s2">&quot;Nz&quot;</span><span class="p">:</span> <span class="mi">16</span><span class="p">,</span>  <span class="c1"># Numer of images to generate</span>
+    <span class="s2">&quot;seed&quot;</span><span class="p">:</span> <span class="mi">43</span><span class="p">,</span>
+    <span class="s2">&quot;main_folder&quot;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_path</span><span class="p">,</span> <span class="s2">&quot;celebA&quot;</span><span class="p">),</span>
+<span class="p">}</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">launch_celebA_generator</span><span class="p">(</span>
+    <span class="n">kwargs</span><span class="o">=</span><span class="n">config</span><span class="p">,</span>
+    <span class="n">selected_features</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Blond_Hair&quot;</span><span class="p">,</span> <span class="s2">&quot;Attractive&quot;</span><span class="p">,</span> <span class="s2">&quot;Smiling&quot;</span><span class="p">],</span>
+    <span class="n">drop_features</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Male&quot;</span><span class="p">],</span>
+    <span class="n">dimensions</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">40</span><span class="p">],</span>
+<span class="p">):</span>
+    <span class="n">N</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;Nz&quot;</span><span class="p">])</span>  <span class="c1"># Width of the tiles</span>
+    <span class="k">assert</span> <span class="p">(</span>
+        <span class="n">N</span> <span class="o">-</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;Nz&quot;</span><span class="p">]))</span> <span class="o">==</span> <span class="mi">0</span>
+    <span class="p">),</span> <span class="s2">&quot;Number of generated images (Nz) must be a perfect square for plotting on tiles&quot;</span>
+    <span class="n">N</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
+
+    <span class="c1"># Load images</span>
+    <span class="n">celeba</span> <span class="o">=</span> <span class="n">CelebA_data_generator</span><span class="p">(</span>
+        <span class="n">selected_features</span><span class="o">=</span><span class="n">selected_features</span><span class="p">,</span> <span class="n">drop_features</span><span class="o">=</span><span class="n">drop_features</span>
+    <span class="p">)</span>
+    <span class="n">x_target</span><span class="p">,</span> <span class="n">images_index</span><span class="p">,</span> <span class="n">images_attributes</span> <span class="o">=</span> <span class="n">celeba</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Loaded </span><span class="si">{</span><span class="n">x_target</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2"> images&quot;</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">dimensions</span><span class="p">:</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+        <span class="c1"># Get latent dim</span>
+        <span class="c1"># We make a sampler mapping to a latent space of dimension d draw from normal distribution</span>
+        <span class="n">Nz</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;Nz&quot;</span><span class="p">]</span>  <span class="c1"># Number of images to generate</span>
+        <span class="n">sampler</span> <span class="o">=</span> <span class="n">Sampler</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x_target</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">latent_dim</span><span class="o">=</span><span class="n">d</span><span class="p">,</span> <span class="nb">iter</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">reg</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span>
+
+        <span class="n">sampled_latent</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">Nz</span><span class="p">,</span> <span class="n">d</span><span class="p">))</span>
+        <span class="n">closest_indices</span> <span class="o">=</span> <span class="n">sampler</span><span class="o">.</span><span class="n">dnm</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">sampled_latent</span><span class="p">)</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">closest_latent</span> <span class="o">=</span> <span class="n">sampler</span><span class="o">.</span><span class="n">get_x</span><span class="p">()[</span><span class="n">closest_indices</span><span class="p">]</span>
+
+        <span class="n">generated_pics</span> <span class="o">=</span> <span class="n">sampler</span><span class="p">(</span><span class="n">z</span><span class="o">=</span><span class="n">sampled_latent</span><span class="p">)</span>  <span class="c1"># (Nz, kwargs[&#39;input_shape&#39;])</span>
+        <span class="n">database_pics</span> <span class="o">=</span> <span class="n">sampler</span><span class="p">(</span><span class="n">z</span><span class="o">=</span><span class="n">closest_latent</span><span class="p">)</span>  <span class="c1"># (Nz, kwargs[&#39;input_shape&#39;])</span>
+
+        <span class="n">pic_generated</span> <span class="o">=</span> <span class="n">tiles</span><span class="p">(</span>
+            <span class="n">generated_pics</span><span class="p">,</span> <span class="n">pic_shape</span><span class="o">=</span><span class="n">params</span><span class="p">[</span><span class="s2">&quot;input_shape&quot;</span><span class="p">],</span> <span class="n">tile_shape</span><span class="o">=</span><span class="p">[</span><span class="n">N</span><span class="p">,</span> <span class="n">N</span><span class="p">]</span>
+        <span class="p">)</span>
+        <span class="n">pic_database</span> <span class="o">=</span> <span class="n">tiles</span><span class="p">(</span>
+            <span class="n">database_pics</span><span class="p">,</span> <span class="n">pic_shape</span><span class="o">=</span><span class="n">params</span><span class="p">[</span><span class="s2">&quot;input_shape&quot;</span><span class="p">],</span> <span class="n">tile_shape</span><span class="o">=</span><span class="p">[</span><span class="n">N</span><span class="p">,</span> <span class="n">N</span><span class="p">]</span>
+        <span class="p">)</span>
+
+        <span class="n">pic_name</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;Nx&quot;</span><span class="p">])</span> <span class="o">+</span> <span class="s2">&quot;D_&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">d</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;.png&quot;</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">imsave</span><span class="p">(</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">proj_path</span><span class="p">,</span> <span class="s2">&quot;pic_generated_N&quot;</span> <span class="o">+</span> <span class="n">pic_name</span><span class="p">),</span>
+            <span class="n">pic_generated</span><span class="p">,</span>
+            <span class="n">vmin</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+            <span class="n">vmax</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">imsave</span><span class="p">(</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">proj_path</span><span class="p">,</span> <span class="s2">&quot;pic_database_N&quot;</span> <span class="o">+</span> <span class="n">pic_name</span><span class="p">),</span>
+            <span class="n">pic_database</span><span class="p">,</span>
+            <span class="n">vmin</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+            <span class="n">vmax</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Saved&quot;</span><span class="p">,</span> <span class="n">pic_name</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">launch_celebA_Wasserstein_generator</span><span class="p">(</span>
+    <span class="n">kwargs</span><span class="o">=</span><span class="n">config</span><span class="p">,</span>
+    <span class="n">selected_features</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Blond_Hair&quot;</span><span class="p">,</span> <span class="s2">&quot;Attractive&quot;</span><span class="p">,</span> <span class="s2">&quot;Smiling&quot;</span><span class="p">],</span>
+    <span class="n">drop_features</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Male&quot;</span><span class="p">],</span>
+    <span class="n">dimensions</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">40</span><span class="p">],</span>
+<span class="p">):</span>
+    <span class="n">N</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;Nz&quot;</span><span class="p">])</span>  <span class="c1"># Width of the tiles</span>
+    <span class="k">assert</span> <span class="p">(</span>
+        <span class="n">N</span> <span class="o">-</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;Nz&quot;</span><span class="p">]))</span> <span class="o">==</span> <span class="mi">0</span>
+    <span class="p">),</span> <span class="s2">&quot;Number of generated images (Nz) must be a perfect square for plotting on tiles&quot;</span>
+    <span class="n">N</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">celebA_Wasserstein_descent</span><span class="p">(</span><span class="n">pics</span><span class="p">,</span> <span class="n">database_pics</span><span class="p">,</span> <span class="n">latent_values</span><span class="p">,</span> <span class="n">generator</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This function performs a Wasserstein descent on the generated images to find the closest images in the database.</span>
+<span class="sd">        It uses the Sampler to generate images and find the closest ones in the database.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># We compute the distance between generated and database images</span>
+        <span class="n">generated_pics</span> <span class="o">=</span> <span class="n">generator</span><span class="p">(</span><span class="n">z</span><span class="o">=</span><span class="n">latent_values</span><span class="p">)</span>  <span class="c1"># (Nz, kwargs[&#39;input_shape&#39;])</span>
+        <span class="n">closest_images_indice</span> <span class="o">=</span> <span class="n">core</span><span class="o">.</span><span class="n">KerOp</span><span class="o">.</span><span class="n">dnm</span><span class="p">(</span>
+            <span class="n">x</span><span class="o">=</span><span class="n">generated_pics</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">database_pics</span><span class="p">,</span> <span class="n">distance</span><span class="o">=</span><span class="s2">&quot;norm1&quot;</span>
+        <span class="p">)</span>
+        <span class="n">closest_images_indice</span> <span class="o">=</span> <span class="n">closest_images_indice</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">closest_images</span> <span class="o">=</span> <span class="n">database_pics</span><span class="p">[</span><span class="n">closest_images_indice</span><span class="p">]</span>
+
+        <span class="k">def</span><span class="w"> </span><span class="nf">sgn</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">copysign</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+
+        <span class="c1"># diff = np.vectorize(sgn)(generated_pics - closest_images)</span>
+        <span class="n">diff</span> <span class="o">=</span> <span class="n">generated_pics</span> <span class="o">-</span> <span class="n">pics</span>
+        <span class="n">nablas</span> <span class="o">=</span> <span class="n">generator</span><span class="o">.</span><span class="n">grad</span><span class="p">(</span><span class="n">z</span><span class="o">=</span><span class="n">latent_values</span><span class="p">)</span>
+        <span class="n">nablas</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">einsum</span><span class="p">(</span><span class="s2">&quot;ijk,ik-&gt;ij&quot;</span><span class="p">,</span> <span class="n">nablas</span><span class="p">,</span> <span class="n">diff</span><span class="p">)</span>
+
+        <span class="c1"># nablas /= np.abs(nablas).mean(1)[:,None]</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">error</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">a</span> <span class="o">-</span> <span class="n">b</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span>
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">a</span> <span class="o">-</span> <span class="n">b</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+        <span class="n">error_</span> <span class="o">=</span> <span class="n">error</span><span class="p">(</span><span class="n">pics</span><span class="p">,</span> <span class="n">generated_pics</span><span class="p">)</span>
+
+        <span class="k">def</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+            <span class="n">latent</span> <span class="o">=</span> <span class="n">latent_values</span> <span class="o">+</span> <span class="n">x</span> <span class="o">*</span> <span class="n">nablas</span>
+            <span class="n">out</span> <span class="o">=</span> <span class="n">generator</span><span class="p">(</span><span class="n">z</span><span class="o">=</span><span class="n">latent</span><span class="p">)</span>
+            <span class="n">out</span> <span class="o">=</span> <span class="n">error</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">pics</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">out</span>
+
+        <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">while</span> <span class="n">count</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">:</span>
+            <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="mf">0.0</span><span class="p">),</span> <span class="n">f</span><span class="p">(</span><span class="mf">1e-8</span><span class="p">),</span> <span class="n">f</span><span class="p">(</span><span class="mf">2e-8</span><span class="p">)</span>
+            <span class="n">fprime</span> <span class="o">=</span> <span class="p">(</span><span class="n">b</span> <span class="o">-</span> <span class="n">a</span><span class="p">)</span> <span class="o">/</span> <span class="mf">1e-8</span>
+            <span class="k">assert</span> <span class="n">fprime</span> <span class="o">&lt;=</span> <span class="mf">0.0</span>
+            <span class="n">bound</span> <span class="o">=</span> <span class="o">-</span><span class="n">a</span> <span class="o">/</span> <span class="n">fprime</span>
+            <span class="n">fsec</span> <span class="o">=</span> <span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">c</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">b</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mf">1e-16</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">fsec</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">bound</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">bound</span><span class="p">,</span> <span class="o">-</span><span class="n">fprime</span> <span class="o">/</span> <span class="n">fsec</span><span class="p">)</span>
+            <span class="c1"># bound = 1./np.linalg.norm(nablas)**2</span>
+            <span class="n">xmin</span><span class="p">,</span> <span class="n">fval</span><span class="p">,</span> <span class="nb">iter</span><span class="p">,</span> <span class="n">funcalls</span> <span class="o">=</span> <span class="n">optimize</span><span class="o">.</span><span class="n">brent</span><span class="p">(</span>
+                <span class="n">f</span><span class="p">,</span> <span class="n">brack</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">bound</span><span class="p">),</span> <span class="n">maxiter</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">full_output</span><span class="o">=</span><span class="kc">True</span>
+            <span class="p">)</span>
+            <span class="k">if</span> <span class="n">fval</span> <span class="o">&gt;=</span> <span class="n">error_</span><span class="p">:</span>
+                <span class="k">break</span>
+            <span class="n">latent_values</span><span class="p">,</span> <span class="n">error_</span> <span class="o">=</span> <span class="n">latent_values</span> <span class="o">+</span> <span class="n">xmin</span> <span class="o">*</span> <span class="n">nablas</span><span class="p">,</span> <span class="n">fval</span>
+            <span class="n">generated_pics</span> <span class="o">=</span> <span class="n">generator</span><span class="p">(</span><span class="n">z</span><span class="o">=</span><span class="n">latent_values</span><span class="p">)</span>
+            <span class="n">nablas</span> <span class="o">=</span> <span class="n">generator</span><span class="o">.</span><span class="n">grad</span><span class="p">(</span><span class="n">z</span><span class="o">=</span><span class="n">latent_values</span><span class="p">)</span>
+            <span class="c1"># diff = np.vectorize(sgn)(generated_pics - closest_images)</span>
+            <span class="n">diff</span> <span class="o">=</span> <span class="n">generated_pics</span> <span class="o">-</span> <span class="n">pics</span>
+            <span class="n">nablas</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">einsum</span><span class="p">(</span><span class="s2">&quot;ijk,ik-&gt;ij&quot;</span><span class="p">,</span> <span class="n">nablas</span><span class="p">,</span> <span class="n">diff</span><span class="p">)</span>
+            <span class="c1"># nablas /= np.abs(nablas).mean(1)[:,None]</span>
+            <span class="n">count</span> <span class="o">=</span> <span class="n">count</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="k">pass</span>
+
+        <span class="n">generated_pics</span> <span class="o">=</span> <span class="n">generator</span><span class="p">(</span><span class="n">z</span><span class="o">=</span><span class="n">latent_values</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">generated_pics</span><span class="p">,</span> <span class="n">closest_images</span>
+
+    <span class="c1"># Load images</span>
+    <span class="n">celeba</span> <span class="o">=</span> <span class="n">CelebA_data_generator</span><span class="p">(</span>
+        <span class="n">selected_features</span><span class="o">=</span><span class="n">selected_features</span><span class="p">,</span> <span class="n">drop_features</span><span class="o">=</span><span class="n">drop_features</span>
+    <span class="p">)</span>
+    <span class="n">x_target</span><span class="p">,</span> <span class="n">images_index</span><span class="p">,</span> <span class="n">images_attributes</span> <span class="o">=</span> <span class="n">celeba</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Loaded </span><span class="si">{</span><span class="n">x_target</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2"> images&quot;</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">dimensions</span><span class="p">:</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+        <span class="c1"># Get latent dim</span>
+        <span class="c1"># We make a sampler mapping to a latent space of dimension d draw from normal distribution</span>
+        <span class="n">Nz</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;Nz&quot;</span><span class="p">]</span>  <span class="c1"># Number of images to generate</span>
+        <span class="n">new_images</span> <span class="o">=</span> <span class="n">celeba</span><span class="o">.</span><span class="n">get_images</span><span class="p">(</span><span class="n">Nx</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">exclude_image_ids</span><span class="o">=</span><span class="n">images_index</span><span class="p">)</span>
+        <span class="n">generator</span> <span class="o">=</span> <span class="n">Sampler</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x_target</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">latent_dim</span><span class="o">=</span><span class="n">d</span><span class="p">,</span> <span class="nb">iter</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">reg</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span>
+        <span class="c1"># new_images = generator.get_fx()</span>
+        <span class="n">encoder</span> <span class="o">=</span> <span class="n">Kernel</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">generator</span><span class="o">.</span><span class="n">get_fx</span><span class="p">(),</span> <span class="n">fx</span><span class="o">=</span><span class="n">generator</span><span class="o">.</span><span class="n">get_x</span><span class="p">())</span>
+        <span class="n">latent_values</span> <span class="o">=</span> <span class="n">encoder</span><span class="p">(</span><span class="n">new_images</span><span class="p">)</span>
+        <span class="c1"># latent_values = generator.get_x()[:Nz] + np.random.normal(size=(Nz, d))*.001</span>
+        <span class="n">generated_pics</span><span class="p">,</span> <span class="n">database_pics</span> <span class="o">=</span> <span class="n">celebA_Wasserstein_descent</span><span class="p">(</span>
+            <span class="n">new_images</span><span class="p">,</span> <span class="n">generator</span><span class="o">.</span><span class="n">get_fx</span><span class="p">(),</span> <span class="n">latent_values</span><span class="p">,</span> <span class="n">generator</span>
+        <span class="p">)</span>  <span class="c1"># (Nz, kwargs[&#39;input_shape&#39;])</span>
+        <span class="c1"># generated_pics = generator(latent_values)</span>
+        <span class="c1"># closest_images_indice = core.KerOp.dnm(x=generated_pics,y=generator.get_fx(),distance=&quot;norm1&quot;)</span>
+        <span class="c1"># closest_images_indice = scipy_lsap(closest_images_indice)</span>
+        <span class="c1"># database_pics= generator.get_fx()[closest_images_indice]</span>
+
+        <span class="n">pic_generated</span> <span class="o">=</span> <span class="n">tiles</span><span class="p">(</span>
+            <span class="n">generated_pics</span><span class="p">,</span> <span class="n">pic_shape</span><span class="o">=</span><span class="n">params</span><span class="p">[</span><span class="s2">&quot;input_shape&quot;</span><span class="p">],</span> <span class="n">tile_shape</span><span class="o">=</span><span class="p">[</span><span class="n">N</span><span class="p">,</span> <span class="n">N</span><span class="p">]</span>
+        <span class="p">)</span>
+        <span class="n">pic_database</span> <span class="o">=</span> <span class="n">tiles</span><span class="p">(</span>
+            <span class="n">database_pics</span><span class="p">,</span> <span class="n">pic_shape</span><span class="o">=</span><span class="n">params</span><span class="p">[</span><span class="s2">&quot;input_shape&quot;</span><span class="p">],</span> <span class="n">tile_shape</span><span class="o">=</span><span class="p">[</span><span class="n">N</span><span class="p">,</span> <span class="n">N</span><span class="p">]</span>
+        <span class="p">)</span>
+
+        <span class="n">pic_name</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;Nx&quot;</span><span class="p">])</span> <span class="o">+</span> <span class="s2">&quot;D_&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">d</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;.png&quot;</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">imsave</span><span class="p">(</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">proj_path</span><span class="p">,</span> <span class="s2">&quot;pic_generated_N&quot;</span> <span class="o">+</span> <span class="n">pic_name</span><span class="p">),</span>
+            <span class="n">pic_generated</span><span class="p">,</span>
+            <span class="n">vmin</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+            <span class="n">vmax</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">imsave</span><span class="p">(</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">proj_path</span><span class="p">,</span> <span class="s2">&quot;pic_database_N&quot;</span> <span class="o">+</span> <span class="n">pic_name</span><span class="p">),</span>
+            <span class="n">pic_database</span><span class="p">,</span>
+            <span class="n">vmin</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+            <span class="n">vmax</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Saved&quot;</span><span class="p">,</span> <span class="n">pic_name</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="c1"># launch_celebA_generator(dimensions = [40])</span>
+    <span class="n">launch_celebA_Wasserstein_generator</span><span class="p">(</span><span class="n">dimensions</span><span class="o">=</span><span class="p">[</span><span class="mi">10</span><span class="p">])</span>
+</pre></div>
+</div>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Loaded 1000 images
+Saved 1000D_10.png
+</pre></div>
+</div>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (4 minutes 12.934 seconds)</p>
+<div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-ch6-ch6-9-celeba-py">
+<div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
+<p><a class="reference download internal" download="" href="../_downloads/586a2c2acdd8e68c7fed94a8896b9aa1/ch6_9_CelebA.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">ch6_9_CelebA.ipynb</span></code></a></p>
+</div>
+<div class="sphx-glr-download sphx-glr-download-python docutils container">
+<p><a class="reference download internal" download="" href="../_downloads/ea673fb88ccbd69d769f2dfb2f95df0b/ch6_9_CelebA.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">ch6_9_CelebA.py</span></code></a></p>
+</div>
+<div class="sphx-glr-download sphx-glr-download-zip docutils container">
+<p><a class="reference download internal" download="" href="../_downloads/c63919d6d6b14bf15be8d199d36311a1/ch6_9_CelebA.zip"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">zipped:</span> <span class="pre">ch6_9_CelebA.zip</span></code></a></p>
+</div>
+</div>
+<p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="ch6_9_CelebA_reconstruction.html" class="btn btn-neutral float-left" title="6.4.1 Generating complex distributions" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="ch6_9_transfert.html" class="btn btn-neutral float-right" title="6.4.5 Conditioning on discrete distributions of celebA dataset" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Philippe G. LeFloch , Jean-Marc Mercier, and Shohruh Miryusupov.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

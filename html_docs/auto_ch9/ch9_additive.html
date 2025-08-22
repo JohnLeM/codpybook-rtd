@@ -1,0 +1,361 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>9.06 Additive noise map &mdash; CodPy Book 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=8d563738"></script>
+      <script src="../_static/doctools.js?v=9a2dae69"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script>let toggleHintShow = 'Click to show';</script>
+      <script>let toggleHintHide = 'Click to hide';</script>
+      <script>let toggleOpenOnPrint = 'true';</script>
+      <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+      <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+      <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+      <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "displayMath": [["$$", "$$"], ["\\[", "\\]"]]}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="9.07 Conditionning model" href="ch9_conditionning.html" />
+    <link rel="prev" title="9.05 Lagrange interpolation model" href="ch9_lagrange.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            CodPy Book
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Chapter 2:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../auto_ch2/index.html">Chapter 2: Basic notions on reproducing kernels</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch2/ch2_2.html">2.2 Reproducing kernels and transformation maps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch2/ch2_ex1D.html">2.3 1D Periodic Function Extrapolation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch2/ch2_5.html">2.3.2 Applying maps to kernels</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch2/ch2_ex2D.html">2.4 2D Periodic Function Extrapolation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch2/ch2_discrepancy_functional.html">2.6.2 A study of the discrepancy functional</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Chapter 3:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../auto_ch3/index.html">Chapter 3: Discrete operators based on reproducing kernels</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch3/ch3_3_2.html">3.3.2 Partition of unity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch3/ch3_4_1.html">3.4.1 Gradient Operator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch3/ch3_4_2.html">3.4.2 Divergence Operator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch3/ch3_4_3.html">3.4.3  Inverse Laplace operator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch3/ch3_4_4.html">3.4.4 Integral operator - inverse gradient operator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch3/ch3_4_5.html">3.4.5  Integral operator - inverse divergence operator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch3/ch3_4_6.html">3.4.6 Leray-orthogonal operator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch3/ch3_4_7.html">3.4.7 Leray operator and Helmholtz-Hodge decomposition</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Chapter 4:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../auto_ch4/index.html">Chapter 4: Clustering strategies</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch4/ch4_2.html">4.2 Clustering</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Chapter 5:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../auto_ch5/index.html">Chapter 5: Optimal transport and statistical kernel methods</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch5/ch5_2.html">5.2 Optimal Transport: LSAP (Linear Sum Assignment Problem)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch5/ch5_33.html">5.3.3 Kernel Conditional Density</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch5/ch5_34.html">5.3.4 Kernel Conditional Expectation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch5/ch5_6_a.html">5.6.a Application of OT in Disitribution Sampling : 1D</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch5/ch5_6_b.html">5.6.b Application of OT in Disitribution Sampling : 2D</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch5/ch5_6_c.html">5.6.c Application of OT in Disitribution Sampling : High-Dimensional case</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch5/ch5_6_d.html">5.6.d Exploration Data Analysis of the Latent Space: Spherical Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch5/ch5_7.html">5.7. Conditional Sampling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch5/ch5_8.html">5.8. Conditional Sampling</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Chapter 6:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../auto_ch6/index.html">Chapter 6: Applications to machine learning : supervised, unsupervised and generative methods</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch6/ch6_housing.html">6.1 Supervised learning: reproducibility illustration with housing prices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch6/ch6_mnist.html">6.2 Supervised learning: benchmarks of methods with MNIST</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch6/ch6_Clustering.html">6.3 Unsupervised learning: Clustering - MNIST</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch6/ch6_ClustMNIST.html">6.3 Unsupervised learning: Clustering - MNIST</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch6/ch6_CreditCardFraud.html">6.4 Unsupervised learning: Clustering - Fraud detection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch6/ch6_9_CelebA_reconstruction.html">6.4.1 Generating complex distributions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch6/ch6_9_CelebA.html">6.4.1 Generating complex distributions from celebA dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch6/ch6_9_transfert.html">6.4.5 Conditioning on discrete distributions of celebA dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch6/ch6_stockClustering.html">6.5 Unsupervised learning: Clustering - Stock Clustering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch6/ch6_iris.html">6.7. Conditional Sampling</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Chapter 7:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../auto_ch7/index.html">Chapter 7: Application to partial differential equations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch7/ch7_invLaplace.html">7.01 Inverse Laplace Operator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch7/ch7_denoising.html">7.02 Denoising</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch7/ch7_heat_eq.html">7.03 Heat Equation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch7/ch7_heatLagrange.html">7.04 Lagrange Heat Equation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch7/ch7_convexHull.html">7.05 Convex Hull Algorithm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch7/ch7_AAD.html">7.06 Automatic Differentiation</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Chapter 8:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../kqlearning.html">KQLearning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../auto_ch8/index.html">Chapter 8: Reinforcement learning.</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch8/ch8_example.html">8.1 Using KAgents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch8/ch8_cartpole.html">8.2 Experiments - Cartpole</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch8/ch8_lunarlander.html">8.3 Experiments - LunarLander</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Chapter 9:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Chapter 9: Mathematical Finance.</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="ch9_get_market_data.html">9.01 Free time series modeling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ch9_random_walk_log_normal.html">9.02 Random walks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ch9_arma.html">9.03 ARMA(p,1) model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ch9_garch.html">9.04 GARCH(1,1) model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ch9_lagrange.html">9.05 Lagrange interpolation model</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">9.06 Additive noise map</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ch9_conditionning.html">9.07 Conditionning model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ch9_stoch_vol.html">9.08 Stochastic volatility model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ch9_HestonCompare.html">9.10 Heston Process - Path comparison</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ch9_isocontours.html">9.11 Heston Process - Intraday interpolation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ch9_priceExtrapolation.html">9.12 Price extrapolation using KRR and Taylor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ch9_greeks.html">9.13 Greeks output after correction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ch9_rst.html">9.13 Reverse Stress Test</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ch9_HestonRepro.html">9.9 Heston Process - Reproducibility</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../utils/ch9/ch9_utils.html">Chapter 9 utility functions</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">CodPy Book</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Chapter 9: Mathematical Finance.</a></li>
+      <li class="breadcrumb-item active">9.06 Additive noise map</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/auto_ch9/ch9_additive.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="sphx-glr-download-link-note admonition note">
+<p class="admonition-title">Note</p>
+<p><a class="reference internal" href="#sphx-glr-download-auto-ch9-ch9-additive-py"><span class="std std-ref">Go to the end</span></a>
+to download the full example code.</p>
+</div>
+<section class="sphx-glr-example-title" id="additive-noise-map">
+<span id="sphx-glr-auto-ch9-ch9-additive-py"></span><h1>9.06 Additive noise map<a class="headerlink" href="#additive-noise-map" title="Link to this heading"></a></h1>
+<p>We reproduce here the figure 9.6 of the book.
+Utilitary functions can be found next to this file. Here, we only define codpy-related functions.</p>
+<section id="necessary-imports">
+<h2>Necessary Imports<a class="headerlink" href="#necessary-imports" title="Link to this heading"></a></h2>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">codpy.kernel</span><span class="w"> </span><span class="kn">import</span> <span class="n">Sampler</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">CURRENT_DIR</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="vm">__file__</span><span class="p">))</span>
+<span class="k">except</span> <span class="ne">NameError</span><span class="p">:</span>
+    <span class="n">CURRENT_DIR</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
+<span class="n">data_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">CURRENT_DIR</span><span class="p">,</span> <span class="s2">&quot;data&quot;</span><span class="p">)</span>
+<span class="n">PARENT_DIR</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">CURRENT_DIR</span><span class="p">,</span> <span class="s2">&quot;..&quot;</span><span class="p">))</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">PARENT_DIR</span><span class="p">)</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">utils.ch9.mapping</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">maps</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">utils.ch9.data_utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">stats_df</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">utils.ch9.market_data</span><span class="w"> </span><span class="kn">import</span> <span class="n">retrieve_market_data</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">utils.ch9.path_generation</span><span class="w"> </span><span class="kn">import</span> <span class="n">generate_paths</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">utils.ch9.plot_utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">display_historical_vs_generated_distribution</span>
+</pre></div>
+</div>
+</section>
+<section id="parameter-definition">
+<h2>Parameter definition<a class="headerlink" href="#parameter-definition" title="Link to this heading"></a></h2>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">get_cdpres_param</span><span class="p">():</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">&quot;rescale_kernel&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;max&quot;</span><span class="p">:</span> <span class="mi">2000</span><span class="p">,</span> <span class="s2">&quot;seed&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">},</span>
+        <span class="s2">&quot;rescale&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="s2">&quot;grid_projection&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="s2">&quot;reproductibility&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="s2">&quot;date_format&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="si">%d</span><span class="s2">/%m/%Y&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;begin_date&quot;</span><span class="p">:</span> <span class="s2">&quot;01/06/2020&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;end_date&quot;</span><span class="p">:</span> <span class="s2">&quot;01/06/2022&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;today_date&quot;</span><span class="p">:</span> <span class="s2">&quot;01/06/2022&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;symbols&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;AAPL&quot;</span><span class="p">,</span> <span class="s2">&quot;GOOGL&quot;</span><span class="p">,</span> <span class="s2">&quot;AMZN&quot;</span><span class="p">],</span>
+    <span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="get-the-market-data">
+<h2>Get the market data<a class="headerlink" href="#get-the-market-data" title="Link to this heading"></a></h2>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">params</span> <span class="o">=</span> <span class="n">retrieve_market_data</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="defining-the-map">
+<h2>Defining the map<a class="headerlink" href="#defining-the-map" title="Link to this heading"></a></h2>
+<p>The additive noise map is defined as:
+<div class="math notranslate nohighlight">
+\[\eta_Y(\varepsilon) = \varepsilon - f(Y), \qquad \varepsilon = \eta_Y^{-1}(\eta) = \eta + f(Y),\]</div>
+
+Where, <span class="math notranslate nohighlight">\(\eta_Y\)</span> is a white noise, that is an independent random variable, and
+<span class="math notranslate nohighlight">\(f : \mathbb{R}^{D_Y} \to \mathbb{R}^{D_{\varepsilon}}\)</span> is a smooth function modeling the dependence of <span class="math notranslate nohighlight">\(\varepsilon\)</span> on <span class="math notranslate nohighlight">\(Y\)</span>. If unknown, <span class="math notranslate nohighlight">\(f\)</span> can be estimated from historical data using the denoising algorithm</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">params</span><span class="p">[</span><span class="s2">&quot;map&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">maps</span><span class="o">.</span><span class="n">composition_map</span><span class="p">(</span>
+    <span class="p">[</span><span class="n">maps</span><span class="o">.</span><span class="n">additive_noise_map</span><span class="p">(),</span> <span class="n">maps</span><span class="o">.</span><span class="n">log_map</span><span class="p">,</span> <span class="n">maps</span><span class="o">.</span><span class="n">remove_time</span><span class="p">()]</span>
+<span class="p">)</span>
+<span class="n">params</span> <span class="o">=</span> <span class="n">maps</span><span class="o">.</span><span class="n">apply_map</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="we-define-our-sampler-on-the-mapped-data-using-codpy-s-sampler">
+<h2>We define our sampler on the mapped data using codpy’s Sampler<a class="headerlink" href="#we-define-our-sampler-on-the-mapped-data-using-codpy-s-sampler" title="Link to this heading"></a></h2>
+<p>You can define your own latent generator function, here we use a simple uniform distribution.
+But if not provided, a default one will be used by the Sampler class.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">mapped_data</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="s2">&quot;transform_h&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+<span class="n">generator</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">n</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">mapped_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+<span class="n">sampler</span> <span class="o">=</span> <span class="n">Sampler</span><span class="p">(</span><span class="n">mapped_data</span><span class="p">,</span> <span class="n">latent_generator</span><span class="o">=</span><span class="n">generator</span><span class="p">)</span>
+<span class="n">params</span><span class="p">[</span><span class="s2">&quot;sampler&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sampler</span>
+</pre></div>
+</div>
+</section>
+<section id="we-plot-the-original-distribution-vs-the-generated-one">
+<h2>We plot the original distribution vs the generated one<a class="headerlink" href="#we-plot-the-original-distribution-vs-the-generated-one" title="Link to this heading"></a></h2>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">params</span> <span class="o">=</span> <span class="n">display_historical_vs_generated_distribution</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+<span class="n">params</span><span class="p">[</span><span class="s2">&quot;graphic&quot;</span><span class="p">](</span><span class="n">params</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<img src="../_images/sphx_glr_ch9_additive_001.png" srcset="../_images/sphx_glr_ch9_additive_001.png" alt="ch9 additive" class = "sphx-glr-single-img"/></section>
+<section id="reproductibility-test">
+<h2>Reproductibility test<a class="headerlink" href="#reproductibility-test" title="Link to this heading"></a></h2>
+<p>We regenerate the same path by generating from the latent representation
+We make sure we get the original data back.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">params</span><span class="p">[</span><span class="s2">&quot;reproductibility&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">params</span> <span class="o">=</span> <span class="n">generate_paths</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+<span class="n">params</span><span class="p">[</span><span class="s2">&quot;graphic&quot;</span><span class="p">](</span><span class="n">params</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<img src="../_images/sphx_glr_ch9_additive_002.png" srcset="../_images/sphx_glr_ch9_additive_002.png" alt="ch9 additive" class = "sphx-glr-single-img"/></section>
+<section id="we-now-generate-a-new-set-of-10-paths">
+<h2>We now generate a new set of 10 paths<a class="headerlink" href="#we-now-generate-a-new-set-of-10-paths" title="Link to this heading"></a></h2>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">params</span><span class="p">[</span><span class="s2">&quot;reproductibility&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="n">params</span><span class="p">[</span><span class="s2">&quot;Nz&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">params</span> <span class="o">=</span> <span class="n">generate_paths</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+<span class="n">params</span><span class="p">[</span><span class="s2">&quot;graphic&quot;</span><span class="p">](</span><span class="n">params</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="n">stats</span> <span class="o">=</span> <span class="n">stats_df</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="s2">&quot;transform_h&quot;</span><span class="p">],</span> <span class="n">params</span><span class="p">[</span><span class="s2">&quot;transform_g&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">stats</span><span class="p">)</span>
+</pre></div>
+</div>
+<img src="../_images/sphx_glr_ch9_additive_003.png" srcset="../_images/sphx_glr_ch9_additive_003.png" alt="ch9 additive" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>                         0                 1                 2
+Mean      -2.4e-06(0.0011)  -4.8e-06(0.0009)  1.3e-06(0.00052)
+Variance       0.19(0.039)      -0.36(-0.19)       -0.1(-0.16)
+Skewness    0.0003(0.0003)  0.00034(0.00033)  0.00025(0.00023)
+Kurtosis         2.1(0.62)         3.4(0.72)        1.3(0.058)
+KS test         0.11(0.05)        0.36(0.05)        0.58(0.05)
+</pre></div>
+</div>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 4.208 seconds)</p>
+<div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-ch9-ch9-additive-py">
+<div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
+<p><a class="reference download internal" download="" href="../_downloads/a4dafde39814f10c851fa850c5b5e051/ch9_additive.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">ch9_additive.ipynb</span></code></a></p>
+</div>
+<div class="sphx-glr-download sphx-glr-download-python docutils container">
+<p><a class="reference download internal" download="" href="../_downloads/4eb8c483b900a2016e688f605ab77c8b/ch9_additive.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">ch9_additive.py</span></code></a></p>
+</div>
+<div class="sphx-glr-download sphx-glr-download-zip docutils container">
+<p><a class="reference download internal" download="" href="../_downloads/c347a5bfbcc599d9d8c2f14ad0ecb6bf/ch9_additive.zip"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">zipped:</span> <span class="pre">ch9_additive.zip</span></code></a></p>
+</div>
+</div>
+<p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="ch9_lagrange.html" class="btn btn-neutral float-left" title="9.05 Lagrange interpolation model" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="ch9_conditionning.html" class="btn btn-neutral float-right" title="9.07 Conditionning model" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Philippe G. LeFloch , Jean-Marc Mercier, and Shohruh Miryusupov.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

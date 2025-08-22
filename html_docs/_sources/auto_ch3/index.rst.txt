@@ -1,0 +1,183 @@
+:orphan:
+
+:orphan:
+
+Chapter 3: Discrete operators based on reproducing kernels
+==========================================================
+
+This gallery contains examples and tutorials for Chapter 3. The examples demonstrate ....
+
+Each example includes code and outputs, such as plots or results, to help you understand
+how the library works.
+
+Below are the examples for this chapter:
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This section introduces the concept of partition of unity in the context of kernel methods and how CodPy implements it via projection operators.">
+
+.. only:: html
+
+  .. image:: /auto_ch3/images/thumb/sphx_glr_ch3_3_2_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_ch3_ch3_3_2.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">3.3.2 Partition of unity</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This tutorial illustrates how to approximate gradients of a multivariate function using kernel-based operators provided by CodPy. It also introduces how the CodPy API implements these differential operators.">
+
+.. only:: html
+
+  .. image:: /auto_ch3/images/thumb/sphx_glr_ch3_4_1_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_ch3_ch3_4_1.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">3.4.1 Gradient Operator</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This tutorial introduces the divergence operator in CodPy, based on the transpose of the gradient operator. The divergence is a key concept in vector calculus and is fundamental in the formulation of many differential equations.">
+
+.. only:: html
+
+  .. image:: /auto_ch3/images/thumb/sphx_glr_ch3_4_2_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_ch3_ch3_4_2.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">3.4.2 Divergence Operator</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="The inverse Laplace operator is a useful tool in many fluid mechanics, image processing, signal filtering etc. In the CodPy framework, this operator is implemented as the pseudo-inverse of the Laplacian matrix built from a kernel.">
+
+.. only:: html
+
+  .. image:: /auto_ch3/images/thumb/sphx_glr_ch3_4_3_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_ch3_ch3_4_3.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">3.4.3  Inverse Laplace operator</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip=" Given a kernel gradient operator ∇ₖ, CodPy defines an integral-type inverse operator denoted by:">
+
+.. only:: html
+
+  .. image:: /auto_ch3/images/thumb/sphx_glr_ch3_4_4_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_ch3_ch3_4_4.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">3.4.4 Integral operator - inverse gradient operator</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip=" This section describes the Leray operator and its role in the Helmholtz–Hodge decomposition, which is foundational in the analysis of incompressible fluid flows, turbulence, and vector field analysis.">
+
+.. only:: html
+
+  .. image:: /auto_ch3/images/thumb/sphx_glr_ch3_4_5_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_ch3_ch3_4_5.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">3.4.5  Integral operator - inverse divergence operator</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="The Leray-orthogonal operator plays a fundamental role in fluid dynamics, particularly in the mathematical formulation and numerical modeling of incompressible flows governed by the Euler or Navier–Stokes equations.">
+
+.. only:: html
+
+  .. image:: /auto_ch3/images/thumb/sphx_glr_ch3_4_6_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_ch3_ch3_4_6.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">3.4.6 Leray-orthogonal operator</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="This section describes the Leray operator and its role in the Helmholtz–Hodge decomposition, which is foundational in the analysis of incompressible fluid flows, turbulence, and vector field analysis.">
+
+.. only:: html
+
+  .. image:: /auto_ch3/images/thumb/sphx_glr_ch3_4_7_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_ch3_ch3_4_7.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">3.4.7 Leray operator and Helmholtz-Hodge decomposition</div>
+    </div>
+
+
+.. thumbnail-parent-div-close
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /auto_ch3/ch3_3_2
+   /auto_ch3/ch3_4_1
+   /auto_ch3/ch3_4_2
+   /auto_ch3/ch3_4_3
+   /auto_ch3/ch3_4_4
+   /auto_ch3/ch3_4_5
+   /auto_ch3/ch3_4_6
+   /auto_ch3/ch3_4_7
+
+
+
+.. only:: html
+
+ .. rst-class:: sphx-glr-signature
+
+    `Gallery generated by Sphinx-Gallery <https://sphinx-gallery.github.io>`_

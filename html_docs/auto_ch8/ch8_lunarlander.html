@@ -1,0 +1,779 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>8.3 Experiments - LunarLander &mdash; CodPy Book 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=8d563738"></script>
+      <script src="../_static/doctools.js?v=9a2dae69"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script>let toggleHintShow = 'Click to show';</script>
+      <script>let toggleHintHide = 'Click to hide';</script>
+      <script>let toggleOpenOnPrint = 'true';</script>
+      <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+      <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+      <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Chapter 9: Mathematical Finance." href="../auto_ch9/index.html" />
+    <link rel="prev" title="8.2 Experiments - Cartpole" href="ch8_cartpole.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            CodPy Book
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Chapter 2:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../auto_ch2/index.html">Chapter 2: Basic notions on reproducing kernels</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch2/ch2_2.html">2.2 Reproducing kernels and transformation maps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch2/ch2_ex1D.html">2.3 1D Periodic Function Extrapolation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch2/ch2_5.html">2.3.2 Applying maps to kernels</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch2/ch2_ex2D.html">2.4 2D Periodic Function Extrapolation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch2/ch2_discrepancy_functional.html">2.6.2 A study of the discrepancy functional</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Chapter 3:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../auto_ch3/index.html">Chapter 3: Discrete operators based on reproducing kernels</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch3/ch3_3_2.html">3.3.2 Partition of unity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch3/ch3_4_1.html">3.4.1 Gradient Operator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch3/ch3_4_2.html">3.4.2 Divergence Operator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch3/ch3_4_3.html">3.4.3  Inverse Laplace operator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch3/ch3_4_4.html">3.4.4 Integral operator - inverse gradient operator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch3/ch3_4_5.html">3.4.5  Integral operator - inverse divergence operator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch3/ch3_4_6.html">3.4.6 Leray-orthogonal operator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch3/ch3_4_7.html">3.4.7 Leray operator and Helmholtz-Hodge decomposition</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Chapter 4:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../auto_ch4/index.html">Chapter 4: Clustering strategies</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch4/ch4_2.html">4.2 Clustering</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Chapter 5:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../auto_ch5/index.html">Chapter 5: Optimal transport and statistical kernel methods</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch5/ch5_2.html">5.2 Optimal Transport: LSAP (Linear Sum Assignment Problem)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch5/ch5_33.html">5.3.3 Kernel Conditional Density</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch5/ch5_34.html">5.3.4 Kernel Conditional Expectation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch5/ch5_6_a.html">5.6.a Application of OT in Disitribution Sampling : 1D</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch5/ch5_6_b.html">5.6.b Application of OT in Disitribution Sampling : 2D</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch5/ch5_6_c.html">5.6.c Application of OT in Disitribution Sampling : High-Dimensional case</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch5/ch5_6_d.html">5.6.d Exploration Data Analysis of the Latent Space: Spherical Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch5/ch5_7.html">5.7. Conditional Sampling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch5/ch5_8.html">5.8. Conditional Sampling</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Chapter 6:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../auto_ch6/index.html">Chapter 6: Applications to machine learning : supervised, unsupervised and generative methods</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch6/ch6_housing.html">6.1 Supervised learning: reproducibility illustration with housing prices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch6/ch6_mnist.html">6.2 Supervised learning: benchmarks of methods with MNIST</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch6/ch6_Clustering.html">6.3 Unsupervised learning: Clustering - MNIST</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch6/ch6_ClustMNIST.html">6.3 Unsupervised learning: Clustering - MNIST</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch6/ch6_CreditCardFraud.html">6.4 Unsupervised learning: Clustering - Fraud detection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch6/ch6_9_CelebA_reconstruction.html">6.4.1 Generating complex distributions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch6/ch6_9_CelebA.html">6.4.1 Generating complex distributions from celebA dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch6/ch6_9_transfert.html">6.4.5 Conditioning on discrete distributions of celebA dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch6/ch6_stockClustering.html">6.5 Unsupervised learning: Clustering - Stock Clustering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch6/ch6_iris.html">6.7. Conditional Sampling</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Chapter 7:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../auto_ch7/index.html">Chapter 7: Application to partial differential equations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch7/ch7_invLaplace.html">7.01 Inverse Laplace Operator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch7/ch7_denoising.html">7.02 Denoising</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch7/ch7_heat_eq.html">7.03 Heat Equation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch7/ch7_heatLagrange.html">7.04 Lagrange Heat Equation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch7/ch7_convexHull.html">7.05 Convex Hull Algorithm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch7/ch7_AAD.html">7.06 Automatic Differentiation</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Chapter 8:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../kqlearning.html">KQLearning</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Chapter 8: Reinforcement learning.</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="ch8_example.html">8.1 Using KAgents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ch8_cartpole.html">8.2 Experiments - Cartpole</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">8.3 Experiments - LunarLander</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Chapter 9:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../auto_ch9/index.html">Chapter 9: Mathematical Finance.</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_get_market_data.html">9.01 Free time series modeling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_random_walk_log_normal.html">9.02 Random walks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_arma.html">9.03 ARMA(p,1) model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_garch.html">9.04 GARCH(1,1) model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_lagrange.html">9.05 Lagrange interpolation model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_additive.html">9.06 Additive noise map</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_conditionning.html">9.07 Conditionning model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_stoch_vol.html">9.08 Stochastic volatility model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_HestonCompare.html">9.10 Heston Process - Path comparison</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_isocontours.html">9.11 Heston Process - Intraday interpolation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_priceExtrapolation.html">9.12 Price extrapolation using KRR and Taylor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_greeks.html">9.13 Greeks output after correction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_rst.html">9.13 Reverse Stress Test</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_HestonRepro.html">9.9 Heston Process - Reproducibility</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../utils/ch9/ch9_utils.html">Chapter 9 utility functions</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">CodPy Book</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Chapter 8: Reinforcement learning.</a></li>
+      <li class="breadcrumb-item active">8.3 Experiments - LunarLander</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/auto_ch8/ch8_lunarlander.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="sphx-glr-download-link-note admonition note">
+<p class="admonition-title">Note</p>
+<p><a class="reference internal" href="#sphx-glr-download-auto-ch8-ch8-lunarlander-py"><span class="std std-ref">Go to the end</span></a>
+to download the full example code.</p>
+</div>
+<section class="sphx-glr-example-title" id="experiments-lunarlander">
+<span id="sphx-glr-auto-ch8-ch8-lunarlander-py"></span><h1>8.3 Experiments - LunarLander<a class="headerlink" href="#experiments-lunarlander" title="Link to this heading"></a></h1>
+<p>We use the OpenAI Gym library to instanciate the gymnasium LunarLander-v3 environment and reproduce the figure from chapter 8_XXX.</p>
+<p>We train the following agents:</p>
+<ul class="simple">
+<li><p>PPO</p></li>
+<li><p>DQN</p></li>
+<li><p>Controller-based</p></li>
+<li><p>Kernel Actor-Critic</p></li>
+<li><p>Kernel Q-Learning</p></li>
+<li><p>Kernel Q-Learning HJB</p></li>
+<li><p>Kernel Policy-Gradient</p></li>
+</ul>
+<p>We show how you can tweak some methods in each algorithm to tune them to the environment. For a detailed documentation on KAgents, see <strong>codpy documentation</strong>.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Importing necessary modules</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">codpy.core</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">core</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">codpy.KQLearning</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">KQLearning</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">codpy.conditioning</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">conditioning</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">ignore_utils</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+</pre></div>
+</div>
+<section id="kqlearning">
+<h2>KQLearning<a class="headerlink" href="#kqlearning" title="Link to this heading"></a></h2>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">KQLearningLN</span><span class="p">(</span><span class="n">KQLearning</span><span class="o">.</span><span class="n">KQLearning</span><span class="p">):</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">train</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">game</span><span class="p">,</span>
+        <span class="n">max_training_game_size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="nb">format</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">replay_buffer</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">tol</span><span class="o">=</span><span class="mf">1e-2</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        For LunarLander, we want to fit one kernel per game. So again, we override the train method.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">game</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">game</span><span class="p">,</span> <span class="n">max_training_game_size</span><span class="o">=</span><span class="n">max_training_game_size</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+        <span class="p">)</span>
+        <span class="c1"># Here the kernel is fit on the latest game only.</span>
+        <span class="n">kernel</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">optimal_states_values_function</span><span class="p">(</span><span class="n">game</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">kernel</span><span class="o">.</span><span class="n">games</span> <span class="o">=</span> <span class="n">game</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">critic</span><span class="o">.</span><span class="n">add_kernel</span><span class="p">(</span><span class="n">kernel</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">delete_kernels</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">critic</span><span class="o">.</span><span class="n">kernels</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">error</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">critic</span><span class="o">.</span><span class="n">kernels</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">bellman_error</span>
+            <span class="k">if</span> <span class="n">error</span> <span class="o">&gt;</span> <span class="n">tol</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">critic</span><span class="o">.</span><span class="n">kernels</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="s2">&quot;flag_kill_me&quot;</span><span class="p">):</span>
+                <span class="n">kernel</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">optimal_states_values_function</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">critic</span><span class="o">.</span><span class="n">kernels</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">games</span><span class="p">,</span>
+                    <span class="n">kernel</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">critic</span><span class="o">.</span><span class="n">kernels</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
+                    <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                    <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+                <span class="p">)</span>
+                <span class="n">kernel</span><span class="o">.</span><span class="n">games</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">critic</span><span class="o">.</span><span class="n">kernels</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">games</span>
+                <span class="k">if</span> <span class="n">kernel</span><span class="o">.</span><span class="n">bellman_error</span> <span class="o">&gt;=</span> <span class="n">error</span> <span class="o">-</span> <span class="n">tol</span><span class="p">:</span>
+                    <span class="n">kernel</span><span class="o">.</span><span class="n">flag_kill_me</span> <span class="o">=</span> <span class="s2">&quot;please&quot;</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">critic</span><span class="o">.</span><span class="n">kernels</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">kernel</span>
+        <span class="k">if</span> <span class="p">(</span>
+            <span class="nb">len</span><span class="p">(</span><span class="n">delete_kernels</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>
+            <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">critic</span><span class="o">.</span><span class="n">kernels</span><span class="p">)</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">delete_kernels</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span>
+        <span class="p">):</span>
+            <span class="n">new_kernels</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">critic</span><span class="o">.</span><span class="n">kernels</span><span class="p">)):</span>
+                <span class="k">if</span> <span class="n">i</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">delete_kernels</span><span class="p">:</span>
+                    <span class="n">new_kernels</span><span class="p">[</span><span class="n">count</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">critic</span><span class="o">.</span><span class="n">kernels</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                    <span class="n">count</span> <span class="o">=</span> <span class="n">count</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">critic</span><span class="o">.</span><span class="n">kernels</span> <span class="o">=</span> <span class="n">new_kernels</span>
+</pre></div>
+</div>
+</section>
+<section id="policygradient">
+<h2>PolicyGradient<a class="headerlink" href="#policygradient" title="Link to this heading"></a></h2>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">PolicyGradientLN</span><span class="p">(</span><span class="n">KQLearning</span><span class="o">.</span><span class="n">PolicyGradient</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">train</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">game</span><span class="p">,</span> <span class="n">max_training_game_size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">actor</span><span class="o">.</span><span class="n">is_valid</span><span class="p">()</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">actor</span><span class="o">.</span><span class="n">get_x</span><span class="p">()</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">replay_buffer</span><span class="o">.</span><span class="n">capacity</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;KCritic&quot;</span><span class="p">,</span> <span class="p">{})</span>
+        <span class="n">state</span><span class="p">,</span> <span class="n">action</span><span class="p">,</span> <span class="n">next_state</span><span class="p">,</span> <span class="n">reward</span><span class="p">,</span> <span class="n">return_</span><span class="p">,</span> <span class="n">done</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">game</span><span class="p">,</span> <span class="n">max_training_game_size</span><span class="o">=</span><span class="n">max_training_game_size</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">replay_buffer</span><span class="p">):</span>
+            <span class="n">states</span><span class="p">,</span> <span class="n">actions</span><span class="p">,</span> <span class="n">next_states</span><span class="p">,</span> <span class="n">rewards</span><span class="p">,</span> <span class="n">returns</span><span class="p">,</span> <span class="n">dones</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">replay_buffer</span><span class="o">.</span><span class="n">memory</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">states</span><span class="p">,</span> <span class="n">actions</span><span class="p">,</span> <span class="n">next_states</span><span class="p">,</span> <span class="n">rewards</span><span class="p">,</span> <span class="n">returns</span><span class="p">,</span> <span class="n">dones</span> <span class="o">=</span> <span class="n">state</span><span class="p">,</span> <span class="n">action</span><span class="p">,</span> <span class="n">next_state</span><span class="p">,</span> <span class="n">reward</span><span class="p">,</span> <span class="n">return_</span><span class="p">,</span> <span class="n">done</span>
+            <span class="c1"># dones[0] = True</span>
+        <span class="n">games</span> <span class="o">=</span> <span class="p">[</span><span class="n">states</span><span class="p">,</span> <span class="n">actions</span><span class="p">,</span> <span class="n">next_states</span><span class="p">,</span> <span class="n">rewards</span><span class="p">,</span> <span class="n">returns</span><span class="p">,</span> <span class="n">dones</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">actor</span><span class="o">.</span><span class="n">is_valid</span><span class="p">():</span>
+            <span class="n">last_policy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">actor</span><span class="p">(</span><span class="n">states</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">last_policy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span>
+                <span class="p">[</span><span class="n">states</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">actions_dim</span><span class="p">],</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">actions_dim</span>
+            <span class="p">)</span>
+        <span class="n">last_policy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">last_policy</span> <span class="o">&lt;</span> <span class="mf">1e-9</span><span class="p">,</span> <span class="mf">1e-9</span><span class="p">,</span><span class="n">last_policy</span><span class="p">)</span>
+        <span class="n">last_policy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">last_policy</span> <span class="o">&gt;</span> <span class="mf">1.</span><span class="o">-</span><span class="mf">1e-9</span><span class="p">,</span><span class="mf">1.</span><span class="o">-</span> <span class="mf">1e-9</span><span class="p">,</span><span class="n">last_policy</span><span class="p">)</span>
+        <span class="c1"># update probabilities</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">actor</span><span class="o">.</span><span class="n">is_valid</span><span class="p">()</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">actor</span><span class="o">.</span><span class="n">get_x</span><span class="p">()</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">replay_buffer</span><span class="o">.</span><span class="n">capacity</span><span class="p">:</span>
+            <span class="n">advantages</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">value_function</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_advantages</span><span class="p">(</span><span class="n">games</span><span class="p">,</span> <span class="n">policy</span><span class="o">=</span><span class="n">last_policy</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">actor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">update_probabilities</span><span class="p">(</span>
+                <span class="n">advantages</span><span class="p">,</span> <span class="n">games</span><span class="p">,</span> <span class="n">last_policy</span><span class="o">=</span><span class="n">last_policy</span><span class="p">,</span> <span class="n">clip</span><span class="o">=</span><span class="mf">.1</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">pass</span>
+            <span class="c1"># advantages, self.value_function = self.get_advantages(games, policy=last_policy, kernel = self.value_function,**kwargs)</span>
+            <span class="c1"># kernel = self.update_probabilities(</span>
+            <span class="c1">#     advantages, games, last_policy=last_policy,kernel = self.actor, clip=.1, **kwargs</span>
+            <span class="c1"># )</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="s2">&quot;scores&quot;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">scores</span> <span class="o">=</span> <span class="p">[</span><span class="n">rewards</span><span class="o">.</span><span class="n">sum</span><span class="p">()]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">scores</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">rewards</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+        <span class="c1"># if len(self.replay_buffer)+states.shape[0] &lt; self.replay_buffer.capacity:</span>
+        <span class="n">is_pushed</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">replay_buffer</span><span class="o">.</span><span class="n">push</span><span class="p">(</span>
+            <span class="n">state</span><span class="p">,</span> <span class="n">action</span><span class="p">,</span> <span class="n">next_state</span><span class="p">,</span> <span class="n">reward</span><span class="p">,</span> <span class="n">return_</span><span class="p">,</span> <span class="n">done</span><span class="p">,</span> <span class="n">worst_game</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="o">**</span><span class="n">kwargs</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">format</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sarsd</span><span class="p">,</span> <span class="n">max_training_game_size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">states</span><span class="p">,</span> <span class="n">actions</span><span class="p">,</span> <span class="n">next_states</span><span class="p">,</span> <span class="n">rewards</span><span class="p">,</span> <span class="n">dones</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">core</span><span class="o">.</span><span class="n">get_matrix</span><span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">sarsd</span>
+        <span class="p">]</span>
+        <span class="n">actions</span> <span class="o">=</span> <span class="n">KQLearning</span><span class="o">.</span><span class="n">rl_hot_encoder</span><span class="p">(</span><span class="n">actions</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">actions_dim</span><span class="p">)</span>
+        <span class="n">dones</span> <span class="o">=</span> <span class="n">core</span><span class="o">.</span><span class="n">get_matrix</span><span class="p">(</span><span class="n">dones</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
+        <span class="n">len_game</span><span class="o">=</span><span class="n">states</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">max_training_game_size</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="p">:</span>
+            <span class="c1"># indices = [int(n*len_game/max_training_game_size) for n in range(0, max_training_game_size)]</span>
+            <span class="n">states</span><span class="p">,</span> <span class="n">actions</span><span class="p">,</span> <span class="n">next_states</span><span class="p">,</span> <span class="n">rewards</span><span class="p">,</span> <span class="n">dones</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">states</span><span class="p">[</span><span class="o">-</span><span class="n">max_training_game_size</span><span class="p">:],</span>
+                <span class="n">actions</span><span class="p">[</span><span class="o">-</span><span class="n">max_training_game_size</span><span class="p">:],</span>
+                <span class="n">next_states</span><span class="p">[</span><span class="o">-</span><span class="n">max_training_game_size</span><span class="p">:],</span>
+                <span class="n">rewards</span><span class="p">[</span><span class="o">-</span><span class="n">max_training_game_size</span><span class="p">:],</span>
+                <span class="n">dones</span><span class="p">[</span><span class="o">-</span><span class="n">max_training_game_size</span><span class="p">:],</span>
+                <span class="c1"># states[:max_training_game_size],</span>
+                <span class="c1"># actions[:max_training_game_size],</span>
+                <span class="c1"># next_states[:max_training_game_size],</span>
+                <span class="c1"># rewards[:max_training_game_size],</span>
+                <span class="c1"># dones[:max_training_game_size],</span>
+            <span class="p">)</span>
+        <span class="n">returns</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">compute_returns</span><span class="p">(</span>
+            <span class="n">states</span><span class="p">,</span> <span class="n">actions</span><span class="p">,</span> <span class="n">next_states</span><span class="p">,</span> <span class="n">rewards</span><span class="p">,</span> <span class="n">dones</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+        <span class="p">)</span>
+        <span class="c1"># dones[0]=True</span>
+        <span class="k">return</span> <span class="n">states</span><span class="p">,</span> <span class="n">actions</span><span class="p">,</span> <span class="n">next_states</span><span class="p">,</span> <span class="n">rewards</span><span class="p">,</span> <span class="n">returns</span><span class="p">,</span> <span class="n">dones</span>
+</pre></div>
+</div>
+</section>
+<section id="kactorcritic">
+<h2>KActorCritic<a class="headerlink" href="#kactorcritic" title="Link to this heading"></a></h2>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">KActorCriticLN</span><span class="p">(</span><span class="n">KQLearning</span><span class="o">.</span><span class="n">KActorCritic</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Defines the main KActorCritic class.</span>
+
+<span class="sd">    This inherits from KQLearning.KActorCritic. You can then extend any method from the main class to fit your needs.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">train</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">game</span><span class="p">,</span> <span class="n">max_training_game_size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">actor</span><span class="o">.</span><span class="n">is_valid</span><span class="p">()</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">actor</span><span class="o">.</span><span class="n">get_x</span><span class="p">()</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">replay_buffer</span><span class="o">.</span><span class="n">capacity</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;KCritic&quot;</span><span class="p">,</span> <span class="p">{})</span>
+        <span class="n">state</span><span class="p">,</span> <span class="n">action</span><span class="p">,</span> <span class="n">next_state</span><span class="p">,</span> <span class="n">reward</span><span class="p">,</span> <span class="n">return_</span><span class="p">,</span> <span class="n">done</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">game</span><span class="p">,</span> <span class="n">max_training_game_size</span><span class="o">=</span><span class="n">max_training_game_size</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">replay_buffer</span><span class="p">):</span>
+            <span class="n">states</span><span class="p">,</span> <span class="n">actions</span><span class="p">,</span> <span class="n">next_states</span><span class="p">,</span> <span class="n">rewards</span><span class="p">,</span> <span class="n">returns</span><span class="p">,</span> <span class="n">dones</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">replay_buffer</span><span class="o">.</span><span class="n">memory</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">states</span><span class="p">,</span> <span class="n">actions</span><span class="p">,</span> <span class="n">next_states</span><span class="p">,</span> <span class="n">rewards</span><span class="p">,</span> <span class="n">returns</span><span class="p">,</span> <span class="n">dones</span> <span class="o">=</span> <span class="n">state</span><span class="p">,</span> <span class="n">action</span><span class="p">,</span> <span class="n">next_state</span><span class="p">,</span> <span class="n">reward</span><span class="p">,</span> <span class="n">return_</span><span class="p">,</span> <span class="n">done</span>
+            <span class="c1"># dones[0] = True</span>
+        <span class="n">games</span> <span class="o">=</span> <span class="p">[</span><span class="n">states</span><span class="p">,</span> <span class="n">actions</span><span class="p">,</span> <span class="n">next_states</span><span class="p">,</span> <span class="n">rewards</span><span class="p">,</span> <span class="n">returns</span><span class="p">,</span> <span class="n">dones</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">actor</span><span class="o">.</span><span class="n">is_valid</span><span class="p">():</span>
+            <span class="n">last_policy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">actor</span><span class="p">(</span><span class="n">states</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">last_policy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span>
+                <span class="p">[</span><span class="n">states</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">actions_dim</span><span class="p">],</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">actions_dim</span>
+            <span class="p">)</span>
+        <span class="n">last_policy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">last_policy</span> <span class="o">&lt;</span> <span class="mf">1e-9</span><span class="p">,</span> <span class="mf">1e-9</span><span class="p">,</span><span class="n">last_policy</span><span class="p">)</span>
+        <span class="n">last_policy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">last_policy</span> <span class="o">&gt;</span> <span class="mf">1.</span><span class="o">-</span><span class="mf">1e-9</span><span class="p">,</span><span class="mf">1.</span><span class="o">-</span> <span class="mf">1e-9</span><span class="p">,</span><span class="n">last_policy</span><span class="p">)</span>
+        <span class="c1"># update probabilities</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">actor</span><span class="o">.</span><span class="n">is_valid</span><span class="p">()</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">actor</span><span class="o">.</span><span class="n">get_x</span><span class="p">()</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">replay_buffer</span><span class="o">.</span><span class="n">capacity</span><span class="p">:</span>
+            <span class="n">advantages</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">value_function</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_advantages</span><span class="p">(</span><span class="n">games</span><span class="p">,</span> <span class="n">policy</span><span class="o">=</span><span class="n">last_policy</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">actor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">update_probabilities</span><span class="p">(</span>
+                <span class="n">advantages</span><span class="p">,</span> <span class="n">games</span><span class="p">,</span> <span class="n">last_policy</span><span class="o">=</span><span class="n">last_policy</span><span class="p">,</span> <span class="n">clip</span><span class="o">=</span><span class="mf">.1</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">pass</span>
+            <span class="c1"># advantages, self.value_function = self.get_advantages(games, policy=last_policy, kernel = self.value_function,**kwargs)</span>
+            <span class="c1"># kernel = self.update_probabilities(</span>
+            <span class="c1">#     advantages, games, last_policy=last_policy,kernel = self.actor, clip=.1, **kwargs</span>
+            <span class="c1"># )</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="s2">&quot;scores&quot;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">scores</span> <span class="o">=</span> <span class="p">[</span><span class="n">rewards</span><span class="o">.</span><span class="n">sum</span><span class="p">()]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">scores</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">rewards</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+        <span class="c1"># if len(self.replay_buffer)+states.shape[0] &lt; self.replay_buffer.capacity:</span>
+        <span class="n">is_pushed</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">replay_buffer</span><span class="o">.</span><span class="n">push</span><span class="p">(</span>
+            <span class="n">state</span><span class="p">,</span> <span class="n">action</span><span class="p">,</span> <span class="n">next_state</span><span class="p">,</span> <span class="n">reward</span><span class="p">,</span> <span class="n">return_</span><span class="p">,</span> <span class="n">done</span><span class="p">,</span> <span class="n">worst_game</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="o">**</span><span class="n">kwargs</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">format</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sarsd</span><span class="p">,</span> <span class="n">max_training_game_size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">states</span><span class="p">,</span> <span class="n">actions</span><span class="p">,</span> <span class="n">next_states</span><span class="p">,</span> <span class="n">rewards</span><span class="p">,</span> <span class="n">dones</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">core</span><span class="o">.</span><span class="n">get_matrix</span><span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">sarsd</span>
+        <span class="p">]</span>
+        <span class="n">actions</span> <span class="o">=</span> <span class="n">KQLearning</span><span class="o">.</span><span class="n">rl_hot_encoder</span><span class="p">(</span><span class="n">actions</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">actions_dim</span><span class="p">)</span>
+        <span class="n">dones</span> <span class="o">=</span> <span class="n">core</span><span class="o">.</span><span class="n">get_matrix</span><span class="p">(</span><span class="n">dones</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
+        <span class="n">len_game</span><span class="o">=</span><span class="n">states</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">max_training_game_size</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="p">:</span>
+            <span class="c1"># indices = [int(n*len_game/max_training_game_size) for n in range(0, max_training_game_size)]</span>
+            <span class="n">states</span><span class="p">,</span> <span class="n">actions</span><span class="p">,</span> <span class="n">next_states</span><span class="p">,</span> <span class="n">rewards</span><span class="p">,</span> <span class="n">dones</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">states</span><span class="p">[</span><span class="o">-</span><span class="n">max_training_game_size</span><span class="p">:],</span>
+                <span class="n">actions</span><span class="p">[</span><span class="o">-</span><span class="n">max_training_game_size</span><span class="p">:],</span>
+                <span class="n">next_states</span><span class="p">[</span><span class="o">-</span><span class="n">max_training_game_size</span><span class="p">:],</span>
+                <span class="n">rewards</span><span class="p">[</span><span class="o">-</span><span class="n">max_training_game_size</span><span class="p">:],</span>
+                <span class="n">dones</span><span class="p">[</span><span class="o">-</span><span class="n">max_training_game_size</span><span class="p">:],</span>
+            <span class="p">)</span>
+        <span class="n">returns</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">compute_returns</span><span class="p">(</span>
+            <span class="n">states</span><span class="p">,</span> <span class="n">actions</span><span class="p">,</span> <span class="n">next_states</span><span class="p">,</span> <span class="n">rewards</span><span class="p">,</span> <span class="n">dones</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+        <span class="p">)</span>
+        <span class="c1"># dones[0]=True</span>
+        <span class="k">return</span> <span class="n">states</span><span class="p">,</span> <span class="n">actions</span><span class="p">,</span> <span class="n">next_states</span><span class="p">,</span> <span class="n">rewards</span><span class="p">,</span> <span class="n">returns</span><span class="p">,</span> <span class="n">dones</span>
+</pre></div>
+</div>
+</section>
+<section id="hjb">
+<h2>HJB<a class="headerlink" href="#hjb" title="Link to this heading"></a></h2>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">KQLearningHJBLN</span><span class="p">(</span><span class="n">KQLearning</span><span class="o">.</span><span class="n">KQLearningHJB</span><span class="p">):</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">eps_threshold</span> <span class="o">*=</span> <span class="mf">0.999</span>
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">eps_threshold</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">critic</span><span class="o">.</span><span class="n">is_valid</span><span class="p">()</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">z</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">all_states_actions</span><span class="p">(</span><span class="n">core</span><span class="o">.</span><span class="n">get_matrix</span><span class="p">(</span><span class="n">state</span><span class="p">)</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+            <span class="c1"># z = self.all_states_actions(self.get_expectation_kernel(z))</span>
+            <span class="n">q_values</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">critic</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
+            <span class="n">q_values</span> <span class="o">+=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="n">q_values</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">*</span> <span class="mf">1e-9</span>
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">q_values</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">actions_dim</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_conditioned_kernel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">games</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">KQLearning</span><span class="o">.</span><span class="n">get_conditioned_kernel</span><span class="p">(</span>
+            <span class="n">games</span><span class="p">,</span> <span class="n">base_class</span><span class="o">=</span><span class="n">conditioning</span><span class="o">.</span><span class="n">ConditionerKernel</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">train</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">game</span><span class="p">,</span>
+        <span class="n">max_training_game_size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="nb">format</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">replay_buffer</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">tol</span><span class="o">=</span><span class="mf">1e-2</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span>
+    <span class="p">):</span>
+        <span class="c1"># return super().train(game, max_training_game_size,format,replay_buffer, tol,**kwargs)</span>
+        <span class="c1"># l = len(game[0])</span>
+        <span class="c1"># self.gamma = np.exp(-np.log(l) / l)</span>
+        <span class="n">game</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">game</span><span class="p">,</span> <span class="n">max_training_game_size</span><span class="o">=</span><span class="n">max_training_game_size</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+        <span class="p">)</span>
+        <span class="n">kernel</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">optimal_states_values_function</span><span class="p">(</span><span class="n">game</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">kernel</span><span class="o">.</span><span class="n">games</span> <span class="o">=</span> <span class="n">game</span>
+        <span class="c1"># kernel.gamma = self.gamma</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">critic</span><span class="o">.</span><span class="n">add_kernel</span><span class="p">(</span><span class="n">kernel</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">delete_kernels</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">critic</span><span class="o">.</span><span class="n">kernels</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="c1"># self.gamma = k.gamma</span>
+            <span class="n">error</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">critic</span><span class="o">.</span><span class="n">kernels</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">bellman_error</span>
+            <span class="k">if</span> <span class="n">error</span> <span class="o">&gt;</span> <span class="n">tol</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">critic</span><span class="o">.</span><span class="n">kernels</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="s2">&quot;flag_kill_me&quot;</span><span class="p">):</span>
+                <span class="n">kernel</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">optimal_states_values_function</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">critic</span><span class="o">.</span><span class="n">kernels</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">games</span><span class="p">,</span>
+                    <span class="n">kernel</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">critic</span><span class="o">.</span><span class="n">kernels</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
+                    <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                    <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+                <span class="p">)</span>
+                <span class="n">kernel</span><span class="o">.</span><span class="n">games</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">critic</span><span class="o">.</span><span class="n">kernels</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">games</span>
+                <span class="c1"># kernel.gamma = self.critic.kernels[i].gamma</span>
+                <span class="k">if</span> <span class="n">kernel</span><span class="o">.</span><span class="n">bellman_error</span> <span class="o">&gt;=</span> <span class="n">error</span> <span class="o">-</span> <span class="n">tol</span><span class="p">:</span>
+                    <span class="c1"># delete_kernels.append(i)</span>
+                    <span class="n">kernel</span><span class="o">.</span><span class="n">flag_kill_me</span> <span class="o">=</span> <span class="s2">&quot;please&quot;</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">critic</span><span class="o">.</span><span class="n">kernels</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">kernel</span>
+        <span class="k">if</span> <span class="p">(</span>
+            <span class="nb">len</span><span class="p">(</span><span class="n">delete_kernels</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>
+            <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">critic</span><span class="o">.</span><span class="n">kernels</span><span class="p">)</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">delete_kernels</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span>
+        <span class="p">):</span>
+            <span class="n">new_kernels</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">critic</span><span class="o">.</span><span class="n">kernels</span><span class="p">)):</span>
+                <span class="k">if</span> <span class="n">i</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">delete_kernels</span><span class="p">:</span>
+                    <span class="n">new_kernels</span><span class="p">[</span><span class="n">count</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">critic</span><span class="o">.</span><span class="n">kernels</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                    <span class="n">count</span> <span class="o">=</span> <span class="n">count</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">critic</span><span class="o">.</span><span class="n">kernels</span> <span class="o">=</span> <span class="n">new_kernels</span>
+</pre></div>
+</div>
+</section>
+<section id="kcontroller">
+<h2>KController<a class="headerlink" href="#kcontroller" title="Link to this heading"></a></h2>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">heuristic_ControllerLN</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Defines the heuristic controller for LunarLander. We choose to use 12 parameters to be tweaked.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">dim</span> <span class="o">=</span> <span class="mi">12</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">w</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">])</span> <span class="o">*</span> <span class="mf">0.5</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">w</span> <span class="o">=</span> <span class="n">w</span>
+        <span class="k">pass</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_distribution</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">class</span><span class="w"> </span><span class="nc">uniform</span><span class="p">:</span>
+            <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shape1</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">shape1</span> <span class="o">=</span> <span class="n">shape1</span>
+
+            <span class="k">def</span><span class="w"> </span><span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+                <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">[</span><span class="n">n</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">shape1</span><span class="p">])</span>
+
+            <span class="k">def</span><span class="w"> </span><span class="nf">support</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
+                <span class="n">out</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+                <span class="k">return</span> <span class="n">out</span>
+
+        <span class="k">return</span> <span class="n">uniform</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">w</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_thetas</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">w</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_thetas</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">w</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">w</span> <span class="o">=</span> <span class="n">w</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">angle_targ</span> <span class="o">=</span> <span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">w</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">s</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">w</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">angle_targ</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">w</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span>
+            <span class="n">angle_targ</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">w</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">angle_targ</span> <span class="o">&lt;</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">w</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span>
+            <span class="n">angle_targ</span> <span class="o">=</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">w</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+        <span class="n">hover_targ</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">w</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+        <span class="n">angle_todo</span> <span class="o">=</span> <span class="p">(</span><span class="n">angle_targ</span> <span class="o">-</span> <span class="n">s</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">w</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">-</span> <span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">5</span><span class="p">])</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">w</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span>
+        <span class="n">hover_todo</span> <span class="o">=</span> <span class="p">(</span><span class="n">hover_targ</span> <span class="o">-</span> <span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">w</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span> <span class="o">-</span> <span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">w</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="n">s</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span> <span class="ow">or</span> <span class="n">s</span><span class="p">[</span><span class="mi">7</span><span class="p">]:</span>
+            <span class="n">angle_todo</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">w</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span>
+            <span class="n">hover_todo</span> <span class="o">=</span> <span class="o">-</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">w</span><span class="p">[</span><span class="mi">9</span><span class="p">]</span>
+
+        <span class="n">a</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">if</span> <span class="n">hover_todo</span> <span class="o">&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">angle_todo</span><span class="p">)</span> <span class="ow">and</span> <span class="n">hover_todo</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">w</span><span class="p">[</span><span class="mi">10</span><span class="p">]:</span>
+            <span class="n">a</span> <span class="o">=</span> <span class="mi">2</span>
+        <span class="k">elif</span> <span class="n">angle_todo</span> <span class="o">&lt;</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">w</span><span class="p">[</span><span class="mi">11</span><span class="p">]:</span>
+            <span class="n">a</span> <span class="o">=</span> <span class="mi">3</span>
+        <span class="k">elif</span> <span class="n">angle_todo</span> <span class="o">&gt;</span> <span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">w</span><span class="p">[</span><span class="mi">11</span><span class="p">]:</span>
+            <span class="n">a</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="n">a</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">KControllerLN</span><span class="p">(</span><span class="n">KQLearning</span><span class="o">.</span><span class="n">KController</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Defines the class for optimizing the controller.</span>
+
+<span class="sd">    The class inherit from KQLearning.KController. You can then extend any method from the main class to fit your needs.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">    - state_dim: Dimension of the environment&#39;s state space.</span>
+<span class="sd">    - actions_dim: Dimension of the environment&#39;s action space.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state_dim</span><span class="p">,</span> <span class="n">actions_dim</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">controller</span> <span class="o">=</span> <span class="n">heuristic_ControllerLN</span><span class="p">(</span><span class="n">state_dim</span><span class="o">=</span><span class="n">state_dim</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">state_dim</span><span class="p">,</span> <span class="n">actions_dim</span><span class="p">,</span> <span class="n">controller</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_function</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The optimizer will find the best parameters which maximizes this function.</span>
+
+<span class="sd">        This is where you would tweak the function to be maximized.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">expectation_estimator</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_expectation_estimator</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+        <span class="p">)</span>
+
+        <span class="k">def</span><span class="w"> </span><span class="nf">function</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+            <span class="n">expectation</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">expectation_estimator</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+            <span class="n">distance</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">expectation_estimator</span><span class="o">.</span><span class="n">distance</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">expectation</span> <span class="o">+</span> <span class="n">distance</span>
+
+        <span class="k">return</span> <span class="n">function</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">format</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sarsd</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This formats the game data to be used in the train method</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">state</span><span class="p">,</span> <span class="n">action</span><span class="p">,</span> <span class="n">next_state</span><span class="p">,</span> <span class="n">reward</span><span class="p">,</span> <span class="n">done</span> <span class="o">=</span> <span class="p">[</span><span class="n">core</span><span class="o">.</span><span class="n">get_matrix</span><span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">sarsd</span><span class="p">]</span>
+
+        <span class="n">action</span> <span class="o">=</span> <span class="n">KQLearning</span><span class="o">.</span><span class="n">rl_hot_encoder</span><span class="p">(</span><span class="n">action</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">actions_dim</span><span class="p">)</span>
+        <span class="n">action</span> <span class="o">=</span> <span class="n">core</span><span class="o">.</span><span class="n">get_matrix</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">controller</span><span class="o">.</span><span class="n">get_thetas</span><span class="p">())</span><span class="o">.</span><span class="n">T</span>
+        <span class="n">done</span> <span class="o">=</span> <span class="n">core</span><span class="o">.</span><span class="n">get_matrix</span><span class="p">(</span><span class="n">done</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="n">core</span><span class="o">.</span><span class="n">get_matrix</span><span class="p">(</span><span class="n">state</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span><span class="o">.</span><span class="n">T</span><span class="p">,</span>
+            <span class="n">core</span><span class="o">.</span><span class="n">get_matrix</span><span class="p">(</span><span class="n">action</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span><span class="o">.</span><span class="n">T</span><span class="p">,</span>
+            <span class="n">core</span><span class="o">.</span><span class="n">get_matrix</span><span class="p">(</span><span class="n">next_state</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span><span class="o">.</span><span class="n">T</span><span class="p">,</span>
+            <span class="n">core</span><span class="o">.</span><span class="n">get_matrix</span><span class="p">(</span><span class="n">reward</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span><span class="o">.</span><span class="n">T</span><span class="p">,</span>
+            <span class="n">core</span><span class="o">.</span><span class="n">get_matrix</span><span class="p">(</span><span class="n">done</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span><span class="o">.</span><span class="n">T</span><span class="p">,</span>
+        <span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="c1"># Define agents here, which will be trained in the benchmark. If game_dictionnary is empty, the benchmark will try to load data from the .pkl file</span>
+    <span class="n">game_dictionary</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;PPOAgent&quot;</span><span class="p">:</span> <span class="n">PPOAgent</span><span class="p">,</span>
+        <span class="s2">&quot;Controller-based&quot;</span><span class="p">:</span> <span class="n">KControllerLN</span><span class="p">,</span>
+        <span class="s2">&quot;KACAgent&quot;</span><span class="p">:</span> <span class="n">KActorCriticLN</span><span class="p">,</span>
+        <span class="s2">&quot;PolicyGradient&quot;</span><span class="p">:</span> <span class="n">PolicyGradientLN</span><span class="p">,</span>
+        <span class="s2">&quot;DQNAgent&quot;</span><span class="p">:</span> <span class="n">DQNAgent</span><span class="p">,</span>
+        <span class="s2">&quot;KQLearningHJBCP&quot;</span><span class="p">:</span> <span class="n">KQLearningHJBLN</span><span class="p">,</span>
+        <span class="s2">&quot;KQLearning&quot;</span><span class="p">:</span> <span class="n">KQLearningLN</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="c1"># Define your agent&#39;s parameters here. This dict will be passed in each agent&#39;s __init__() method.</span>
+    <span class="n">extras</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;KActor&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="c1"># &quot;latent_shape&quot;:[100,50],</span>
+            <span class="s2">&quot;max_size&quot;</span><span class="p">:</span> <span class="mi">1000</span><span class="p">,</span>
+            <span class="s2">&quot;n_batch&quot;</span><span class="p">:</span> <span class="mi">1000000</span><span class="p">,</span>
+            <span class="s2">&quot;max_nystrom&quot;</span><span class="p">:</span> <span class="mi">1000</span><span class="p">,</span>
+            <span class="s2">&quot;reg&quot;</span><span class="p">:</span> <span class="mf">1e-6</span><span class="p">,</span>
+            <span class="s2">&quot;order&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;KCritic&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;max_size&quot;</span><span class="p">:</span> <span class="mi">1000000</span><span class="p">,</span>
+            <span class="s2">&quot;n_batch&quot;</span><span class="p">:</span> <span class="mi">1000000</span><span class="p">,</span>
+            <span class="s2">&quot;max_nystrom&quot;</span><span class="p">:</span> <span class="mi">1000</span><span class="p">,</span>
+            <span class="s2">&quot;reg&quot;</span><span class="p">:</span> <span class="mf">1e-9</span><span class="p">,</span>
+            <span class="s2">&quot;order&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;HJBModel&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="c1"># &quot;latent_shape&quot;:[100,50],</span>
+            <span class="s2">&quot;max_size&quot;</span><span class="p">:</span> <span class="mi">100000</span><span class="p">,</span>
+            <span class="s2">&quot;n_batch&quot;</span><span class="p">:</span> <span class="mi">1000000</span><span class="p">,</span>
+            <span class="s2">&quot;max_nystrom&quot;</span><span class="p">:</span> <span class="mi">1000</span><span class="p">,</span>
+            <span class="s2">&quot;reg&quot;</span><span class="p">:</span> <span class="mf">1e-9</span><span class="p">,</span>
+            <span class="s2">&quot;order&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="s2">&quot;state_dim&quot;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;Rewards&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;max_size&quot;</span><span class="p">:</span> <span class="mi">1000000</span><span class="p">,</span>
+            <span class="s2">&quot;n_batch&quot;</span><span class="p">:</span> <span class="mi">100000</span><span class="p">,</span>
+            <span class="s2">&quot;max_nystrom&quot;</span><span class="p">:</span> <span class="mi">1000</span><span class="p">,</span>
+            <span class="s2">&quot;reg&quot;</span><span class="p">:</span> <span class="mf">1e-9</span><span class="p">,</span>
+            <span class="s2">&quot;order&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;NextStates&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;max_size&quot;</span><span class="p">:</span> <span class="mi">1000000</span><span class="p">,</span>
+            <span class="s2">&quot;n_batch&quot;</span><span class="p">:</span> <span class="mi">100000</span><span class="p">,</span>
+            <span class="s2">&quot;max_nystrom&quot;</span><span class="p">:</span> <span class="mi">1000</span><span class="p">,</span>
+            <span class="s2">&quot;reg&quot;</span><span class="p">:</span> <span class="mf">1e-9</span><span class="p">,</span>
+            <span class="s2">&quot;order&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;DQNAgent&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="c1"># &#39;reward_function&#39;: mc_reward_function,</span>
+            <span class="s2">&quot;episodes&quot;</span><span class="p">:</span> <span class="mi">500</span><span class="p">,</span>
+            <span class="s2">&quot;policy_param&quot;</span><span class="p">:</span> <span class="mi">64</span><span class="p">,</span>
+            <span class="s2">&quot;target_param&quot;</span><span class="p">:</span> <span class="mi">64</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;ACAgent&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;reward_function&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">},</span>
+        <span class="s2">&quot;QAgent&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="mi">0</span>
+            <span class="c1"># &#39;reward_function&#39;: mc_reward_function</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;KController&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;reg&quot;</span><span class="p">:</span> <span class="mf">1e-9</span><span class="p">,</span>
+            <span class="s2">&quot;order&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;Conditionner&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;reg&quot;</span><span class="p">:</span> <span class="mf">1e-4</span><span class="p">,</span>
+            <span class="s2">&quot;order&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;max_game&quot;</span><span class="p">:</span> <span class="mi">1500</span><span class="p">,</span>
+        <span class="s2">&quot;gamma&quot;</span><span class="p">:</span> <span class="mf">0.99</span><span class="p">,</span>
+        <span class="s2">&quot;capacity&quot;</span><span class="p">:</span> <span class="mi">10000</span><span class="p">,</span>
+        <span class="s2">&quot;max_training_game_size&quot;</span><span class="p">:</span> <span class="mi">300</span><span class="p">,</span>
+        <span class="c1"># &quot;max_kernel&quot;: 40</span>
+        <span class="c1"># &quot;seed&quot;: 42,</span>
+    <span class="p">}</span>
+    <span class="n">seed</span> <span class="o">=</span> <span class="n">extras</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;seed&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
+
+    <span class="n">Benchmark</span><span class="p">()(</span>
+        <span class="n">game_dictionary</span><span class="p">,</span>
+        <span class="s2">&quot;LunarLander-v3&quot;</span><span class="p">,</span>
+        <span class="n">num_games</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+        <span class="n">eps_threshold</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
+        <span class="n">num_repeats</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+        <span class="n">max_time</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
+        <span class="n">axis</span><span class="o">=</span><span class="s2">&quot;episodes&quot;</span><span class="p">,</span>
+        <span class="c1"># file_name=&quot;results_LN_final.pkl&quot;,</span>
+        <span class="o">**</span><span class="n">extras</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+    <span class="k">pass</span>
+</pre></div>
+</div>
+<div class="sphx-glr-script-out highlight-pytb notranslate"><div class="highlight"><pre><span></span><span class="gt">Traceback (most recent call last):</span>
+  File <span class="nb">&quot;C:\Users\geoff\Desktop\Github\testcodpybook\codpybook\docs\ch8\ch8_lunarlander.py&quot;</span>, line <span class="m">492</span>, in <span class="n">&lt;module&gt;</span>
+<span class="w">    </span><span class="n">Benchmark</span><span class="p">()(</span>
+  File <span class="nb">&quot;C:\Users\geoff\Desktop\Github\testcodpybook\codpybook\docs\ch8\ignore_utils.py&quot;</span>, line <span class="m">292</span>, in <span class="n">__call__</span>
+<span class="w">    </span><span class="p">)</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">benchmark_agents</span><span class="p">(</span><span class="n">agent_classes</span><span class="p">,</span> <span class="n">game_id</span><span class="p">,</span> <span class="n">num_games</span><span class="p">,</span> <span class="o">**</span><span class="n">extras</span><span class="p">)</span>
+  File <span class="nb">&quot;C:\Users\geoff\Desktop\Github\testcodpybook\codpybook\docs\ch8\ignore_utils.py&quot;</span>, line <span class="m">66</span>, in <span class="n">benchmark_agents</span>
+<span class="w">    </span><span class="n">env</span> <span class="o">=</span> <span class="n">gym</span><span class="o">.</span><span class="n">make</span><span class="p">(</span><span class="n">game_name</span><span class="p">)</span>
+  File <span class="nb">&quot;C:\venv\lib\site-packages\gymnasium\envs\registration.py&quot;</span>, line <span class="m">704</span>, in <span class="n">make</span>
+<span class="w">    </span><span class="n">env_creator</span> <span class="o">=</span> <span class="n">load_env_creator</span><span class="p">(</span><span class="n">env_spec</span><span class="o">.</span><span class="n">entry_point</span><span class="p">)</span>
+  File <span class="nb">&quot;C:\venv\lib\site-packages\gymnasium\envs\registration.py&quot;</span>, line <span class="m">551</span>, in <span class="n">load_env_creator</span>
+<span class="w">    </span><span class="n">mod</span> <span class="o">=</span> <span class="n">importlib</span><span class="o">.</span><span class="n">import_module</span><span class="p">(</span><span class="n">mod_name</span><span class="p">)</span>
+  File <span class="nb">&quot;C:\Informatique\python\lib\importlib\__init__.py&quot;</span>, line <span class="m">127</span>, in <span class="n">import_module</span>
+<span class="w">    </span><span class="k">return</span> <span class="n">_bootstrap</span><span class="o">.</span><span class="n">_gcd_import</span><span class="p">(</span><span class="n">name</span><span class="p">[</span><span class="n">level</span><span class="p">:],</span> <span class="n">package</span><span class="p">,</span> <span class="n">level</span><span class="p">)</span>
+  File <span class="nb">&quot;&lt;frozen importlib._bootstrap&gt;&quot;</span>, line <span class="m">1030</span>, in <span class="n">_gcd_import</span>
+  File <span class="nb">&quot;&lt;frozen importlib._bootstrap&gt;&quot;</span>, line <span class="m">1007</span>, in <span class="n">_find_and_load</span>
+  File <span class="nb">&quot;&lt;frozen importlib._bootstrap&gt;&quot;</span>, line <span class="m">972</span>, in <span class="n">_find_and_load_unlocked</span>
+  File <span class="nb">&quot;&lt;frozen importlib._bootstrap&gt;&quot;</span>, line <span class="m">228</span>, in <span class="n">_call_with_frames_removed</span>
+  File <span class="nb">&quot;&lt;frozen importlib._bootstrap&gt;&quot;</span>, line <span class="m">1030</span>, in <span class="n">_gcd_import</span>
+  File <span class="nb">&quot;&lt;frozen importlib._bootstrap&gt;&quot;</span>, line <span class="m">1007</span>, in <span class="n">_find_and_load</span>
+  File <span class="nb">&quot;&lt;frozen importlib._bootstrap&gt;&quot;</span>, line <span class="m">986</span>, in <span class="n">_find_and_load_unlocked</span>
+  File <span class="nb">&quot;&lt;frozen importlib._bootstrap&gt;&quot;</span>, line <span class="m">680</span>, in <span class="n">_load_unlocked</span>
+  File <span class="nb">&quot;&lt;frozen importlib._bootstrap_external&gt;&quot;</span>, line <span class="m">850</span>, in <span class="n">exec_module</span>
+  File <span class="nb">&quot;&lt;frozen importlib._bootstrap&gt;&quot;</span>, line <span class="m">228</span>, in <span class="n">_call_with_frames_removed</span>
+  File <span class="nb">&quot;C:\venv\lib\site-packages\gymnasium\envs\box2d\__init__.py&quot;</span>, line <span class="m">1</span>, in <span class="n">&lt;module&gt;</span>
+<span class="w">    </span><span class="kn">from</span><span class="w"> </span><span class="nn">gymnasium.envs.box2d.bipedal_walker</span><span class="w"> </span><span class="kn">import</span> <span class="n">BipedalWalker</span><span class="p">,</span> <span class="n">BipedalWalkerHardcore</span>
+  File <span class="nb">&quot;C:\venv\lib\site-packages\gymnasium\envs\box2d\bipedal_walker.py&quot;</span>, line <span class="m">25</span>, in <span class="n">&lt;module&gt;</span>
+<span class="w">    </span><span class="k">raise</span> <span class="n">DependencyNotInstalled</span><span class="p">(</span>
+<span class="gr">gymnasium.error.DependencyNotInstalled</span>: <span class="n">Box2D is not installed, you can install it by run `pip install swig` followed by `pip install &quot;gymnasium[box2d]&quot;`</span>
+</pre></div>
+</div>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.014 seconds)</p>
+<div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-ch8-ch8-lunarlander-py">
+<div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
+<p><a class="reference download internal" download="" href="../_downloads/aeab3d5a4279457d380c1bf5d0fa5efb/ch8_lunarlander.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">ch8_lunarlander.ipynb</span></code></a></p>
+</div>
+<div class="sphx-glr-download sphx-glr-download-python docutils container">
+<p><a class="reference download internal" download="" href="../_downloads/09cbc05c918473178626c783928cd196/ch8_lunarlander.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">ch8_lunarlander.py</span></code></a></p>
+</div>
+<div class="sphx-glr-download sphx-glr-download-zip docutils container">
+<p><a class="reference download internal" download="" href="../_downloads/e217353b79355b938fac411f7c5110e6/ch8_lunarlander.zip"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">zipped:</span> <span class="pre">ch8_lunarlander.zip</span></code></a></p>
+</div>
+</div>
+<p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="ch8_cartpole.html" class="btn btn-neutral float-left" title="8.2 Experiments - Cartpole" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../auto_ch9/index.html" class="btn btn-neutral float-right" title="Chapter 9: Mathematical Finance." accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Philippe G. LeFloch , Jean-Marc Mercier, and Shohruh Miryusupov.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

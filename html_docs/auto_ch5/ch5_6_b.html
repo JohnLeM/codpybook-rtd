@@ -1,0 +1,482 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>5.6.b Application of OT in Disitribution Sampling : 2D &mdash; CodPy Book 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=8d563738"></script>
+      <script src="../_static/doctools.js?v=9a2dae69"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script>let toggleHintShow = 'Click to show';</script>
+      <script>let toggleHintHide = 'Click to hide';</script>
+      <script>let toggleOpenOnPrint = 'true';</script>
+      <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+      <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+      <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="5.6.c Application of OT in Disitribution Sampling : High-Dimensional case" href="ch5_6_c.html" />
+    <link rel="prev" title="5.6.a Application of OT in Disitribution Sampling : 1D" href="ch5_6_a.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            CodPy Book
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Chapter 2:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../auto_ch2/index.html">Chapter 2: Basic notions on reproducing kernels</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch2/ch2_2.html">2.2 Reproducing kernels and transformation maps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch2/ch2_ex1D.html">2.3 1D Periodic Function Extrapolation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch2/ch2_5.html">2.3.2 Applying maps to kernels</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch2/ch2_ex2D.html">2.4 2D Periodic Function Extrapolation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch2/ch2_discrepancy_functional.html">2.6.2 A study of the discrepancy functional</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Chapter 3:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../auto_ch3/index.html">Chapter 3: Discrete operators based on reproducing kernels</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch3/ch3_3_2.html">3.3.2 Partition of unity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch3/ch3_4_1.html">3.4.1 Gradient Operator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch3/ch3_4_2.html">3.4.2 Divergence Operator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch3/ch3_4_3.html">3.4.3  Inverse Laplace operator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch3/ch3_4_4.html">3.4.4 Integral operator - inverse gradient operator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch3/ch3_4_5.html">3.4.5  Integral operator - inverse divergence operator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch3/ch3_4_6.html">3.4.6 Leray-orthogonal operator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch3/ch3_4_7.html">3.4.7 Leray operator and Helmholtz-Hodge decomposition</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Chapter 4:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../auto_ch4/index.html">Chapter 4: Clustering strategies</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch4/ch4_2.html">4.2 Clustering</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Chapter 5:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Chapter 5: Optimal transport and statistical kernel methods</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="ch5_2.html">5.2 Optimal Transport: LSAP (Linear Sum Assignment Problem)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ch5_33.html">5.3.3 Kernel Conditional Density</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ch5_34.html">5.3.4 Kernel Conditional Expectation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ch5_6_a.html">5.6.a Application of OT in Disitribution Sampling : 1D</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">5.6.b Application of OT in Disitribution Sampling : 2D</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ch5_6_c.html">5.6.c Application of OT in Disitribution Sampling : High-Dimensional case</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ch5_6_d.html">5.6.d Exploration Data Analysis of the Latent Space: Spherical Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ch5_7.html">5.7. Conditional Sampling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ch5_8.html">5.8. Conditional Sampling</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Chapter 6:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../auto_ch6/index.html">Chapter 6: Applications to machine learning : supervised, unsupervised and generative methods</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch6/ch6_housing.html">6.1 Supervised learning: reproducibility illustration with housing prices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch6/ch6_mnist.html">6.2 Supervised learning: benchmarks of methods with MNIST</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch6/ch6_Clustering.html">6.3 Unsupervised learning: Clustering - MNIST</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch6/ch6_ClustMNIST.html">6.3 Unsupervised learning: Clustering - MNIST</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch6/ch6_CreditCardFraud.html">6.4 Unsupervised learning: Clustering - Fraud detection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch6/ch6_9_CelebA_reconstruction.html">6.4.1 Generating complex distributions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch6/ch6_9_CelebA.html">6.4.1 Generating complex distributions from celebA dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch6/ch6_9_transfert.html">6.4.5 Conditioning on discrete distributions of celebA dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch6/ch6_stockClustering.html">6.5 Unsupervised learning: Clustering - Stock Clustering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch6/ch6_iris.html">6.7. Conditional Sampling</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Chapter 7:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../auto_ch7/index.html">Chapter 7: Application to partial differential equations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch7/ch7_invLaplace.html">7.01 Inverse Laplace Operator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch7/ch7_denoising.html">7.02 Denoising</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch7/ch7_heat_eq.html">7.03 Heat Equation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch7/ch7_heatLagrange.html">7.04 Lagrange Heat Equation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch7/ch7_convexHull.html">7.05 Convex Hull Algorithm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch7/ch7_AAD.html">7.06 Automatic Differentiation</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Chapter 8:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../kqlearning.html">KQLearning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../auto_ch8/index.html">Chapter 8: Reinforcement learning.</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch8/ch8_example.html">8.1 Using KAgents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch8/ch8_cartpole.html">8.2 Experiments - Cartpole</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch8/ch8_lunarlander.html">8.3 Experiments - LunarLander</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Chapter 9:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../auto_ch9/index.html">Chapter 9: Mathematical Finance.</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_get_market_data.html">9.01 Free time series modeling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_random_walk_log_normal.html">9.02 Random walks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_arma.html">9.03 ARMA(p,1) model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_garch.html">9.04 GARCH(1,1) model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_lagrange.html">9.05 Lagrange interpolation model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_additive.html">9.06 Additive noise map</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_conditionning.html">9.07 Conditionning model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_stoch_vol.html">9.08 Stochastic volatility model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_HestonCompare.html">9.10 Heston Process - Path comparison</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_isocontours.html">9.11 Heston Process - Intraday interpolation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_priceExtrapolation.html">9.12 Price extrapolation using KRR and Taylor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_greeks.html">9.13 Greeks output after correction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_rst.html">9.13 Reverse Stress Test</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_HestonRepro.html">9.9 Heston Process - Reproducibility</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../utils/ch9/ch9_utils.html">Chapter 9 utility functions</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">CodPy Book</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Chapter 5: Optimal transport and statistical kernel methods</a></li>
+      <li class="breadcrumb-item active">5.6.b Application of OT in Disitribution Sampling : 2D</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/auto_ch5/ch5_6_b.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="sphx-glr-download-link-note admonition note">
+<p class="admonition-title">Note</p>
+<p><a class="reference internal" href="#sphx-glr-download-auto-ch5-ch5-6-b-py"><span class="std std-ref">Go to the end</span></a>
+to download the full example code.</p>
+</div>
+<section class="sphx-glr-example-title" id="b-application-of-ot-in-disitribution-sampling-2d">
+<span id="sphx-glr-auto-ch5-ch5-6-b-py"></span><h1>5.6.b Application of OT in Disitribution Sampling : 2D<a class="headerlink" href="#b-application-of-ot-in-disitribution-sampling-2d" title="Link to this heading"></a></h1>
+<p>This section introduces the concept of partition of unity in the context of
+kernel methods and how CodPy implements it via projection operators.</p>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Link to this heading"></a></h2>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">codpy</span><span class="w"> </span><span class="kn">import</span> <span class="n">core</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">codpy.kernel</span><span class="w"> </span><span class="kn">import</span> <span class="n">Kernel</span><span class="p">,</span> <span class="n">Sampler</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">normal_wrapper</span><span class="p">(</span><span class="n">center</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="n">center</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">radius</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">size</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">student_wrapper</span><span class="p">(</span><span class="n">center</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;df&quot;</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">)</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">standard_t</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">size</span><span class="p">)</span>
+    <span class="n">out</span> <span class="o">+=</span> <span class="n">center</span>
+    <span class="k">return</span> <span class="n">out</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">generate_multimodal_data</span><span class="p">(</span>
+    <span class="n">N</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span>
+    <span class="n">D</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">num_clusters</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+    <span class="n">centers</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">radii</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">weights</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">random_variable</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Generate synthetic multimodal data from a mixture of clusters.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">        N (int): Total number of samples.</span>
+<span class="sd">        D (int): Dimensionality of the data.</span>
+<span class="sd">        num_clusters (int): Number of clusters.</span>
+<span class="sd">        centers (np.ndarray): Optional. Shape (num_clusters, D).</span>
+<span class="sd">        radii (np.ndarray): Optional. Std dev per cluster.</span>
+<span class="sd">        weights (np.ndarray): Optional. Cluster weights (should sum to 1).</span>
+<span class="sd">        random_variable (callable): Custom sampling function. Default is np.random.normal.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        x (pd.DataFrame): Data samples.</span>
+<span class="sd">        labels (pd.Series): Cluster labels for each sample.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">centers</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">centers</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">num_clusters</span><span class="p">,</span> <span class="n">D</span><span class="p">))</span>
+        <span class="n">centers</span> <span class="o">-=</span> <span class="n">centers</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">centers</span> <span class="o">=</span> <span class="n">centers</span> <span class="o">*</span> <span class="mf">4.</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">centers</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">radii</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">radii</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">num_clusters</span><span class="p">))</span>
+
+    <span class="k">if</span> <span class="n">weights</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">weights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">num_clusters</span><span class="p">)</span> <span class="o">/</span> <span class="n">num_clusters</span>
+
+    <span class="k">if</span> <span class="n">random_variable</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">random_variable</span> <span class="o">=</span> <span class="n">normal_wrapper</span>
+
+    <span class="n">x_list</span><span class="p">,</span> <span class="n">label_list</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_clusters</span><span class="p">):</span>
+        <span class="n">num_samples</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">N</span> <span class="o">*</span> <span class="n">weights</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+        <span class="n">samples</span> <span class="o">=</span> <span class="n">random_variable</span><span class="p">(</span>
+            <span class="n">center</span><span class="o">=</span><span class="n">centers</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">num_samples</span><span class="p">,</span> <span class="n">D</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="n">radii</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="o">**</span><span class="n">kwargs</span>
+        <span class="p">)</span>
+        <span class="n">x_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">samples</span><span class="p">)</span>
+        <span class="n">label_list</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">num_samples</span><span class="p">)</span>
+
+    <span class="n">x</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span><span class="n">x_list</span><span class="p">),</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;dim_</span><span class="si">{</span><span class="n">d</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">D</span><span class="p">)])</span>
+    <span class="n">labels</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">label_list</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;cluster&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">x</span><span class="p">,</span> <span class="n">labels</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">df_summary</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;Mean&quot;</span><span class="p">:</span> <span class="n">df</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span>
+            <span class="s2">&quot;Variance&quot;</span><span class="p">:</span> <span class="n">df</span><span class="o">.</span><span class="n">var</span><span class="p">(),</span>
+            <span class="s2">&quot;Skewness&quot;</span><span class="p">:</span> <span class="n">df</span><span class="o">.</span><span class="n">skew</span><span class="p">(),</span>
+            <span class="s2">&quot;Kurtosis&quot;</span><span class="p">:</span> <span class="n">df</span><span class="o">.</span><span class="n">kurtosis</span><span class="p">(),</span>
+        <span class="p">}</span>
+    <span class="p">)</span>
+
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="kn">import</span> <span class="n">ks_2samp</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">ks_testD</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.05</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Performs Kolmogorov-Smirnov test for each dimension.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">        x (np.ndarray or pd.DataFrame): First sample.</span>
+<span class="sd">        y (np.ndarray or pd.DataFrame): Second sample.</span>
+<span class="sd">        alpha (float): Significance level (default 0.05).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        pd.Series: p-values from the KS test.</span>
+<span class="sd">        pd.Series: Constant threshold values (same for all dimensions).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">values</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="k">else</span> <span class="n">x</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">values</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="k">else</span> <span class="n">y</span>
+
+    <span class="n">D</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">p_values</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">thresholds</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">D</span><span class="p">):</span>
+        <span class="n">stat</span> <span class="o">=</span> <span class="n">ks_2samp</span><span class="p">(</span><span class="n">x</span><span class="p">[:,</span> <span class="n">i</span><span class="p">],</span> <span class="n">y</span><span class="p">[:,</span> <span class="n">i</span><span class="p">])</span>
+        <span class="n">p_values</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">stat</span><span class="o">.</span><span class="n">pvalue</span><span class="p">)</span>
+        <span class="n">thresholds</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">alpha</span><span class="p">)</span>  <span class="c1"># Optional: could vary if computed per dim</span>
+
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">p_values</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;p-value&quot;</span><span class="p">),</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">thresholds</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;threshold&quot;</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">stats_df</span><span class="p">(</span><span class="n">dfx_list</span><span class="p">,</span> <span class="n">dfy_list</span><span class="p">,</span> <span class="n">f_names</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">{:.2g}</span><span class="s2">&quot;</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Computes and formats summary statistics between reference and sampled data.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">        dfx_list (list): List of reference datasets (np.ndarray or pd.DataFrame).</span>
+<span class="sd">        dfy_list (list): List of sampled datasets (np.ndarray or pd.DataFrame).</span>
+<span class="sd">        f_names (list): Optional. Row labels. Should match total number of columns across all datasets.</span>
+<span class="sd">        fmt (str): Format string for floats.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        pd.DataFrame: Formatted summary statistics.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dfx_list</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+        <span class="n">dfx_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">dfx_list</span><span class="p">]</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dfy_list</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+        <span class="n">dfy_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">dfy_list</span><span class="p">]</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">format_pair</span><span class="p">(</span><span class="n">x_vals</span><span class="p">,</span> <span class="n">y_vals</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">fmt</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">fmt</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">y</span><span class="p">)</span><span class="si">}</span><span class="s2">)&quot;</span> <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">x_vals</span><span class="p">,</span> <span class="n">y_vals</span><span class="p">)]</span>
+
+    <span class="n">all_stats</span><span class="p">,</span> <span class="n">full_index</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">dfx</span><span class="p">,</span> <span class="n">dfy</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">dfx_list</span><span class="p">,</span> <span class="n">dfy_list</span><span class="p">)):</span>
+        <span class="n">dfx</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">dfx</span><span class="p">)</span>
+        <span class="n">dfy</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">dfy</span><span class="p">)</span>
+
+        <span class="n">sx</span><span class="p">,</span> <span class="n">sy</span> <span class="o">=</span> <span class="n">df_summary</span><span class="p">(</span><span class="n">dfx</span><span class="p">),</span> <span class="n">df_summary</span><span class="p">(</span><span class="n">dfy</span><span class="p">)</span>
+        <span class="n">ks_df</span><span class="p">,</span> <span class="n">ks_thr</span> <span class="o">=</span> <span class="n">ks_testD</span><span class="p">(</span><span class="n">dfx</span><span class="p">,</span> <span class="n">dfy</span><span class="p">)</span>
+
+        <span class="n">stats</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;Mean&quot;</span><span class="p">:</span> <span class="n">format_pair</span><span class="p">(</span><span class="n">sx</span><span class="o">.</span><span class="n">Mean</span><span class="p">,</span> <span class="n">sy</span><span class="o">.</span><span class="n">Mean</span><span class="p">),</span>
+            <span class="s2">&quot;Variance&quot;</span><span class="p">:</span> <span class="n">format_pair</span><span class="p">(</span><span class="n">sx</span><span class="o">.</span><span class="n">Variance</span><span class="p">,</span> <span class="n">sy</span><span class="o">.</span><span class="n">Variance</span><span class="p">),</span>
+            <span class="s2">&quot;Skewness&quot;</span><span class="p">:</span> <span class="n">format_pair</span><span class="p">(</span><span class="n">sx</span><span class="o">.</span><span class="n">Skewness</span><span class="p">,</span> <span class="n">sy</span><span class="o">.</span><span class="n">Skewness</span><span class="p">),</span>
+            <span class="s2">&quot;Kurtosis&quot;</span><span class="p">:</span> <span class="n">format_pair</span><span class="p">(</span><span class="n">sx</span><span class="o">.</span><span class="n">Kurtosis</span><span class="p">,</span> <span class="n">sy</span><span class="o">.</span><span class="n">Kurtosis</span><span class="p">),</span>
+            <span class="s2">&quot;KS test&quot;</span><span class="p">:</span> <span class="n">format_pair</span><span class="p">(</span><span class="n">ks_df</span><span class="p">,</span> <span class="n">ks_thr</span><span class="p">),</span>
+        <span class="p">}</span>
+
+        <span class="n">all_stats</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">stats</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">dfx</span><span class="o">.</span><span class="n">columns</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">f_names</span> <span class="ow">and</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">f_names</span><span class="p">):</span>
+            <span class="n">full_index</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">f_names</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">col</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">dfx</span><span class="o">.</span><span class="n">columns</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">full_index</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">dfx</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+
+    <span class="n">result</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">all_stats</span><span class="p">)</span>
+    <span class="n">result</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">full_index</span>
+    <span class="k">return</span> <span class="n">result</span>
+</pre></div>
+</div>
+<p>Two-dimensional illustrations</p>
+<hr class="docutils" />
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">compare_distributions_2d</span><span class="p">(</span><span class="n">N</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">Nz</span><span class="o">=</span><span class="mi">500</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compare Gaussian and Student-t distributions using 2D sampling and scatter plotting.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">scatter_plot</span><span class="p">(</span><span class="n">ref</span><span class="p">,</span> <span class="n">sampled</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">ax</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">ref</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">ref</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Reference&quot;</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">sampled</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">sampled</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Sampled&quot;</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+    <span class="c1"># Generate Gaussian data</span>
+    <span class="n">y_gauss_df</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">generate_multimodal_data</span><span class="p">(</span><span class="n">N</span><span class="o">=</span><span class="n">N</span><span class="p">,</span> <span class="n">D</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">y_gauss</span> <span class="o">=</span> <span class="n">y_gauss_df</span><span class="o">.</span><span class="n">values</span>
+    <span class="n">sampler_gauss</span> <span class="o">=</span> <span class="n">Sampler</span><span class="p">(</span><span class="n">y_gauss</span><span class="p">,</span><span class="n">reg</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span><span class="n">distance</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">sampler_gauss</span><span class="o">.</span><span class="n">x</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">sampler_gauss</span><span class="o">.</span><span class="n">x</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Reference Gaussian&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Latent distribution&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+    <span class="n">sampled_gauss</span> <span class="o">=</span> <span class="n">sampler_gauss</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">Nz</span><span class="p">)</span>
+    <span class="c1"># sampled_gauss = sampler_gauss.get_fx()</span>
+
+    <span class="c1"># Generate Student-t data</span>
+    <span class="n">y_student_df</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">generate_multimodal_data</span><span class="p">(</span>
+        <span class="n">N</span><span class="o">=</span><span class="n">N</span><span class="p">,</span> <span class="n">D</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">random_variable</span><span class="o">=</span><span class="n">student_wrapper</span>
+    <span class="p">)</span>
+    <span class="n">y_student</span> <span class="o">=</span> <span class="n">y_student_df</span><span class="o">.</span><span class="n">values</span>
+    <span class="n">sampler_student</span> <span class="o">=</span> <span class="n">Sampler</span><span class="p">(</span><span class="n">y_student</span><span class="p">)</span>
+    <span class="n">sampled_student</span> <span class="o">=</span> <span class="n">sampler_student</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">Nz</span><span class="p">)</span>
+
+    <span class="c1"># Plot</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+    <span class="n">scatter_plot</span><span class="p">(</span><span class="n">y_gauss</span><span class="p">,</span> <span class="n">sampled_gauss</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Gaussian Distribution&quot;</span><span class="p">)</span>
+    <span class="n">scatter_plot</span><span class="p">(</span><span class="n">y_student</span><span class="p">,</span> <span class="n">sampled_student</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Student-t Distribution&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">stats_df</span><span class="p">(</span>
+        <span class="p">[</span><span class="n">y_gauss</span><span class="p">,</span> <span class="n">y_student</span><span class="p">],</span>
+        <span class="p">[</span><span class="n">sampled_gauss</span><span class="p">,</span> <span class="n">sampled_student</span><span class="p">],</span>
+        <span class="n">f_names</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Gaussian&quot;</span><span class="p">,</span> <span class="s2">&quot;Student-t&quot;</span><span class="p">],</span>
+    <span class="p">)</span>
+<span class="n">core</span><span class="o">.</span><span class="n">KerInterface</span><span class="o">.</span><span class="n">set_verbose</span><span class="p">()</span>
+
+<span class="n">stats</span> <span class="o">=</span> <span class="n">compare_distributions_2d</span><span class="p">()</span>
+<span class="n">stats</span><span class="o">.</span><span class="n">to_latex</span><span class="p">(</span>
+    <span class="s2">&quot;ch5_6_b.tex&quot;</span><span class="p">,</span>
+    <span class="n">index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">float_format</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">%.2g</span><span class="s2">&quot;</span><span class="p">,</span>
+    <span class="n">caption</span><span class="o">=</span><span class="s2">&quot;Comparison of Gaussian and Student-t distributions using 1D sampling.&quot;</span><span class="p">,</span>
+    <span class="n">label</span><span class="o">=</span><span class="s2">&quot;tab:ch5_6_b&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">stats</span><span class="p">)</span>
+<span class="k">pass</span>
+</pre></div>
+</div>
+<ul class="sphx-glr-horizontal">
+<li><img src="../_images/sphx_glr_ch5_6_b_001.png" srcset="../_images/sphx_glr_ch5_6_b_001.png" alt="Latent distribution" class = "sphx-glr-multi-img"/></li>
+<li><img src="../_images/sphx_glr_ch5_6_b_002.png" srcset="../_images/sphx_glr_ch5_6_b_002.png" alt="Gaussian Distribution, Student-t Distribution" class = "sphx-glr-multi-img"/></li>
+</ul>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>                        Mean   Variance           Skewness        Kurtosis      KS test
+Gaussian:0      0.01 (0.019)  4.7 (4.4)  -0.0029 (-0.0092)       -2 (-1.9)  0.36 (0.05)
+Gaussian:1   -0.015 (-0.032)    11 (11)      0.001 (0.005)       -2 (-1.9)  0.49 (0.05)
+Student-t:0    0.3 (-0.0038)    55 (17)        9.7 (-0.11)  1.4e+02 (-1.3)  0.98 (0.05)
+Student-t:1    -0.13 (-0.12)  4.5 (3.9)       0.021 (0.22)       5.3 (2.8)     1 (0.05)
+</pre></div>
+</div>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.202 seconds)</p>
+<div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-ch5-ch5-6-b-py">
+<div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
+<p><a class="reference download internal" download="" href="../_downloads/a36ea6b8760f7ee8aca6c7204ea4f595/ch5_6_b.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">ch5_6_b.ipynb</span></code></a></p>
+</div>
+<div class="sphx-glr-download sphx-glr-download-python docutils container">
+<p><a class="reference download internal" download="" href="../_downloads/24d7b1b4561aa6e5aaebc9b215e3cacb/ch5_6_b.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">ch5_6_b.py</span></code></a></p>
+</div>
+<div class="sphx-glr-download sphx-glr-download-zip docutils container">
+<p><a class="reference download internal" download="" href="../_downloads/7da1f18f26b395b8fc21fc3fa3c694ba/ch5_6_b.zip"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">zipped:</span> <span class="pre">ch5_6_b.zip</span></code></a></p>
+</div>
+</div>
+<p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="ch5_6_a.html" class="btn btn-neutral float-left" title="5.6.a Application of OT in Disitribution Sampling : 1D" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="ch5_6_c.html" class="btn btn-neutral float-right" title="5.6.c Application of OT in Disitribution Sampling : High-Dimensional case" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Philippe G. LeFloch , Jean-Marc Mercier, and Shohruh Miryusupov.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

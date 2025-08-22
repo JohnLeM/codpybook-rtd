@@ -1,0 +1,562 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>9.04 GARCH(1,1) model &mdash; CodPy Book 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=8d563738"></script>
+      <script src="../_static/doctools.js?v=9a2dae69"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script>let toggleHintShow = 'Click to show';</script>
+      <script>let toggleHintHide = 'Click to hide';</script>
+      <script>let toggleOpenOnPrint = 'true';</script>
+      <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+      <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+      <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+      <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "displayMath": [["$$", "$$"], ["\\[", "\\]"]]}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="9.05 Lagrange interpolation model" href="ch9_lagrange.html" />
+    <link rel="prev" title="9.03 ARMA(p,1) model" href="ch9_arma.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            CodPy Book
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Chapter 2:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../auto_ch2/index.html">Chapter 2: Basic notions on reproducing kernels</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch2/ch2_2.html">2.2 Reproducing kernels and transformation maps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch2/ch2_ex1D.html">2.3 1D Periodic Function Extrapolation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch2/ch2_5.html">2.3.2 Applying maps to kernels</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch2/ch2_ex2D.html">2.4 2D Periodic Function Extrapolation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch2/ch2_discrepancy_functional.html">2.6.2 A study of the discrepancy functional</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Chapter 3:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../auto_ch3/index.html">Chapter 3: Discrete operators based on reproducing kernels</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch3/ch3_3_2.html">3.3.2 Partition of unity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch3/ch3_4_1.html">3.4.1 Gradient Operator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch3/ch3_4_2.html">3.4.2 Divergence Operator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch3/ch3_4_3.html">3.4.3  Inverse Laplace operator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch3/ch3_4_4.html">3.4.4 Integral operator - inverse gradient operator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch3/ch3_4_5.html">3.4.5  Integral operator - inverse divergence operator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch3/ch3_4_6.html">3.4.6 Leray-orthogonal operator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch3/ch3_4_7.html">3.4.7 Leray operator and Helmholtz-Hodge decomposition</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Chapter 4:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../auto_ch4/index.html">Chapter 4: Clustering strategies</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch4/ch4_2.html">4.2 Clustering</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Chapter 5:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../auto_ch5/index.html">Chapter 5: Optimal transport and statistical kernel methods</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch5/ch5_2.html">5.2 Optimal Transport: LSAP (Linear Sum Assignment Problem)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch5/ch5_33.html">5.3.3 Kernel Conditional Density</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch5/ch5_34.html">5.3.4 Kernel Conditional Expectation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch5/ch5_6_a.html">5.6.a Application of OT in Disitribution Sampling : 1D</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch5/ch5_6_b.html">5.6.b Application of OT in Disitribution Sampling : 2D</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch5/ch5_6_c.html">5.6.c Application of OT in Disitribution Sampling : High-Dimensional case</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch5/ch5_6_d.html">5.6.d Exploration Data Analysis of the Latent Space: Spherical Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch5/ch5_7.html">5.7. Conditional Sampling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch5/ch5_8.html">5.8. Conditional Sampling</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Chapter 6:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../auto_ch6/index.html">Chapter 6: Applications to machine learning : supervised, unsupervised and generative methods</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch6/ch6_housing.html">6.1 Supervised learning: reproducibility illustration with housing prices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch6/ch6_mnist.html">6.2 Supervised learning: benchmarks of methods with MNIST</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch6/ch6_Clustering.html">6.3 Unsupervised learning: Clustering - MNIST</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch6/ch6_ClustMNIST.html">6.3 Unsupervised learning: Clustering - MNIST</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch6/ch6_CreditCardFraud.html">6.4 Unsupervised learning: Clustering - Fraud detection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch6/ch6_9_CelebA_reconstruction.html">6.4.1 Generating complex distributions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch6/ch6_9_CelebA.html">6.4.1 Generating complex distributions from celebA dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch6/ch6_9_transfert.html">6.4.5 Conditioning on discrete distributions of celebA dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch6/ch6_stockClustering.html">6.5 Unsupervised learning: Clustering - Stock Clustering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch6/ch6_iris.html">6.7. Conditional Sampling</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Chapter 7:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../auto_ch7/index.html">Chapter 7: Application to partial differential equations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch7/ch7_invLaplace.html">7.01 Inverse Laplace Operator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch7/ch7_denoising.html">7.02 Denoising</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch7/ch7_heat_eq.html">7.03 Heat Equation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch7/ch7_heatLagrange.html">7.04 Lagrange Heat Equation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch7/ch7_convexHull.html">7.05 Convex Hull Algorithm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch7/ch7_AAD.html">7.06 Automatic Differentiation</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Chapter 8:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../kqlearning.html">KQLearning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../auto_ch8/index.html">Chapter 8: Reinforcement learning.</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch8/ch8_example.html">8.1 Using KAgents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch8/ch8_cartpole.html">8.2 Experiments - Cartpole</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch8/ch8_lunarlander.html">8.3 Experiments - LunarLander</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Chapter 9:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Chapter 9: Mathematical Finance.</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="ch9_get_market_data.html">9.01 Free time series modeling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ch9_random_walk_log_normal.html">9.02 Random walks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ch9_arma.html">9.03 ARMA(p,1) model</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">9.04 GARCH(1,1) model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ch9_lagrange.html">9.05 Lagrange interpolation model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ch9_additive.html">9.06 Additive noise map</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ch9_conditionning.html">9.07 Conditionning model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ch9_stoch_vol.html">9.08 Stochastic volatility model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ch9_HestonCompare.html">9.10 Heston Process - Path comparison</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ch9_isocontours.html">9.11 Heston Process - Intraday interpolation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ch9_priceExtrapolation.html">9.12 Price extrapolation using KRR and Taylor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ch9_greeks.html">9.13 Greeks output after correction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ch9_rst.html">9.13 Reverse Stress Test</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ch9_HestonRepro.html">9.9 Heston Process - Reproducibility</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../utils/ch9/ch9_utils.html">Chapter 9 utility functions</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">CodPy Book</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Chapter 9: Mathematical Finance.</a></li>
+      <li class="breadcrumb-item active">9.04 GARCH(1,1) model</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/auto_ch9/ch9_garch.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="sphx-glr-download-link-note admonition note">
+<p class="admonition-title">Note</p>
+<p><a class="reference internal" href="#sphx-glr-download-auto-ch9-ch9-garch-py"><span class="std std-ref">Go to the end</span></a>
+to download the full example code.</p>
+</div>
+<section class="sphx-glr-example-title" id="garch-1-1-model">
+<span id="sphx-glr-auto-ch9-ch9-garch-py"></span><h1>9.04 GARCH(1,1) model<a class="headerlink" href="#garch-1-1-model" title="Link to this heading"></a></h1>
+<p>We reproduce here the figure 9.5 of the book.
+Utilitary functions can be found next to this file. Here, we only define codpy-related functions.</p>
+<section id="necessary-imports">
+<h2>Necessary Imports<a class="headerlink" href="#necessary-imports" title="Link to this heading"></a></h2>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">codpy.kernel</span><span class="w"> </span><span class="kn">import</span> <span class="n">Sampler</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">CURRENT_DIR</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="vm">__file__</span><span class="p">))</span>
+<span class="k">except</span> <span class="ne">NameError</span><span class="p">:</span>
+    <span class="n">CURRENT_DIR</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
+<span class="n">data_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">CURRENT_DIR</span><span class="p">,</span> <span class="s2">&quot;data&quot;</span><span class="p">)</span>
+<span class="n">PARENT_DIR</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">CURRENT_DIR</span><span class="p">,</span> <span class="s2">&quot;..&quot;</span><span class="p">))</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">PARENT_DIR</span><span class="p">)</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">utils.ch9.mapping</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">maps</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">utils.ch9.data_utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">stats_df</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">utils.ch9.market_data</span><span class="w"> </span><span class="kn">import</span> <span class="n">retrieve_market_data</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">utils.ch9.path_generation</span><span class="w"> </span><span class="kn">import</span> <span class="n">generate_paths</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">utils.ch9.plot_utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">display_historical_vs_generated_distribution</span>
+</pre></div>
+</div>
+</section>
+<section id="parameter-definition">
+<h2>Parameter definition<a class="headerlink" href="#parameter-definition" title="Link to this heading"></a></h2>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">get_cdpres_param</span><span class="p">():</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">&quot;rescale_kernel&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;max&quot;</span><span class="p">:</span> <span class="mi">2000</span><span class="p">,</span> <span class="s2">&quot;seed&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">},</span>
+        <span class="s2">&quot;rescale&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="s2">&quot;grid_projection&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="s2">&quot;reproductibility&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="s2">&quot;date_format&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="si">%d</span><span class="s2">/%m/%Y&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;begin_date&quot;</span><span class="p">:</span> <span class="s2">&quot;01/06/2020&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;end_date&quot;</span><span class="p">:</span> <span class="s2">&quot;01/06/2022&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;today_date&quot;</span><span class="p">:</span> <span class="s2">&quot;01/06/2022&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;symbols&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;AAPL&quot;</span><span class="p">,</span> <span class="s2">&quot;GOOGL&quot;</span><span class="p">,</span> <span class="s2">&quot;AMZN&quot;</span><span class="p">],</span>
+    <span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="get-the-market-data">
+<h2>Get the market data<a class="headerlink" href="#get-the-market-data" title="Link to this heading"></a></h2>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">params</span> <span class="o">=</span> <span class="n">retrieve_market_data</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="defining-the-map">
+<h2>Defining the map<a class="headerlink" href="#defining-the-map" title="Link to this heading"></a></h2>
+<p>The GARCH(p,q) map is defined as:
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+X^k &amp;= \mu + \sigma^k \epsilon^k, \\
+(\sigma^k)^2 &amp;= \alpha_0 + \sum_{i=1}^{p} \alpha_i (X^{k-i})^2 + \sum_{j=1}^{q} \beta_j (\sigma^{k-j})^2,
+\end{aligned}\end{split}\]</div>
+
+where <span class="math notranslate nohighlight">\(\mu \in \mathbb{R}\)</span>, <span class="math notranslate nohighlight">\(\{\epsilon^k\}\)</span> is a white noise sequence with unit variance, and <span class="math notranslate nohighlight">\(\sigma^k\)</span> is a stochastic volatility term determined recursively.
+The parameters <span class="math notranslate nohighlight">\(\alpha_i\)</span> and <span class="math notranslate nohighlight">\(\beta_i\)</span> denote the GARCH parameters.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">q</span> <span class="o">=</span> <span class="mi">1</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">garch_pq</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">arch</span><span class="w"> </span><span class="kn">import</span> <span class="n">arch_model</span>
+
+    <span class="n">p_values</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+    <span class="n">q_values</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+    <span class="n">aic_values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">p_values</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">q_values</span><span class="p">)),</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">p_values</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">q_values</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">model</span> <span class="o">=</span> <span class="n">arch_model</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">vol</span><span class="o">=</span><span class="s2">&quot;Garch&quot;</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="n">i</span><span class="p">,</span> <span class="n">q</span><span class="o">=</span><span class="n">j</span><span class="p">)</span>
+                <span class="n">results</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">disp</span><span class="o">=</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>  <span class="c1"># suppress convergence messages</span>
+                <span class="n">aic_values</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">aic</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="k">continue</span>
+
+    <span class="n">p</span><span class="p">,</span> <span class="n">q</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unravel_index</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">aic_values</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="kc">None</span><span class="p">),</span> <span class="n">aic_values</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The smallest AIC is </span><span class="si">{</span><span class="n">aic_values</span><span class="p">[</span><span class="n">p</span><span class="p">,</span><span class="w"> </span><span class="n">q</span><span class="p">]</span><span class="si">}</span><span class="s2"> for model GARCH(</span><span class="si">{</span><span class="n">p</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">q</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+
+    <span class="n">best_p</span><span class="p">,</span> <span class="n">best_q</span> <span class="o">=</span> <span class="n">p</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">q</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">arch_model</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">vol</span><span class="o">=</span><span class="s2">&quot;Garch&quot;</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">q</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">results</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">results</span><span class="o">.</span><span class="n">summary</span><span class="p">())</span>
+    <span class="n">a0</span> <span class="o">=</span> <span class="n">results</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s2">&quot;omega&quot;</span><span class="p">]</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">results</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;alpha[</span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">]&quot;</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">best_p</span><span class="p">)</span>
+        <span class="k">if</span> <span class="sa">f</span><span class="s2">&quot;alpha[</span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">]&quot;</span> <span class="ow">in</span> <span class="n">results</span><span class="o">.</span><span class="n">params</span>
+    <span class="p">]</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">results</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;beta[</span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">]&quot;</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">best_q</span><span class="p">)</span>
+        <span class="k">if</span> <span class="sa">f</span><span class="s2">&quot;beta[</span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">]&quot;</span> <span class="ow">in</span> <span class="n">results</span><span class="o">.</span><span class="n">params</span>
+    <span class="p">]</span>
+    <span class="k">return</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">estimate_coeff</span><span class="p">():</span>
+    <span class="n">asx</span><span class="p">,</span> <span class="n">bsx</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
+        <span class="n">ax</span><span class="p">,</span> <span class="n">bx</span> <span class="o">=</span> <span class="n">garch_pq</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[:,</span> <span class="n">i</span><span class="p">])</span>
+        <span class="n">asx</span> <span class="o">+=</span> <span class="p">[</span><span class="n">ax</span><span class="p">]</span>
+        <span class="n">bsx</span> <span class="o">+=</span> <span class="p">[</span><span class="n">bx</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">asx</span><span class="p">)</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">bsx</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+
+
+<span class="n">params</span><span class="p">[</span><span class="s2">&quot;a&quot;</span><span class="p">],</span> <span class="n">params</span><span class="p">[</span><span class="s2">&quot;b&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">estimate_coeff</span><span class="p">()</span>
+<span class="n">params</span><span class="p">[</span><span class="s2">&quot;q&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">q</span>
+<span class="n">params</span><span class="p">[</span><span class="s2">&quot;map&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">maps</span><span class="o">.</span><span class="n">composition_map</span><span class="p">(</span>
+    <span class="p">[</span><span class="n">maps</span><span class="o">.</span><span class="n">garch_map</span><span class="p">(),</span> <span class="n">maps</span><span class="o">.</span><span class="n">mean_map</span><span class="p">(),</span> <span class="n">maps</span><span class="o">.</span><span class="n">diff</span><span class="p">(),</span> <span class="n">maps</span><span class="o">.</span><span class="n">log_map</span><span class="p">,</span> <span class="n">maps</span><span class="o">.</span><span class="n">remove_time</span><span class="p">()]</span>
+<span class="p">)</span>
+<span class="n">params</span> <span class="o">=</span> <span class="n">maps</span><span class="o">.</span><span class="n">apply_map</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>The smallest AIC is 4141.037702885732 for model GARCH(0, 0)
+Iteration:      1,   Func. Count:      6,   Neg. LLF: 16986.629356658286
+Iteration:      2,   Func. Count:     12,   Neg. LLF: 2988.1019261412503
+Iteration:      3,   Func. Count:     18,   Neg. LLF: 2693.0760787188756
+Iteration:      4,   Func. Count:     24,   Neg. LLF: 2100.2759470630394
+Iteration:      5,   Func. Count:     30,   Neg. LLF: 2092.166149373335
+Iteration:      6,   Func. Count:     36,   Neg. LLF: 2102.752613213072
+Iteration:      7,   Func. Count:     42,   Neg. LLF: 2073.109754758848
+Iteration:      8,   Func. Count:     47,   Neg. LLF: 2079.0329137844983
+Iteration:      9,   Func. Count:     53,   Neg. LLF: 2069.501709914081
+Iteration:     10,   Func. Count:     58,   Neg. LLF: 2068.2699961477
+Iteration:     11,   Func. Count:     63,   Neg. LLF: 2067.5250950620048
+Iteration:     12,   Func. Count:     68,   Neg. LLF: 2066.6828346716716
+Iteration:     13,   Func. Count:     73,   Neg. LLF: 2066.542076310764
+Iteration:     14,   Func. Count:     78,   Neg. LLF: 2066.5196720137887
+Iteration:     15,   Func. Count:     83,   Neg. LLF: 2066.5189598207403
+Iteration:     16,   Func. Count:     88,   Neg. LLF: 2066.518854345993
+Iteration:     17,   Func. Count:     93,   Neg. LLF: 2066.518851442866
+Iteration:     18,   Func. Count:     97,   Neg. LLF: 2066.5188514428664
+Optimization terminated successfully    (Exit mode 0)
+            Current function value: 2066.518851442866
+            Iterations: 18
+            Function evaluations: 97
+            Gradient evaluations: 18
+                     Constant Mean - GARCH Model Results
+==============================================================================
+Dep. Variable:                      y   R-squared:                       0.000
+Mean Model:             Constant Mean   Adj. R-squared:                  0.000
+Vol Model:                      GARCH   Log-Likelihood:               -2066.52
+Distribution:                  Normal   AIC:                           4141.04
+Method:            Maximum Likelihood   BIC:                           4157.94
+                                        No. Observations:                  506
+Date:              ven., août 22 2025   Df Residuals:                      505
+Time:                        18:42:56   Df Model:                            1
+                                 Mean Model
+============================================================================
+                 coef    std err          t      P&gt;|t|      95.0% Conf. Int.
+----------------------------------------------------------------------------
+mu           125.5477      1.289     97.382      0.000 [1.230e+02,1.281e+02]
+                              Volatility Model
+===========================================================================
+                 coef    std err          t      P&gt;|t|     95.0% Conf. Int.
+---------------------------------------------------------------------------
+omega          3.7144      1.210      3.069  2.149e-03    [  1.342,  6.087]
+alpha[1]       0.9041  9.503e-02      9.514  1.828e-21    [  0.718,  1.090]
+beta[1]        0.0950  9.628e-02      0.987      0.324 [-9.370e-02,  0.284]
+===========================================================================
+
+Covariance estimator: robust
+The smallest AIC is 3535.7251594871695 for model GARCH(0, 0)
+Iteration:      1,   Func. Count:      6,   Neg. LLF: 602675894.7026879
+Iteration:      2,   Func. Count:     12,   Neg. LLF: 2466.504882261799
+Iteration:      3,   Func. Count:     19,   Neg. LLF: 1923.80528227795
+Iteration:      4,   Func. Count:     25,   Neg. LLF: 1777.3978356491607
+Iteration:      5,   Func. Count:     30,   Neg. LLF: 1770.7938839231458
+Iteration:      6,   Func. Count:     35,   Neg. LLF: 1771.654547784799
+Iteration:      7,   Func. Count:     41,   Neg. LLF: 1765.428021139962
+Iteration:      8,   Func. Count:     46,   Neg. LLF: 1764.8287218853977
+Iteration:      9,   Func. Count:     51,   Neg. LLF: 1764.4434332793412
+Iteration:     10,   Func. Count:     56,   Neg. LLF: 1764.1555080824837
+Iteration:     11,   Func. Count:     61,   Neg. LLF: 1763.8797244685038
+Iteration:     12,   Func. Count:     66,   Neg. LLF: 1763.863264750603
+Iteration:     13,   Func. Count:     71,   Neg. LLF: 1763.8625911283284
+Iteration:     14,   Func. Count:     76,   Neg. LLF: 1763.8625797435848
+Iteration:     15,   Func. Count:     80,   Neg. LLF: 1763.8625797422947
+Optimization terminated successfully    (Exit mode 0)
+            Current function value: 1763.8625797435848
+            Iterations: 15
+            Function evaluations: 80
+            Gradient evaluations: 15
+                     Constant Mean - GARCH Model Results
+==============================================================================
+Dep. Variable:                      y   R-squared:                       0.000
+Mean Model:             Constant Mean   Adj. R-squared:                  0.000
+Vol Model:                      GARCH   Log-Likelihood:               -1763.86
+Distribution:                  Normal   AIC:                           3535.73
+Method:            Maximum Likelihood   BIC:                           3552.63
+                                        No. Observations:                  506
+Date:              ven., août 22 2025   Df Residuals:                      505
+Time:                        18:42:57   Df Model:                            1
+                                 Mean Model
+============================================================================
+                 coef    std err          t      P&gt;|t|      95.0% Conf. Int.
+----------------------------------------------------------------------------
+mu           161.9109      0.790    204.905      0.000 [1.604e+02,1.635e+02]
+                               Volatility Model
+=============================================================================
+                 coef    std err          t      P&gt;|t|       95.0% Conf. Int.
+-----------------------------------------------------------------------------
+omega          6.3218      1.499      4.218  2.466e-05      [  3.384,  9.259]
+alpha[1]       0.9650  5.197e-02     18.568  5.800e-77      [  0.863,  1.067]
+beta[1]        0.0350  3.141e-02      1.115      0.265 [-2.654e-02,9.660e-02]
+=============================================================================
+
+Covariance estimator: robust
+The smallest AIC is 4340.552035447352 for model GARCH(0, 0)
+Iteration:      1,   Func. Count:      6,   Neg. LLF: 16275.618037269702
+Iteration:      2,   Func. Count:     13,   Neg. LLF: 2488.4649454939345
+Iteration:      3,   Func. Count:     19,   Neg. LLF: 2213.4460017426973
+Iteration:      4,   Func. Count:     25,   Neg. LLF: 2263.835511756241
+Iteration:      5,   Func. Count:     31,   Neg. LLF: 2168.8691710334742
+Iteration:      6,   Func. Count:     36,   Neg. LLF: 3108.6099731613394
+Iteration:      7,   Func. Count:     42,   Neg. LLF: 2553.7899311915207
+Iteration:      8,   Func. Count:     48,   Neg. LLF: 21964.18573516304
+Iteration:      9,   Func. Count:     54,   Neg. LLF: 2168.38146506957
+Iteration:     10,   Func. Count:     60,   Neg. LLF: 2166.5913578081636
+Iteration:     11,   Func. Count:     65,   Neg. LLF: 2166.411205000175
+Iteration:     12,   Func. Count:     70,   Neg. LLF: 2166.381080251631
+Iteration:     13,   Func. Count:     75,   Neg. LLF: 2166.3639915405465
+Iteration:     14,   Func. Count:     80,   Neg. LLF: 2166.3019670466983
+Iteration:     15,   Func. Count:     85,   Neg. LLF: 2166.276311352476
+Iteration:     16,   Func. Count:     90,   Neg. LLF: 2166.2760295185026
+Iteration:     17,   Func. Count:     95,   Neg. LLF: 2166.276017723676
+Iteration:     18,   Func. Count:     99,   Neg. LLF: 2166.2760178119124
+Optimization terminated successfully    (Exit mode 0)
+            Current function value: 2166.276017723676
+            Iterations: 18
+            Function evaluations: 99
+            Gradient evaluations: 18
+                     Constant Mean - GARCH Model Results
+==============================================================================
+Dep. Variable:                      y   R-squared:                       0.000
+Mean Model:             Constant Mean   Adj. R-squared:                  0.000
+Vol Model:                      GARCH   Log-Likelihood:               -2166.28
+Distribution:                  Normal   AIC:                           4340.55
+Method:            Maximum Likelihood   BIC:                           4357.46
+                                        No. Observations:                  506
+Date:              ven., août 22 2025   Df Residuals:                      505
+Time:                        18:42:57   Df Model:                            1
+                                 Mean Model
+============================================================================
+                 coef    std err          t      P&gt;|t|      95.0% Conf. Int.
+----------------------------------------------------------------------------
+mu           114.6062      0.480    238.672      0.000 [1.137e+02,1.155e+02]
+                            Volatility Model
+========================================================================
+                 coef    std err          t      P&gt;|t|  95.0% Conf. Int.
+------------------------------------------------------------------------
+omega          2.7980      0.926      3.023  2.502e-03 [  0.984,  4.612]
+alpha[1]       0.9983      0.149      6.709  1.964e-11 [  0.707,  1.290]
+beta[1]    6.5511e-17      0.134  4.879e-16      1.000 [ -0.263,  0.263]
+========================================================================
+
+Covariance estimator: robust
+</pre></div>
+</div>
+</section>
+<section id="we-define-our-sampler-on-the-mapped-data-using-codpy-s-sampler">
+<h2>We define our sampler on the mapped data using codpy’s Sampler<a class="headerlink" href="#we-define-our-sampler-on-the-mapped-data-using-codpy-s-sampler" title="Link to this heading"></a></h2>
+<p>You can define your own latent generator function, here we use a simple uniform distribution.
+But if not provided, a default one will be used by the Sampler class.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">mapped_data</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="s2">&quot;transform_h&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+<span class="n">generator</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">n</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">mapped_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+<span class="n">sampler</span> <span class="o">=</span> <span class="n">Sampler</span><span class="p">(</span><span class="n">mapped_data</span><span class="p">,</span> <span class="n">latent_generator</span><span class="o">=</span><span class="n">generator</span><span class="p">)</span>
+<span class="n">params</span><span class="p">[</span><span class="s2">&quot;sampler&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sampler</span>
+</pre></div>
+</div>
+</section>
+<section id="we-plot-the-original-distribution-vs-the-generated-one">
+<h2>We plot the original distribution vs the generated one<a class="headerlink" href="#we-plot-the-original-distribution-vs-the-generated-one" title="Link to this heading"></a></h2>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">params</span> <span class="o">=</span> <span class="n">display_historical_vs_generated_distribution</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+<span class="n">params</span><span class="p">[</span><span class="s2">&quot;graphic&quot;</span><span class="p">](</span><span class="n">params</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<img src="../_images/sphx_glr_ch9_garch_001.png" srcset="../_images/sphx_glr_ch9_garch_001.png" alt="ch9 garch" class = "sphx-glr-single-img"/></section>
+<section id="reproductibility-test">
+<h2>Reproductibility test<a class="headerlink" href="#reproductibility-test" title="Link to this heading"></a></h2>
+<p>We regenerate the same path by generating from the latent representation
+We make sure we get the original data back.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">params</span><span class="p">[</span><span class="s2">&quot;reproductibility&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">params</span> <span class="o">=</span> <span class="n">generate_paths</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+<span class="n">params</span><span class="p">[</span><span class="s2">&quot;graphic&quot;</span><span class="p">](</span><span class="n">params</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<img src="../_images/sphx_glr_ch9_garch_002.png" srcset="../_images/sphx_glr_ch9_garch_002.png" alt="ch9 garch" class = "sphx-glr-single-img"/></section>
+<section id="we-now-generate-a-new-set-of-10-paths">
+<h2>We now generate a new set of 10 paths<a class="headerlink" href="#we-now-generate-a-new-set-of-10-paths" title="Link to this heading"></a></h2>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">params</span><span class="p">[</span><span class="s2">&quot;reproductibility&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="n">params</span><span class="p">[</span><span class="s2">&quot;Nz&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">params</span> <span class="o">=</span> <span class="n">generate_paths</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+<span class="n">params</span><span class="p">[</span><span class="s2">&quot;graphic&quot;</span><span class="p">](</span><span class="n">params</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="n">stats</span> <span class="o">=</span> <span class="n">stats_df</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="s2">&quot;transform_h&quot;</span><span class="p">],</span> <span class="n">params</span><span class="p">[</span><span class="s2">&quot;transform_g&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">stats</span><span class="p">)</span>
+</pre></div>
+</div>
+<img src="../_images/sphx_glr_ch9_garch_003.png" srcset="../_images/sphx_glr_ch9_garch_003.png" alt="ch9 garch" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>                          0                  1                  2
+Mean      -6.7e-06(0.00016)  -1.2e-06(2.7e-05)  -8.4e-06(0.00041)
+Variance      -0.068(-0.24)       -0.44(0.076)      -0.089(-0.28)
+Skewness    0.0004(0.00039)    0.0005(0.00043)   0.00033(0.00028)
+Kurtosis            2(0.31)           6.7(1.1)           1.4(0.6)
+KS test          0.54(0.05)         0.64(0.05)         0.72(0.05)
+</pre></div>
+</div>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 4.835 seconds)</p>
+<div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-ch9-ch9-garch-py">
+<div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
+<p><a class="reference download internal" download="" href="../_downloads/7aa58160b7d67c826092ffb4de8a325b/ch9_garch.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">ch9_garch.ipynb</span></code></a></p>
+</div>
+<div class="sphx-glr-download sphx-glr-download-python docutils container">
+<p><a class="reference download internal" download="" href="../_downloads/992d78ee0a99335875961f36df8bfd7b/ch9_garch.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">ch9_garch.py</span></code></a></p>
+</div>
+<div class="sphx-glr-download sphx-glr-download-zip docutils container">
+<p><a class="reference download internal" download="" href="../_downloads/02ba4a0cb0866358706fec314cbd996b/ch9_garch.zip"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">zipped:</span> <span class="pre">ch9_garch.zip</span></code></a></p>
+</div>
+</div>
+<p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="ch9_arma.html" class="btn btn-neutral float-left" title="9.03 ARMA(p,1) model" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="ch9_lagrange.html" class="btn btn-neutral float-right" title="9.05 Lagrange interpolation model" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Philippe G. LeFloch , Jean-Marc Mercier, and Shohruh Miryusupov.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

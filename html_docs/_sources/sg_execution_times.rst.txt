@@ -1,0 +1,202 @@
+
+:orphan:
+
+.. _sphx_glr_sg_execution_times:
+
+
+Computation times
+=================
+**26:41.757** total execution time for 56 files **from all galleries**:
+
+.. container::
+
+  .. raw:: html
+
+    <style scoped>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
+    </style>
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+    <script type="text/javascript" class="init">
+    $(document).ready( function () {
+        $('table.sg-datatable').DataTable({order: [[1, 'desc']]});
+    } );
+    </script>
+
+  .. list-table::
+   :header-rows: 1
+   :class: table table-striped sg-datatable
+
+   * - Example
+     - Time
+     - Mem (MB)
+   * - :ref:`sphx_glr_auto_ch6_ch6_ClustMNIST.py` (``ch6\ch6_ClustMNIST.py``)
+     - 05:25.077
+     - 0.0
+   * - :ref:`sphx_glr_auto_ch6_ch6_9_CelebA_reconstruction.py` (``ch6\ch6_9_CelebA_reconstruction.py``)
+     - 04:49.502
+     - 0.0
+   * - :ref:`sphx_glr_auto_ch6_ch6_9_CelebA.py` (``ch6\ch6_9_CelebA.py``)
+     - 04:12.934
+     - 0.0
+   * - :ref:`sphx_glr_auto_ch8_ch8_cartpole.py` (``ch8\ch8_cartpole.py``)
+     - 04:08.002
+     - 0.0
+   * - :ref:`sphx_glr_auto_ch6_ch6_mnist.py` (``ch6\ch6_mnist.py``)
+     - 03:32.425
+     - 0.0
+   * - :ref:`sphx_glr_auto_ch6_ch6_9_transfert.py` (``ch6\ch6_9_transfert.py``)
+     - 02:30.995
+     - 0.0
+   * - :ref:`sphx_glr_auto_ch9_ch9_HestonRepro.py` (``ch9\ch9_HestonRepro.py``)
+     - 00:14.078
+     - 0.0
+   * - :ref:`sphx_glr_auto_ch7_ch7_AAD.py` (``ch7\ch7_AAD.py``)
+     - 00:10.574
+     - 0.0
+   * - :ref:`sphx_glr_auto_ch9_ch9_HestonCompare.py` (``ch9\ch9_HestonCompare.py``)
+     - 00:10.268
+     - 0.0
+   * - :ref:`sphx_glr_auto_ch6_ch6_CreditCardFraud.py` (``ch6\ch6_CreditCardFraud.py``)
+     - 00:06.787
+     - 0.0
+   * - :ref:`sphx_glr_auto_ch6_ch6_housing.py` (``ch6\ch6_housing.py``)
+     - 00:06.025
+     - 0.0
+   * - :ref:`sphx_glr_auto_ch3_ch3_4_6.py` (``ch3\ch3_4_6.py``)
+     - 00:05.676
+     - 0.0
+   * - :ref:`sphx_glr_auto_ch3_ch3_4_3.py` (``ch3\ch3_4_3.py``)
+     - 00:05.527
+     - 0.0
+   * - :ref:`sphx_glr_auto_ch9_ch9_garch.py` (``ch9\ch9_garch.py``)
+     - 00:04.835
+     - 0.0
+   * - :ref:`sphx_glr_auto_ch3_ch3_4_1.py` (``ch3\ch3_4_1.py``)
+     - 00:04.620
+     - 0.0
+   * - :ref:`sphx_glr_auto_ch3_ch3_4_7.py` (``ch3\ch3_4_7.py``)
+     - 00:04.600
+     - 0.0
+   * - :ref:`sphx_glr_auto_ch3_ch3_4_5.py` (``ch3\ch3_4_5.py``)
+     - 00:04.442
+     - 0.0
+   * - :ref:`sphx_glr_auto_ch9_ch9_stoch_vol.py` (``ch9\ch9_stoch_vol.py``)
+     - 00:04.266
+     - 0.0
+   * - :ref:`sphx_glr_auto_ch9_ch9_additive.py` (``ch9\ch9_additive.py``)
+     - 00:04.208
+     - 0.0
+   * - :ref:`sphx_glr_auto_ch9_ch9_arma.py` (``ch9\ch9_arma.py``)
+     - 00:04.019
+     - 0.0
+   * - :ref:`sphx_glr_auto_ch9_ch9_conditionning.py` (``ch9\ch9_conditionning.py``)
+     - 00:03.772
+     - 0.0
+   * - :ref:`sphx_glr_auto_ch3_ch3_4_2.py` (``ch3\ch3_4_2.py``)
+     - 00:03.609
+     - 0.0
+   * - :ref:`sphx_glr_auto_ch9_ch9_random_walk_log_normal.py` (``ch9\ch9_random_walk_log_normal.py``)
+     - 00:03.260
+     - 0.0
+   * - :ref:`sphx_glr_auto_ch9_ch9_lagrange.py` (``ch9\ch9_lagrange.py``)
+     - 00:03.211
+     - 0.0
+   * - :ref:`sphx_glr_auto_ch3_ch3_4_4.py` (``ch3\ch3_4_4.py``)
+     - 00:02.915
+     - 0.0
+   * - :ref:`sphx_glr_auto_ch3_ch3_3_2.py` (``ch3\ch3_3_2.py``)
+     - 00:02.333
+     - 0.0
+   * - :ref:`sphx_glr_auto_ch4_ch4_2.py` (``ch4\ch4_2.py``)
+     - 00:01.899
+     - 0.0
+   * - :ref:`sphx_glr_auto_ch5_ch5_7.py` (``ch5\ch5_7.py``)
+     - 00:01.747
+     - 0.0
+   * - :ref:`sphx_glr_auto_ch7_ch7_heatLagrange.py` (``ch7\ch7_heatLagrange.py``)
+     - 00:01.061
+     - 0.0
+   * - :ref:`sphx_glr_auto_ch5_ch5_6_d.py` (``ch5\ch5_6_d.py``)
+     - 00:00.919
+     - 0.0
+   * - :ref:`sphx_glr_auto_ch9_ch9_isocontours.py` (``ch9\ch9_isocontours.py``)
+     - 00:00.901
+     - 0.0
+   * - :ref:`sphx_glr_auto_ch9_ch9_greeks.py` (``ch9\ch9_greeks.py``)
+     - 00:00.820
+     - 0.0
+   * - :ref:`sphx_glr_auto_ch7_ch7_invLaplace.py` (``ch7\ch7_invLaplace.py``)
+     - 00:00.759
+     - 0.0
+   * - :ref:`sphx_glr_auto_ch5_ch5_8.py` (``ch5\ch5_8.py``)
+     - 00:00.758
+     - 0.0
+   * - :ref:`sphx_glr_auto_ch9_ch9_priceExtrapolation.py` (``ch9\ch9_priceExtrapolation.py``)
+     - 00:00.703
+     - 0.0
+   * - :ref:`sphx_glr_auto_ch9_ch9_rst.py` (``ch9\ch9_rst.py``)
+     - 00:00.691
+     - 0.0
+   * - :ref:`sphx_glr_auto_ch5_ch5_6_c.py` (``ch5\ch5_6_c.py``)
+     - 00:00.572
+     - 0.0
+   * - :ref:`sphx_glr_auto_ch6_ch6_stockClustering.py` (``ch6\ch6_stockClustering.py``)
+     - 00:00.533
+     - 0.0
+   * - :ref:`sphx_glr_auto_ch5_ch5_33.py` (``ch5\ch5_33.py``)
+     - 00:00.470
+     - 0.0
+   * - :ref:`sphx_glr_auto_ch7_ch7_heat_eq.py` (``ch7\ch7_heat_eq.py``)
+     - 00:00.404
+     - 0.0
+   * - :ref:`sphx_glr_auto_ch7_ch7_convexHull.py` (``ch7\ch7_convexHull.py``)
+     - 00:00.323
+     - 0.0
+   * - :ref:`sphx_glr_auto_ch6_ch6_iris.py` (``ch6\ch6_iris.py``)
+     - 00:00.270
+     - 0.0
+   * - :ref:`sphx_glr_auto_ch5_ch5_6_a.py` (``ch5\ch5_6_a.py``)
+     - 00:00.223
+     - 0.0
+   * - :ref:`sphx_glr_auto_ch5_ch5_6_b.py` (``ch5\ch5_6_b.py``)
+     - 00:00.202
+     - 0.0
+   * - :ref:`sphx_glr_auto_ch7_ch7_denoising.py` (``ch7\ch7_denoising.py``)
+     - 00:00.185
+     - 0.0
+   * - :ref:`sphx_glr_auto_ch5_ch5_34.py` (``ch5\ch5_34.py``)
+     - 00:00.161
+     - 0.0
+   * - :ref:`sphx_glr_auto_ch5_ch5_2.py` (``ch5\ch5_2.py``)
+     - 00:00.089
+     - 0.0
+   * - :ref:`sphx_glr_auto_ch9_ch9_get_market_data.py` (``ch9\ch9_get_market_data.py``)
+     - 00:00.059
+     - 0.0
+   * - :ref:`sphx_glr_auto_ch8_ch8_example.py` (``ch8\ch8_example.py``)
+     - 00:00.033
+     - 0.0
+   * - :ref:`sphx_glr_auto_ch8_ch8_lunarlander.py` (``ch8\ch8_lunarlander.py``)
+     - 00:00.014
+     - 0.0
+   * - :ref:`sphx_glr_auto_ch6_ch6_Clustering.py` (``ch6\ch6_Clustering.py``)
+     - 00:00.002
+     - 0.0
+   * - :ref:`sphx_glr_auto_ch2_ch2_2.py` (``ch2\ch2_2.py``)
+     - 00:00.000
+     - 0.0
+   * - :ref:`sphx_glr_auto_ch2_ch2_5.py` (``ch2\ch2_5.py``)
+     - 00:00.000
+     - 0.0
+   * - :ref:`sphx_glr_auto_ch2_ch2_discrepancy_functional.py` (``ch2\ch2_discrepancy_functional.py``)
+     - 00:00.000
+     - 0.0
+   * - :ref:`sphx_glr_auto_ch2_ch2_ex1D.py` (``ch2\ch2_ex1D.py``)
+     - 00:00.000
+     - 0.0
+   * - :ref:`sphx_glr_auto_ch2_ch2_ex2D.py` (``ch2\ch2_ex2D.py``)
+     - 00:00.000
+     - 0.0

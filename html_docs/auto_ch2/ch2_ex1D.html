@@ -1,0 +1,637 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2.3 1D Periodic Function Extrapolation &mdash; CodPy Book 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=8d563738"></script>
+      <script src="../_static/doctools.js?v=9a2dae69"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script>let toggleHintShow = 'Click to show';</script>
+      <script>let toggleHintHide = 'Click to hide';</script>
+      <script>let toggleOpenOnPrint = 'true';</script>
+      <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+      <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+      <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="2.3.2 Applying maps to kernels" href="ch2_5.html" />
+    <link rel="prev" title="2.2 Reproducing kernels and transformation maps" href="ch2_2.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            CodPy Book
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Chapter 2:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Chapter 2: Basic notions on reproducing kernels</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="ch2_2.html">2.2 Reproducing kernels and transformation maps</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">2.3 1D Periodic Function Extrapolation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ch2_5.html">2.3.2 Applying maps to kernels</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ch2_ex2D.html">2.4 2D Periodic Function Extrapolation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ch2_discrepancy_functional.html">2.6.2 A study of the discrepancy functional</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Chapter 3:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../auto_ch3/index.html">Chapter 3: Discrete operators based on reproducing kernels</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch3/ch3_3_2.html">3.3.2 Partition of unity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch3/ch3_4_1.html">3.4.1 Gradient Operator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch3/ch3_4_2.html">3.4.2 Divergence Operator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch3/ch3_4_3.html">3.4.3  Inverse Laplace operator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch3/ch3_4_4.html">3.4.4 Integral operator - inverse gradient operator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch3/ch3_4_5.html">3.4.5  Integral operator - inverse divergence operator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch3/ch3_4_6.html">3.4.6 Leray-orthogonal operator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch3/ch3_4_7.html">3.4.7 Leray operator and Helmholtz-Hodge decomposition</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Chapter 4:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../auto_ch4/index.html">Chapter 4: Clustering strategies</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch4/ch4_2.html">4.2 Clustering</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Chapter 5:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../auto_ch5/index.html">Chapter 5: Optimal transport and statistical kernel methods</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch5/ch5_2.html">5.2 Optimal Transport: LSAP (Linear Sum Assignment Problem)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch5/ch5_33.html">5.3.3 Kernel Conditional Density</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch5/ch5_34.html">5.3.4 Kernel Conditional Expectation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch5/ch5_6_a.html">5.6.a Application of OT in Disitribution Sampling : 1D</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch5/ch5_6_b.html">5.6.b Application of OT in Disitribution Sampling : 2D</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch5/ch5_6_c.html">5.6.c Application of OT in Disitribution Sampling : High-Dimensional case</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch5/ch5_6_d.html">5.6.d Exploration Data Analysis of the Latent Space: Spherical Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch5/ch5_7.html">5.7. Conditional Sampling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch5/ch5_8.html">5.8. Conditional Sampling</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Chapter 6:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../auto_ch6/index.html">Chapter 6: Applications to machine learning : supervised, unsupervised and generative methods</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch6/ch6_housing.html">6.1 Supervised learning: reproducibility illustration with housing prices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch6/ch6_mnist.html">6.2 Supervised learning: benchmarks of methods with MNIST</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch6/ch6_Clustering.html">6.3 Unsupervised learning: Clustering - MNIST</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch6/ch6_ClustMNIST.html">6.3 Unsupervised learning: Clustering - MNIST</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch6/ch6_CreditCardFraud.html">6.4 Unsupervised learning: Clustering - Fraud detection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch6/ch6_9_CelebA_reconstruction.html">6.4.1 Generating complex distributions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch6/ch6_9_CelebA.html">6.4.1 Generating complex distributions from celebA dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch6/ch6_9_transfert.html">6.4.5 Conditioning on discrete distributions of celebA dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch6/ch6_stockClustering.html">6.5 Unsupervised learning: Clustering - Stock Clustering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch6/ch6_iris.html">6.7. Conditional Sampling</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Chapter 7:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../auto_ch7/index.html">Chapter 7: Application to partial differential equations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch7/ch7_invLaplace.html">7.01 Inverse Laplace Operator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch7/ch7_denoising.html">7.02 Denoising</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch7/ch7_heat_eq.html">7.03 Heat Equation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch7/ch7_heatLagrange.html">7.04 Lagrange Heat Equation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch7/ch7_convexHull.html">7.05 Convex Hull Algorithm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch7/ch7_AAD.html">7.06 Automatic Differentiation</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Chapter 8:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../kqlearning.html">KQLearning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../auto_ch8/index.html">Chapter 8: Reinforcement learning.</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch8/ch8_example.html">8.1 Using KAgents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch8/ch8_cartpole.html">8.2 Experiments - Cartpole</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch8/ch8_lunarlander.html">8.3 Experiments - LunarLander</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Chapter 9:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../auto_ch9/index.html">Chapter 9: Mathematical Finance.</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_get_market_data.html">9.01 Free time series modeling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_random_walk_log_normal.html">9.02 Random walks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_arma.html">9.03 ARMA(p,1) model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_garch.html">9.04 GARCH(1,1) model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_lagrange.html">9.05 Lagrange interpolation model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_additive.html">9.06 Additive noise map</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_conditionning.html">9.07 Conditionning model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_stoch_vol.html">9.08 Stochastic volatility model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_HestonCompare.html">9.10 Heston Process - Path comparison</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_isocontours.html">9.11 Heston Process - Intraday interpolation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_priceExtrapolation.html">9.12 Price extrapolation using KRR and Taylor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_greeks.html">9.13 Greeks output after correction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_rst.html">9.13 Reverse Stress Test</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_HestonRepro.html">9.9 Heston Process - Reproducibility</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../utils/ch9/ch9_utils.html">Chapter 9 utility functions</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">CodPy Book</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Chapter 2: Basic notions on reproducing kernels</a></li>
+      <li class="breadcrumb-item active">2.3 1D Periodic Function Extrapolation</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/auto_ch2/ch2_ex1D.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="sphx-glr-download-link-note admonition note">
+<p class="admonition-title">Note</p>
+<p><a class="reference internal" href="#sphx-glr-download-auto-ch2-ch2-ex1d-py"><span class="std std-ref">Go to the end</span></a>
+to download the full example code.</p>
+</div>
+<section class="sphx-glr-example-title" id="d-periodic-function-extrapolation">
+<span id="sphx-glr-auto-ch2-ch2-ex1d-py"></span><h1>2.3 1D Periodic Function Extrapolation<a class="headerlink" href="#d-periodic-function-extrapolation" title="Link to this heading"></a></h1>
+<p>In this experiment, we explore various machine learning and interpolation techniques
+to model and predict a sinusoidal function. We use different models, including CodPy,
+SciPy’s RBF interpolator, Scikit-learn’s SVR, Decision Trees, AdaBoost, Random Forest,
+Feedforward Neural Network, and XGBoost.</p>
+<section id="objective">
+<h2>Objective<a class="headerlink" href="#objective" title="Link to this heading"></a></h2>
+<p>The goal of this experiment is to compare the performance of different models
+in predicting the output of a complex sinusoidal function (<code class="docutils literal notranslate"><span class="pre">periodic_fun</span></code>). The function
+is defined over a range of input values (<code class="docutils literal notranslate"><span class="pre">x</span></code>), and we generate predictions over
+a broader range (<code class="docutils literal notranslate"><span class="pre">z</span></code>) to see how each model generalizes beyond the training data.</p>
+</section>
+<section id="data-generation">
+<h2>Data Generation<a class="headerlink" href="#data-generation" title="Link to this heading"></a></h2>
+<p>We define a sinusoidal function <code class="docutils literal notranslate"><span class="pre">periodic_fun</span></code> and use it to generate the target values (<code class="docutils literal notranslate"><span class="pre">fx</span></code>)
+for a set of input values <code class="docutils literal notranslate"><span class="pre">x</span></code> ranging from -1 to 1. We generate a broader range of test inputs
+(<code class="docutils literal notranslate"><span class="pre">z</span></code>) ranging from -1.5 to 1.5 for evaluating the models.</p>
+</section>
+<section id="steps">
+<h2>Steps:<a class="headerlink" href="#steps" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>Define a periodic sinusoidal function, <code class="docutils literal notranslate"><span class="pre">periodic_fun</span></code>.</p></li>
+<li><p>Generate input data (<code class="docutils literal notranslate"><span class="pre">x</span></code>) and evaluate the function to obtain target values (<code class="docutils literal notranslate"><span class="pre">fx</span></code>).</p></li>
+<li><p>Generate test data (<code class="docutils literal notranslate"><span class="pre">z</span></code>) over a broader range to evaluate model predictions beyond the training data.</p></li>
+<li><p>Train different models using the input data (<code class="docutils literal notranslate"><span class="pre">x</span></code>, <code class="docutils literal notranslate"><span class="pre">fx</span></code>) and predict values over the test range (<code class="docutils literal notranslate"><span class="pre">z</span></code>).</p></li>
+<li><p>Visualize the predictions from each model in a grid format for comparison.</p></li>
+</ol>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Importing necessary modules</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+
+<span class="n">curr_f</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span> <span class="s2">&quot;codpy-book&quot;</span><span class="p">,</span> <span class="s2">&quot;utils&quot;</span><span class="p">)</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">curr_f</span><span class="p">)</span>
+
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="c1"># from codpy.plotting import plot1D</span>
+<span class="c1"># Lets import multi_plot function from codpy utils</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">codpy.plot_utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">multi_plot</span><span class="p">,</span> <span class="n">plot1D</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">mean_squared_error</span>
+
+
+<span class="c1"># Define the sinusoidal function</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">periodic_fun</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A sinusoidal function that generates a sum of sines based on the input ``x``.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">math</span><span class="w"> </span><span class="kn">import</span> <span class="n">pi</span>
+
+    <span class="n">sinss</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">x</span> <span class="o">*</span> <span class="n">pi</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">sinss</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">sinss</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">ress</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">sinss</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">sinss</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">ress</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">ress</span> <span class="o">+</span> <span class="n">sinss</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">periodicdata1D</span><span class="p">():</span>
+    <span class="c1"># lets define a simple 1D periodic data function</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">1.5</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">fx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">periodic_fun</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">i</span><span class="p">]))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">x</span><span class="p">])</span>
+    <span class="n">fz</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">periodic_fun</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">i</span><span class="p">]))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">z</span><span class="p">])</span>
+    <span class="c1"># Plot the data for x and z</span>
+    <span class="n">multi_plot</span><span class="p">([(</span><span class="n">x</span><span class="p">,</span> <span class="n">fx</span><span class="p">),</span> <span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">fz</span><span class="p">)],</span> <span class="n">plot1D</span><span class="p">,</span> <span class="n">mp_nrows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">mp_figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+
+
+<span class="c1"># Call the function to generate and plot the data</span>
+<span class="n">periodicdata1D</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<img src="../_images/sphx_glr_ch2_ex1D_001.png" srcset="../_images/sphx_glr_ch2_ex1D_001.png" alt="ch2 ex1D" class = "sphx-glr-single-img"/><p>The plot shows a sinusoidal pattern for the data generated in the cartesian coordinate system.
+The two curves for <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">z</span></code> exhibits the sinusoidal variations defined by <code class="docutils literal notranslate"><span class="pre">periodic_fun(x)</span></code>.</p>
+<p><strong>Model Setup and Training</strong></p>
+<blockquote>
+<div><p>We use several models, each wrapped as a function for modularity:</p>
+<ul class="simple">
+<li><p><strong>CodPy Model</strong>: Uses the CodPy library’s kernel regression model with a specified kernel.</p></li>
+<li><p><strong>RBF Interpolator (SciPy)</strong>: A radial basis function interpolator that uses a multiquadric kernel.</p></li>
+<li><p><strong>SVR (Scikit-learn)</strong>: Support Vector Regressor using a radial basis function (RBF) kernel.</p></li>
+<li><p><strong>Neural Network (Pytorch)</strong>: A simple feedforward neural network with two hidden layers.</p></li>
+<li><p><strong>Decision Tree (Scikit-learn)</strong>: A decision tree regressor with a maximum depth of 10.</p></li>
+<li><p><strong>AdaBoost (Scikit-learn)</strong>: An AdaBoost model with a decision tree as the base estimator.</p></li>
+<li><p><strong>XGBoost</strong>: A gradient-boosted tree model from the XGBoost library.</p></li>
+<li><p><strong>Random Forest (Scikit-learn)</strong>: An ensemble of decision trees trained with random subsets of the data.</p></li>
+</ul>
+</div></blockquote>
+<section id="prediction">
+<h3>Prediction<a class="headerlink" href="#prediction" title="Link to this heading"></a></h3>
+<blockquote>
+<div><p>Each model is trained on the generated dataset (<code class="docutils literal notranslate"><span class="pre">x</span></code>, <code class="docutils literal notranslate"><span class="pre">fx</span></code>) and then used to predict the values over
+the test range (<code class="docutils literal notranslate"><span class="pre">z</span></code>). The predictions (<code class="docutils literal notranslate"><span class="pre">fz</span></code>) are stored and transformed into a compatible format for plotting.</p>
+</div></blockquote>
+</section>
+<section id="expected-output">
+<h3>Expected Output<a class="headerlink" href="#expected-output" title="Link to this heading"></a></h3>
+<blockquote>
+<div><p>The output consists of a 2x4 grid of plots, where each plot displays the predictions from one of the models
+compared to the underlying function. The aim is to observe differences in accuracy and generalization ability
+between models, especially beyond the training range.</p>
+</div></blockquote>
+<hr class="docutils" />
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># First we import necessary libraries</span>
+<span class="c1"># import CodPy&#39;s core module and Kernel class</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">codpy</span><span class="w"> </span><span class="kn">import</span> <span class="n">core</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">codpy.kernel</span><span class="w"> </span><span class="kn">import</span> <span class="n">Kernel</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.interpolate</span><span class="w"> </span><span class="kn">import</span> <span class="n">Rbf</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.ensemble</span><span class="w"> </span><span class="kn">import</span> <span class="n">AdaBoostRegressor</span><span class="p">,</span> <span class="n">RandomForestRegressor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.svm</span><span class="w"> </span><span class="kn">import</span> <span class="n">SVR</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.tree</span><span class="w"> </span><span class="kn">import</span> <span class="n">DecisionTreeRegressor</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">xgboost</span><span class="w"> </span><span class="kn">import</span> <span class="n">XGBRegressor</span>
+
+
+<span class="c1"># Model functions</span>
+<span class="c1"># 0. CodPy</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">codpy_model</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">fx</span><span class="p">,</span> <span class="n">z</span><span class="p">):</span>
+    <span class="n">kernel</span> <span class="o">=</span> <span class="n">Kernel</span><span class="p">(</span>
+        <span class="n">set_kernel</span><span class="o">=</span><span class="n">core</span><span class="o">.</span><span class="n">kernel_setter</span><span class="p">(</span><span class="s2">&quot;gaussianper&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mf">1e-9</span><span class="p">),</span> <span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">fx</span><span class="o">=</span><span class="n">fx</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="mi">2</span>
+    <span class="p">)</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">kernel</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
+    <span class="n">mmd</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">kernel</span><span class="o">.</span><span class="n">discrepancy</span><span class="p">(</span><span class="n">z</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">res</span><span class="p">,</span> <span class="n">mmd</span>
+
+
+<span class="c1"># 1. SciPy RBF Interpolator</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">rbf_interpolator</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">fx</span><span class="p">,</span> <span class="n">z</span><span class="p">):</span>
+    <span class="n">rbf</span> <span class="o">=</span> <span class="n">Rbf</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="n">fx</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="n">function</span><span class="o">=</span><span class="s2">&quot;multiquadric&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">rbf</span><span class="p">(</span><span class="n">z</span><span class="o">.</span><span class="n">ravel</span><span class="p">()),</span> <span class="kc">None</span>
+
+
+<span class="c1"># 2. Scikit-learn SVR</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">svr_model</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">fx</span><span class="p">,</span> <span class="n">z</span><span class="p">):</span>
+    <span class="n">svr</span> <span class="o">=</span> <span class="n">SVR</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="s2">&quot;rbf&quot;</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="s2">&quot;auto&quot;</span><span class="p">,</span> <span class="n">C</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">svr</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">fx</span><span class="o">.</span><span class="n">ravel</span><span class="p">())</span>
+    <span class="k">return</span> <span class="n">svr</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">z</span><span class="p">),</span> <span class="kc">None</span>
+
+
+<span class="c1"># 3. NN</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch.nn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nn</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch.optim</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">optim</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">torch.utils.data</span><span class="w"> </span><span class="kn">import</span> <span class="n">DataLoader</span><span class="p">,</span> <span class="n">TensorDataset</span><span class="p">,</span> <span class="n">random_split</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">FFN</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">in_features</span><span class="p">,</span> <span class="n">hidden_features</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span> <span class="n">hidden_layers</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">out_features</span><span class="o">=</span><span class="mi">1</span>
+    <span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="n">layers</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">layers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">in_features</span><span class="p">,</span> <span class="n">hidden_features</span><span class="p">))</span>
+        <span class="n">layers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">())</span>
+        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">hidden_layers</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="n">layers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">hidden_features</span><span class="p">,</span> <span class="n">hidden_features</span><span class="p">))</span>
+            <span class="n">layers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">())</span>
+        <span class="n">layers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">hidden_features</span><span class="p">,</span> <span class="n">out_features</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">net</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span><span class="o">*</span><span class="n">layers</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">net</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">neural_network</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">fx</span><span class="p">,</span> <span class="n">z</span><span class="p">):</span>
+    <span class="n">x_tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+    <span class="n">fx_tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">fx</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">z_tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+
+    <span class="n">dataset</span> <span class="o">=</span> <span class="n">TensorDataset</span><span class="p">(</span><span class="n">x_tensor</span><span class="p">,</span> <span class="n">fx_tensor</span><span class="p">)</span>
+    <span class="n">val_size</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mf">0.1</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">dataset</span><span class="p">))</span>
+    <span class="n">train_size</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span> <span class="o">-</span> <span class="n">val_size</span>
+    <span class="n">train_dataset</span><span class="p">,</span> <span class="n">val_dataset</span> <span class="o">=</span> <span class="n">random_split</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="p">[</span><span class="n">train_size</span><span class="p">,</span> <span class="n">val_size</span><span class="p">])</span>
+
+    <span class="n">train_loader</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="p">(</span><span class="n">train_dataset</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">val_loader</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="p">(</span><span class="n">val_dataset</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+
+    <span class="n">model</span> <span class="o">=</span> <span class="n">FFN</span><span class="p">(</span><span class="n">in_features</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">hidden_features</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span> <span class="n">hidden_layers</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">out_features</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="c1"># loss and optimizer</span>
+    <span class="n">criterion</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">MSELoss</span><span class="p">()</span>
+    <span class="n">optimizer</span> <span class="o">=</span> <span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.001</span><span class="p">)</span>
+
+    <span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">150</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">batch_x</span><span class="p">,</span> <span class="n">batch_y</span> <span class="ow">in</span> <span class="n">train_loader</span><span class="p">:</span>
+            <span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+            <span class="n">outputs</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">batch_x</span><span class="p">)</span>
+            <span class="n">loss</span> <span class="o">=</span> <span class="n">criterion</span><span class="p">(</span><span class="n">outputs</span><span class="p">,</span> <span class="n">batch_y</span><span class="p">)</span>
+            <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+            <span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+
+    <span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+    <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+        <span class="n">predictions</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">z_tensor</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">predictions</span><span class="p">,</span> <span class="kc">None</span>
+
+
+<span class="c1"># 4. Decision Tree Regressor</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">decision_tree</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">fx</span><span class="p">,</span> <span class="n">z</span><span class="p">):</span>
+    <span class="n">tree</span> <span class="o">=</span> <span class="n">DecisionTreeRegressor</span><span class="p">(</span><span class="n">max_depth</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+    <span class="n">tree</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">fx</span><span class="o">.</span><span class="n">ravel</span><span class="p">())</span>
+    <span class="k">return</span> <span class="n">tree</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">z</span><span class="p">),</span> <span class="kc">None</span>
+
+
+<span class="c1"># 5. AdaBoost Regressor</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">adaboost_model</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">fx</span><span class="p">,</span> <span class="n">z</span><span class="p">):</span>
+    <span class="n">ada</span> <span class="o">=</span> <span class="n">AdaBoostRegressor</span><span class="p">(</span>
+        <span class="n">DecisionTreeRegressor</span><span class="p">(</span><span class="n">max_depth</span><span class="o">=</span><span class="mi">5</span><span class="p">),</span> <span class="n">n_estimators</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">learning_rate</span><span class="o">=</span><span class="mi">1</span>
+    <span class="p">)</span>
+    <span class="n">ada</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">fx</span><span class="o">.</span><span class="n">ravel</span><span class="p">())</span>
+    <span class="k">return</span> <span class="n">ada</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">z</span><span class="p">),</span> <span class="kc">None</span>
+
+
+<span class="c1"># 6. XGBoost Regressor</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">xgboost_model</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">fx</span><span class="p">,</span> <span class="n">z</span><span class="p">):</span>
+    <span class="n">xgb</span> <span class="o">=</span> <span class="n">XGBRegressor</span><span class="p">(</span><span class="n">max_depth</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">n_estimators</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+    <span class="n">xgb</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">fx</span><span class="o">.</span><span class="n">ravel</span><span class="p">())</span>
+    <span class="k">return</span> <span class="n">xgb</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">z</span><span class="p">),</span> <span class="kc">None</span>
+
+
+<span class="c1"># 7. Random Forest Regressor</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">random_forest</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">fx</span><span class="p">,</span> <span class="n">z</span><span class="p">):</span>
+    <span class="n">rf</span> <span class="o">=</span> <span class="n">RandomForestRegressor</span><span class="p">(</span><span class="n">max_depth</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">n_estimators</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+    <span class="n">rf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">fx</span><span class="o">.</span><span class="n">ravel</span><span class="p">())</span>
+    <span class="k">return</span> <span class="n">rf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">z</span><span class="p">),</span> <span class="kc">None</span>
+
+
+<span class="c1"># List of model functions</span>
+<span class="n">model_functions</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">codpy_model</span><span class="p">,</span>
+    <span class="n">rbf_interpolator</span><span class="p">,</span>
+    <span class="n">svr_model</span><span class="p">,</span>
+    <span class="n">neural_network</span><span class="p">,</span>
+    <span class="n">decision_tree</span><span class="p">,</span>
+    <span class="n">adaboost_model</span><span class="p">,</span>
+    <span class="n">xgboost_model</span><span class="p">,</span>
+    <span class="n">random_forest</span><span class="p">,</span>
+<span class="p">]</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">plot_models</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This function generates random data for x and z coordinates, applies each model</span>
+<span class="sd">    in `model_functions` to generate predictions, and plots the results using `multi_plot`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Generate x and z data</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">1.5</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+    <span class="c1"># Apply the periodic function to generate fx and fz values</span>
+    <span class="n">fx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">periodic_fun</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">i</span><span class="p">]))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">x</span><span class="p">])</span>
+    <span class="n">fz</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">periodic_fun</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">i</span><span class="p">]))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">z</span><span class="p">])</span>
+
+    <span class="c1"># Generate predictions for each model in the model_functions list</span>
+    <span class="n">list_of_results</span> <span class="o">=</span> <span class="p">[</span><span class="n">model</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">fx</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span> <span class="k">for</span> <span class="n">model</span> <span class="ow">in</span> <span class="n">model_functions</span><span class="p">]</span>
+
+    <span class="c1"># Titles for each subplot</span>
+    <span class="n">title_list</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s2">&quot;CodPy&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;RBF (SciPy)&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;SVR (Scikit)&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;FFN&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Decision Tree (Scikit)&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;AdaBoost (Scikit)&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;XGBoost&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Random Forest (Scikit)&quot;</span><span class="p">,</span>
+    <span class="p">]</span>
+
+    <span class="c1"># Use a lambda function to transform z and fz into (z, fz) tuples</span>
+    <span class="n">zfz_transform</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">z</span><span class="p">,</span> <span class="n">fz</span><span class="p">:</span> <span class="p">(</span><span class="n">z</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="n">fz</span><span class="o">.</span><span class="n">ravel</span><span class="p">())</span>
+
+    <span class="c1"># Apply the transformation to each model&#39;s output</span>
+    <span class="n">transformed_results</span> <span class="o">=</span> <span class="p">[</span><span class="n">zfz_transform</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span> <span class="k">for</span> <span class="n">result</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">list_of_results</span><span class="p">]</span>
+
+    <span class="c1"># Create the multi-plot visualization</span>
+    <span class="n">multi_plot</span><span class="p">(</span>
+        <span class="n">transformed_results</span><span class="p">,</span>
+        <span class="n">plot1D</span><span class="p">,</span>
+        <span class="n">f_names</span><span class="o">=</span><span class="n">title_list</span><span class="p">,</span>
+        <span class="n">mp_max_items</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
+        <span class="n">mp_nrows</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+        <span class="n">mp_ncols</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+        <span class="n">mp_figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+    <span class="n">Nxs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">stop</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">-</span> <span class="mi">10</span><span class="p">)</span> <span class="o">//</span> <span class="mi">5</span><span class="p">)</span>
+    <span class="n">results</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">times</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">mmds</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">Nx</span> <span class="ow">in</span> <span class="n">Nxs</span><span class="p">:</span>
+        <span class="n">results</span><span class="p">[</span><span class="n">Nx</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">times</span><span class="p">[</span><span class="n">Nx</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">mmds</span><span class="p">[</span><span class="n">Nx</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">model</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">model_functions</span><span class="p">):</span>
+            <span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span>
+            <span class="n">f_z</span><span class="p">,</span> <span class="n">mmd</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">x</span><span class="p">[:</span><span class="n">Nx</span><span class="p">],</span> <span class="n">fx</span><span class="p">[:</span><span class="n">Nx</span><span class="p">],</span> <span class="n">z</span><span class="p">)</span>
+            <span class="n">end</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span>
+            <span class="n">mmds</span><span class="p">[</span><span class="n">Nx</span><span class="p">][</span><span class="n">title_list</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="n">mmd</span>
+            <span class="n">results</span><span class="p">[</span><span class="n">Nx</span><span class="p">][</span><span class="n">title_list</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">fz</span><span class="p">,</span> <span class="n">f_z</span><span class="p">)</span>
+            <span class="n">times</span><span class="p">[</span><span class="n">Nx</span><span class="p">][</span><span class="n">title_list</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="n">end</span> <span class="o">-</span> <span class="n">start</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Model: </span><span class="si">{</span><span class="n">title_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">}</span><span class="s2">, Time taken: </span><span class="si">{</span><span class="n">end</span><span class="o">-</span><span class="n">start</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> seconds&quot;</span><span class="p">)</span>
+
+    <span class="n">res</span> <span class="o">=</span> <span class="p">[{</span><span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="n">results</span><span class="p">},</span> <span class="p">{</span><span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="n">mmds</span><span class="p">},</span> <span class="p">{</span><span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="n">times</span><span class="p">}]</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">plot_one</span><span class="p">(</span><span class="n">inputs</span><span class="p">):</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="n">inputs</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">]</span>
+        <span class="n">ax</span> <span class="o">=</span> <span class="n">inputs</span><span class="p">[</span><span class="s2">&quot;ax&quot;</span><span class="p">]</span>
+        <span class="n">legend</span> <span class="o">=</span> <span class="n">inputs</span><span class="p">[</span><span class="s2">&quot;legend&quot;</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">model_name</span> <span class="ow">in</span> <span class="nb">next</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="n">results</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="n">x_vals</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">results</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+            <span class="n">y_vals</span> <span class="o">=</span> <span class="p">[</span><span class="n">results</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="n">model_name</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">x_vals</span><span class="p">]</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_vals</span><span class="p">,</span> <span class="n">y_vals</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">model_name</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Nx&quot;</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">legend</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">multi_plot</span><span class="p">(</span>
+        <span class="n">res</span><span class="p">,</span>
+        <span class="n">plot_one</span><span class="p">,</span>
+        <span class="n">mp_nrows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">mp_ncols</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+        <span class="n">legends</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Scores&quot;</span><span class="p">,</span> <span class="s2">&quot;Discrepancy&quot;</span><span class="p">,</span> <span class="s2">&quot;Times&quot;</span><span class="p">],</span>
+        <span class="n">mp_figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+
+<span class="c1"># Lets plot the models</span>
+<span class="n">plot_models</span><span class="p">()</span>
+</pre></div>
+</div>
+<ul class="sphx-glr-horizontal">
+<li><img src="../_images/sphx_glr_ch2_ex1D_002.png" srcset="../_images/sphx_glr_ch2_ex1D_002.png" alt="CodPy, RBF (SciPy), SVR (Scikit), FFN, Decision Tree (Scikit), AdaBoost (Scikit), XGBoost, Random Forest (Scikit)" class = "sphx-glr-multi-img"/></li>
+<li><img src="../_images/sphx_glr_ch2_ex1D_003.png" srcset="../_images/sphx_glr_ch2_ex1D_003.png" alt="ch2 ex1D" class = "sphx-glr-multi-img"/></li>
+</ul>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Model: CodPy, Time taken: 0.0016 seconds
+Model: RBF (SciPy), Time taken: 0.0002 seconds
+Model: SVR (Scikit), Time taken: 0.0002 seconds
+Model: FFN, Time taken: 0.0865 seconds
+Model: Decision Tree (Scikit), Time taken: 0.0002 seconds
+Model: AdaBoost (Scikit), Time taken: 0.0187 seconds
+Model: XGBoost, Time taken: 0.0111 seconds
+Model: Random Forest (Scikit), Time taken: 0.0029 seconds
+Model: CodPy, Time taken: 0.0017 seconds
+Model: RBF (SciPy), Time taken: 0.0002 seconds
+Model: SVR (Scikit), Time taken: 0.0003 seconds
+Model: FFN, Time taken: 0.2336 seconds
+Model: Decision Tree (Scikit), Time taken: 0.0002 seconds
+Model: AdaBoost (Scikit), Time taken: 0.0197 seconds
+Model: XGBoost, Time taken: 0.0146 seconds
+Model: Random Forest (Scikit), Time taken: 0.0030 seconds
+Model: CodPy, Time taken: 0.0020 seconds
+Model: RBF (SciPy), Time taken: 0.0003 seconds
+Model: SVR (Scikit), Time taken: 0.0005 seconds
+Model: FFN, Time taken: 0.3201 seconds
+Model: Decision Tree (Scikit), Time taken: 0.0002 seconds
+Model: AdaBoost (Scikit), Time taken: 0.0193 seconds
+Model: XGBoost, Time taken: 0.0058 seconds
+Model: Random Forest (Scikit), Time taken: 0.0032 seconds
+Model: CodPy, Time taken: 0.0028 seconds
+Model: RBF (SciPy), Time taken: 0.0003 seconds
+Model: SVR (Scikit), Time taken: 0.0007 seconds
+Model: FFN, Time taken: 0.4375 seconds
+Model: Decision Tree (Scikit), Time taken: 0.0003 seconds
+Model: AdaBoost (Scikit), Time taken: 0.0237 seconds
+Model: XGBoost, Time taken: 0.0057 seconds
+Model: Random Forest (Scikit), Time taken: 0.0030 seconds
+Model: CodPy, Time taken: 0.0033 seconds
+Model: RBF (SciPy), Time taken: 0.0004 seconds
+Model: SVR (Scikit), Time taken: 0.0009 seconds
+Model: FFN, Time taken: 0.5243 seconds
+Model: Decision Tree (Scikit), Time taken: 0.0002 seconds
+Model: AdaBoost (Scikit), Time taken: 0.0204 seconds
+Model: XGBoost, Time taken: 0.0059 seconds
+Model: Random Forest (Scikit), Time taken: 0.0031 seconds
+Model: CodPy, Time taken: 0.0042 seconds
+Model: RBF (SciPy), Time taken: 0.0006 seconds
+Model: SVR (Scikit), Time taken: 0.0022 seconds
+Model: FFN, Time taken: 0.5787 seconds
+Model: Decision Tree (Scikit), Time taken: 0.0003 seconds
+Model: AdaBoost (Scikit), Time taken: 0.0217 seconds
+Model: XGBoost, Time taken: 0.0056 seconds
+Model: Random Forest (Scikit), Time taken: 0.0030 seconds
+</pre></div>
+</div>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 4.135 seconds)</p>
+<div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-ch2-ch2-ex1d-py">
+<div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
+<p><a class="reference download internal" download="" href="../_downloads/96c5ba65a52ae28a349e26c0c786a944/ch2_ex1D.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">ch2_ex1D.ipynb</span></code></a></p>
+</div>
+<div class="sphx-glr-download sphx-glr-download-python docutils container">
+<p><a class="reference download internal" download="" href="../_downloads/6364a28697dcc28cc270a73f34f953c6/ch2_ex1D.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">ch2_ex1D.py</span></code></a></p>
+</div>
+<div class="sphx-glr-download sphx-glr-download-zip docutils container">
+<p><a class="reference download internal" download="" href="../_downloads/12969162c90471e031360c5ddd3cfe02/ch2_ex1D.zip"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">zipped:</span> <span class="pre">ch2_ex1D.zip</span></code></a></p>
+</div>
+</div>
+<p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="ch2_2.html" class="btn btn-neutral float-left" title="2.2 Reproducing kernels and transformation maps" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="ch2_5.html" class="btn btn-neutral float-right" title="2.3.2 Applying maps to kernels" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Philippe G. LeFloch , Jean-Marc Mercier, and Shohruh Miryusupov.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

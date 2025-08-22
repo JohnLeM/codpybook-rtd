@@ -1,0 +1,292 @@
+:orphan:
+
+:orphan:
+
+Chapter 9: Mathematical Finance.
+==================================
+
+This gallery contains examples and tutorials for Chapter 9. The examples demonstrate how to use
+the CodPy library to implement different Reinforcement Learning algorithms for two environments: Cartpole and LunarLander.
+
+Each example includes code and outputs, such as plots or results, to help you understand
+how the library works.
+
+Below are the examples for this chapter:
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbnails">
+
+.. thumbnail-parent-div-open
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="9.01 Free time series modeling">
+
+.. only:: html
+
+  .. image:: /auto_ch9/images/thumb/sphx_glr_ch9_get_market_data_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_ch9_ch9_get_market_data.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">9.01 Free time series modeling</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="9.02 Random walks">
+
+.. only:: html
+
+  .. image:: /auto_ch9/images/thumb/sphx_glr_ch9_random_walk_log_normal_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_ch9_ch9_random_walk_log_normal.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">9.02 Random walks</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="9.03 ARMA(p,1) model">
+
+.. only:: html
+
+  .. image:: /auto_ch9/images/thumb/sphx_glr_ch9_arma_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_ch9_ch9_arma.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">9.03 ARMA(p,1) model</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="9.04 GARCH(1,1) model">
+
+.. only:: html
+
+  .. image:: /auto_ch9/images/thumb/sphx_glr_ch9_garch_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_ch9_ch9_garch.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">9.04 GARCH(1,1) model</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="9.05 Lagrange interpolation model">
+
+.. only:: html
+
+  .. image:: /auto_ch9/images/thumb/sphx_glr_ch9_lagrange_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_ch9_ch9_lagrange.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">9.05 Lagrange interpolation model</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="9.06 Additive noise map">
+
+.. only:: html
+
+  .. image:: /auto_ch9/images/thumb/sphx_glr_ch9_additive_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_ch9_ch9_additive.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">9.06 Additive noise map</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="9.07 Conditionning model">
+
+.. only:: html
+
+  .. image:: /auto_ch9/images/thumb/sphx_glr_ch9_conditionning_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_ch9_ch9_conditionning.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">9.07 Conditionning model</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="9.08 Stochastic volatility model">
+
+.. only:: html
+
+  .. image:: /auto_ch9/images/thumb/sphx_glr_ch9_stoch_vol_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_ch9_ch9_stoch_vol.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">9.08 Stochastic volatility model</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="9.10 Heston Process - Path comparison">
+
+.. only:: html
+
+  .. image:: /auto_ch9/images/thumb/sphx_glr_ch9_HestonCompare_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_ch9_ch9_HestonCompare.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">9.10 Heston Process - Path comparison</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="9.11 Heston Process - Intraday interpolation">
+
+.. only:: html
+
+  .. image:: /auto_ch9/images/thumb/sphx_glr_ch9_isocontours_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_ch9_ch9_isocontours.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">9.11 Heston Process - Intraday interpolation</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="9.12 Price extrapolation using KRR and Taylor">
+
+.. only:: html
+
+  .. image:: /auto_ch9/images/thumb/sphx_glr_ch9_priceExtrapolation_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_ch9_ch9_priceExtrapolation.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">9.12 Price extrapolation using KRR and Taylor</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="9.13 Greeks output after correction">
+
+.. only:: html
+
+  .. image:: /auto_ch9/images/thumb/sphx_glr_ch9_greeks_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_ch9_ch9_greeks.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">9.13 Greeks output after correction</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="9.13 Reverse Stress Test">
+
+.. only:: html
+
+  .. image:: /auto_ch9/images/thumb/sphx_glr_ch9_rst_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_ch9_ch9_rst.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">9.13 Reverse Stress Test</div>
+    </div>
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="9.9 Heston Process - Reproducibility">
+
+.. only:: html
+
+  .. image:: /auto_ch9/images/thumb/sphx_glr_ch9_HestonRepro_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_ch9_ch9_HestonRepro.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">9.9 Heston Process - Reproducibility</div>
+    </div>
+
+
+.. thumbnail-parent-div-close
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /auto_ch9/ch9_get_market_data
+   /auto_ch9/ch9_random_walk_log_normal
+   /auto_ch9/ch9_arma
+   /auto_ch9/ch9_garch
+   /auto_ch9/ch9_lagrange
+   /auto_ch9/ch9_additive
+   /auto_ch9/ch9_conditionning
+   /auto_ch9/ch9_stoch_vol
+   /auto_ch9/ch9_HestonCompare
+   /auto_ch9/ch9_isocontours
+   /auto_ch9/ch9_priceExtrapolation
+   /auto_ch9/ch9_greeks
+   /auto_ch9/ch9_rst
+   /auto_ch9/ch9_HestonRepro
+
+
+
+.. only:: html
+
+ .. rst-class:: sphx-glr-signature
+
+    `Gallery generated by Sphinx-Gallery <https://sphinx-gallery.github.io>`_

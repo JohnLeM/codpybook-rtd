@@ -1,0 +1,177 @@
+"""
+========================================================================================================
+6.5 Unsupervised learning: Clustering - Stock Clustering
+========================================================================================================
+
+
+We show how to reproduce the results of the chapter 6.3.4 - Application to unsupervised machine learning - Portfolio of stock clustering of the book.
+We will compare different clusters obtained with the codpy MMD minimization-based algorithm and scikit learn k-means.
+"""
+
+#########################################################################
+# Necessary Imports
+# ------------------------
+
+import os
+import sys
+import urllib.request
+from collections import defaultdict
+
+os.environ["OPENBLAS_NUM_THREADS"] = "32"
+os.environ["OMP_NUM_THREADS"] = "4"
+
+import numpy as np
+import pandas as pd
+from IPython.display import HTML
+from sklearn.cluster import KMeans
+from sklearn.preprocessing import Normalizer
+
+from codpy.clustering import SharpDiscrepancy
+
+try:
+    current_dir = os.path.dirname(__file__)
+    data_dir = os.path.join(current_dir, "data")
+except NameError:
+    current_dir = os.getcwd()
+    data_dir = os.path.join(current_dir, "data")
+
+curr_f = os.path.join(os.getcwd(), "codpybook", "utils")
+sys.path.insert(0, curr_f)
+
+#########################################################################
+# Stocks Data Preparation
+# ------------------------
+# We get the data from a csv, using data from Yahoo Finance.
+# The data is normalized using a standard normalizer from sklearn.preprocessing.
+
+def df_standard_normalize(x):
+    return pd.DataFrame(data=Normalizer().fit(x).transform(x.values), index=x.index)
+
+
+def get_dataset():
+    """
+    Loads the dataset from local disk or downloads it from GitHub if not present.
+    """
+    data_dir = "data"
+    os.makedirs(data_dir, exist_ok=True)
+
+    filename = "company-stock-movements-2010-2015-incl.csv"
+    file_path = os.path.join(data_dir, filename)
+    url = "https://raw.githubusercontent.com/mesfind/datasets/master/company-stock-movements-2010-2015-incl.csv"
+
+    # Download if not exists
+    if not os.path.exists(file_path):
+        print(f"File not found locally. Downloading from {url}...")
+        urllib.request.urlretrieve(url, file_path)
+        print("Download complete.")
+
+    # Read and process the data
+    data = pd.read_csv(file_path, index_col=0)
+    data = df_standard_normalize(data)
+    labels, x = data.index.to_numpy(), data.to_numpy()
+    return labels, x
+
+
+#########################################################################
+# Clustering Models
+# ------------------------
+# This section defines the K-means and CodPy clustering models.
+# Because we only observe the clusters and don't compare with labels, we only instanciate the clustering models.
+
+
+def sharp_clustering(x, Ny):
+    # SharpDiscrepancy is a clustering algorithm based on MMD minimization.
+    # It finds cluster centers and assigns labels to the data points.
+    kernel = SharpDiscrepancy(x=x, N=Ny)
+    centers = kernel.cluster_centers_
+    labels = kernel.get_labels()
+    return labels, centers, kernel
+
+
+def kmeans_clustering(x, Ny):
+    kernel = KMeans(n_clusters=Ny, random_state=1).fit(x)
+    predictor = lambda z: kernel.predict(z)
+    centers = kernel.cluster_centers_
+    labels = kernel.labels_
+    return labels, centers, predictor
+
+
+#########################################################################
+# Running the Experiment
+# ------------------------
+# This section runs the experiment to compare K-means and CodPy clustering.
+
+
+def run_experiment(data_generator, get_predictors, labels, file_name=None):
+    results = {}
+    N = 10
+    companies, x = data_generator()
+    for get_predictor, label in zip(get_predictors, labels):
+        results[label] = []
+        labels, clusters, _ = get_predictor(x, N)
+        res = np.concatenate(
+            [companies[..., np.newaxis], labels[..., np.newaxis]], axis=1
+        )
+        res = sorted(res, key=lambda x: x[1])
+        res = np.array(res)
+        results[label] = res
+
+    return results
+
+
+#########################################################################
+# Plotting
+# ------------------------
+# This section formats data and prints it as a table.
+
+
+def build_cluster_dict(data):
+    cluster_dict = defaultdict(list)
+    for name, cluster in data:
+        cluster_dict[int(cluster)].append(name)
+    # Sort clusters by cluster id
+    return dict(sorted(cluster_dict.items()))
+
+
+def build_table_dataframe(
+    kmeans_clusters, mmd_clusters, max_line_length=40, max_lines=5
+):
+    all_cluster_ids = sorted(set(kmeans_clusters) | set(mmd_clusters))
+    data = {"#": [], "k-means": [], "MMD minimization": []}
+
+    for cluster_id in all_cluster_ids:
+        kmeans_wrapped = sorted(kmeans_clusters.get(cluster_id, []))
+        mmd_wrapped = sorted(mmd_clusters.get(cluster_id, []))
+
+        data["#"].append(str(cluster_id + 1))
+        data["k-means"].append(kmeans_wrapped)
+        data["MMD minimization"].append(mmd_wrapped)
+
+    return pd.DataFrame(data)
+
+
+get_predictors = [
+    lambda X, N: sharp_clustering(X, N),
+    lambda X, N: kmeans_clustering(X, N),
+]
+labels = ["sharp disc", "kmeans"]
+results = run_experiment(get_dataset, get_predictors, labels)
+
+kmeans_clusters = build_cluster_dict(results["kmeans"])
+mmd_clusters = build_cluster_dict(results["sharp disc"])
+
+save_path = os.path.join(data_dir, "stock_clustering_results.png")
+df = build_table_dataframe(kmeans_clusters, mmd_clusters)
+with open(save_path.replace(".png", ".txt"), "w") as f:
+    f.write(df.to_latex())
+html = df.style.set_properties(
+    **{
+        "white-space": "pre-wrap",
+        "word-wrap": "break-word",
+        "max-width": "400px",
+        "font-family": "monospace",
+    }
+).to_html()
+
+HTML(html)
+pass

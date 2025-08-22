@@ -1,0 +1,502 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>3.4.4 Integral operator - inverse gradient operator &mdash; CodPy Book 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=8d563738"></script>
+      <script src="../_static/doctools.js?v=9a2dae69"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script>let toggleHintShow = 'Click to show';</script>
+      <script>let toggleHintHide = 'Click to hide';</script>
+      <script>let toggleOpenOnPrint = 'true';</script>
+      <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+      <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+      <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+      <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "displayMath": [["$$", "$$"], ["\\[", "\\]"]]}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="3.4.5 Integral operator - inverse divergence operator" href="ch3_4_5.html" />
+    <link rel="prev" title="3.4.3 Inverse Laplace operator" href="ch3_4_3.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            CodPy Book
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Chapter 2:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../auto_ch2/index.html">Chapter 2: Basic notions on reproducing kernels</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch2/ch2_2.html">2.2 Reproducing kernels and transformation maps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch2/ch2_ex1D.html">2.3 1D Periodic Function Extrapolation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch2/ch2_5.html">2.3.2 Applying maps to kernels</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch2/ch2_ex2D.html">2.4 2D Periodic Function Extrapolation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch2/ch2_discrepancy_functional.html">2.6.2 A study of the discrepancy functional</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Chapter 3:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Chapter 3: Discrete operators based on reproducing kernels</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="ch3_3_2.html">3.3.2 Partition of unity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ch3_4_1.html">3.4.1 Gradient Operator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ch3_4_2.html">3.4.2 Divergence Operator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ch3_4_3.html">3.4.3  Inverse Laplace operator</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">3.4.4 Integral operator - inverse gradient operator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ch3_4_5.html">3.4.5  Integral operator - inverse divergence operator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ch3_4_6.html">3.4.6 Leray-orthogonal operator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ch3_4_7.html">3.4.7 Leray operator and Helmholtz-Hodge decomposition</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Chapter 4:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../auto_ch4/index.html">Chapter 4: Clustering strategies</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch4/ch4_2.html">4.2 Clustering</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Chapter 5:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../auto_ch5/index.html">Chapter 5: Optimal transport and statistical kernel methods</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch5/ch5_2.html">5.2 Optimal Transport: LSAP (Linear Sum Assignment Problem)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch5/ch5_33.html">5.3.3 Kernel Conditional Density</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch5/ch5_34.html">5.3.4 Kernel Conditional Expectation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch5/ch5_6_a.html">5.6.a Application of OT in Disitribution Sampling : 1D</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch5/ch5_6_b.html">5.6.b Application of OT in Disitribution Sampling : 2D</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch5/ch5_6_c.html">5.6.c Application of OT in Disitribution Sampling : High-Dimensional case</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch5/ch5_6_d.html">5.6.d Exploration Data Analysis of the Latent Space: Spherical Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch5/ch5_7.html">5.7. Conditional Sampling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch5/ch5_8.html">5.8. Conditional Sampling</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Chapter 6:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../auto_ch6/index.html">Chapter 6: Applications to machine learning : supervised, unsupervised and generative methods</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch6/ch6_housing.html">6.1 Supervised learning: reproducibility illustration with housing prices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch6/ch6_mnist.html">6.2 Supervised learning: benchmarks of methods with MNIST</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch6/ch6_Clustering.html">6.3 Unsupervised learning: Clustering - MNIST</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch6/ch6_ClustMNIST.html">6.3 Unsupervised learning: Clustering - MNIST</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch6/ch6_CreditCardFraud.html">6.4 Unsupervised learning: Clustering - Fraud detection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch6/ch6_9_CelebA_reconstruction.html">6.4.1 Generating complex distributions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch6/ch6_9_CelebA.html">6.4.1 Generating complex distributions from celebA dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch6/ch6_9_transfert.html">6.4.5 Conditioning on discrete distributions of celebA dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch6/ch6_stockClustering.html">6.5 Unsupervised learning: Clustering - Stock Clustering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch6/ch6_iris.html">6.7. Conditional Sampling</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Chapter 7:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../auto_ch7/index.html">Chapter 7: Application to partial differential equations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch7/ch7_invLaplace.html">7.01 Inverse Laplace Operator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch7/ch7_denoising.html">7.02 Denoising</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch7/ch7_heat_eq.html">7.03 Heat Equation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch7/ch7_heatLagrange.html">7.04 Lagrange Heat Equation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch7/ch7_convexHull.html">7.05 Convex Hull Algorithm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch7/ch7_AAD.html">7.06 Automatic Differentiation</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Chapter 8:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../kqlearning.html">KQLearning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../auto_ch8/index.html">Chapter 8: Reinforcement learning.</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch8/ch8_example.html">8.1 Using KAgents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch8/ch8_cartpole.html">8.2 Experiments - Cartpole</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch8/ch8_lunarlander.html">8.3 Experiments - LunarLander</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Chapter 9:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../auto_ch9/index.html">Chapter 9: Mathematical Finance.</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_get_market_data.html">9.01 Free time series modeling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_random_walk_log_normal.html">9.02 Random walks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_arma.html">9.03 ARMA(p,1) model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_garch.html">9.04 GARCH(1,1) model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_lagrange.html">9.05 Lagrange interpolation model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_additive.html">9.06 Additive noise map</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_conditionning.html">9.07 Conditionning model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_stoch_vol.html">9.08 Stochastic volatility model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_HestonCompare.html">9.10 Heston Process - Path comparison</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_isocontours.html">9.11 Heston Process - Intraday interpolation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_priceExtrapolation.html">9.12 Price extrapolation using KRR and Taylor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_greeks.html">9.13 Greeks output after correction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_rst.html">9.13 Reverse Stress Test</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_HestonRepro.html">9.9 Heston Process - Reproducibility</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../utils/ch9/ch9_utils.html">Chapter 9 utility functions</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">CodPy Book</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Chapter 3: Discrete operators based on reproducing kernels</a></li>
+      <li class="breadcrumb-item active">3.4.4 Integral operator - inverse gradient operator</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/auto_ch3/ch3_4_4.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="sphx-glr-download-link-note admonition note">
+<p class="admonition-title">Note</p>
+<p><a class="reference internal" href="#sphx-glr-download-auto-ch3-ch3-4-4-py"><span class="std std-ref">Go to the end</span></a>
+to download the full example code.</p>
+</div>
+<section class="sphx-glr-example-title" id="integral-operator-inverse-gradient-operator">
+<span id="sphx-glr-auto-ch3-ch3-4-4-py"></span><h1>3.4.4 Integral operator - inverse gradient operator<a class="headerlink" href="#integral-operator-inverse-gradient-operator" title="Link to this heading"></a></h1>
+<p>Given a kernel gradient operator ∇ₖ, CodPy defines an integral-type inverse operator denoted by:</p>
+<p><div class="math notranslate nohighlight">
+\[
+\nabla_k^{-1} = \Delta_k^{-1} \nabla_k^T \in \mathbb{R}^{N_x \times D N_z}
+\]</div>
+</p>
+<p><strong>Matrix Interpretation</strong></p>
+<p>To compute this operator, the gradient tensor
+<div class="math notranslate nohighlight">
+\[
+\nabla_k(\cdot, X) \in \mathbb{R}^{D \times N_z \times N_x}
+\]</div>
+
+is reshaped into a matrix of shape <span class="math notranslate nohighlight">\(\mathbb{R}^{D N_z \times N_x}\)</span>.</p>
+<p>Then, its transpose is multiplied by the inverse Laplacian <span class="math notranslate nohighlight">\(\Delta_k^{-1}\)</span> to obtain <span class="math notranslate nohighlight">\(\nabla_k^{-1}\)</span>.</p>
+<p>This operator acts on a vector field <span class="math notranslate nohighlight">\(v_z \in \mathbb{R}^{D \times N_z \times D_{v_z}}\)</span> and returns:</p>
+<p><div class="math notranslate nohighlight">
+\[
+\nabla_k^{-1}(\cdot, X) \cdot v_z \in \mathbb{R}^{N_x \times D_{v_z}}.
+\]</div>
+</p>
+<p>** Least-Squares Formulation **</p>
+<p>Conceptually, this operation solves the following minimization problem:</p>
+<p><div class="math notranslate nohighlight">
+\[
+\bar{h} = \arg \min_{h \in \mathbb{R}^{N_x \times D_{v_z}}} \| \nabla_k h - v_z \|_{\ell^2}^2
+\]</div>
+</p>
+<p>That is, it finds the best function <span class="math notranslate nohighlight">\(h\)</span> whose kernel gradient approximates a given vector field <span class="math notranslate nohighlight">\(v_z\)</span>.</p>
+<p><strong>Example: 2D Case</strong></p>
+<p>In 2D, we can verify the behavior of the inverse by checking whether the composition:</p>
+<p><div class="math notranslate nohighlight">
+\[
+\nabla_k^{-1}(\cdot, X) \cdot \nabla_k(\cdot, X) f(X)
+\]</div>
+</p>
+<p>recovers the original function <span class="math notranslate nohighlight">\(f(X)\)</span>.</p>
+<p>This test confirms whether <span class="math notranslate nohighlight">\(\nabla_k^{-1} \nabla_k\)</span> approximates the identity.</p>
+<p><strong>Extrapolation</strong></p>
+<p>We can also evaluate generalization by applying:</p>
+<p><div class="math notranslate nohighlight">
+\[
+\nabla_k^{-1}(\cdot, Z) \cdot \nabla_k(\cdot, X) f(X)
+\]</div>
+</p>
+<p>This measures how well the inverse-gradient operator extrapolates from <span class="math notranslate nohighlight">\(X\)</span> to unseen points <span class="math notranslate nohighlight">\(Z\)</span>.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Importing necessary modules</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+
+<span class="n">curr_f</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span> <span class="s2">&quot;codpy-book&quot;</span><span class="p">,</span> <span class="s2">&quot;utils&quot;</span><span class="p">)</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">curr_f</span><span class="p">)</span>
+
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="c1"># from codpy.plotting import plot1D</span>
+<span class="c1"># Lets import multi_plot function from codpy utils</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">codpy.plot_utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">multi_plot</span>
+
+
+<span class="c1"># Define the sinusoidal function</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">periodic_fun</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A sinusoidal function that generates a sum of sines based on the input ``x``.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">math</span><span class="w"> </span><span class="kn">import</span> <span class="n">pi</span>
+
+    <span class="n">sinss</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">x</span> <span class="o">*</span> <span class="n">pi</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">sinss</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">sinss</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">ress</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">sinss</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">sinss</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">ress</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">ress</span> <span class="o">+</span> <span class="n">sinss</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">nabla_my_fun</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">math</span><span class="w"> </span><span class="kn">import</span> <span class="n">pi</span>
+
+    <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+    <span class="n">sinss</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">x</span> <span class="o">*</span> <span class="n">pi</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">sinss</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">sinss</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">D</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">D</span><span class="p">))</span>
+
+        <span class="k">def</span><span class="w"> </span><span class="nf">helper</span><span class="p">(</span><span class="n">d</span><span class="p">):</span>
+            <span class="n">out</span><span class="p">[</span><span class="n">d</span><span class="p">]</span> <span class="o">+=</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">sinss</span> <span class="o">*</span> <span class="n">pi</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">x</span><span class="p">[</span><span class="n">d</span><span class="p">]</span> <span class="o">*</span> <span class="n">pi</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">x</span><span class="p">[</span><span class="n">d</span><span class="p">]</span> <span class="o">*</span> <span class="n">pi</span><span class="p">)</span>
+
+        <span class="p">[</span><span class="n">helper</span><span class="p">(</span><span class="n">d</span><span class="p">)</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">D</span><span class="p">)]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">sinss</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">sinss</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">N</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">D</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">N</span><span class="p">,</span> <span class="n">D</span><span class="p">))</span>
+
+        <span class="k">def</span><span class="w"> </span><span class="nf">helper</span><span class="p">(</span><span class="n">d</span><span class="p">):</span>
+            <span class="n">out</span><span class="p">[:,</span> <span class="n">d</span><span class="p">]</span> <span class="o">+=</span> <span class="p">(</span>
+                <span class="mf">2.0</span> <span class="o">*</span> <span class="n">sinss</span> <span class="o">*</span> <span class="n">pi</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">x</span><span class="p">[:,</span> <span class="n">d</span><span class="p">]</span> <span class="o">*</span> <span class="n">pi</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">x</span><span class="p">[:,</span> <span class="n">d</span><span class="p">]</span> <span class="o">*</span> <span class="n">pi</span><span class="p">)</span>
+            <span class="p">)</span>
+
+        <span class="p">[</span><span class="n">helper</span><span class="p">(</span><span class="n">d</span><span class="p">)</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">D</span><span class="p">)]</span>
+    <span class="k">return</span> <span class="n">out</span>
+
+
+<span class="c1"># Function to generate periodic data</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">generate_periodic_data_cartesian</span><span class="p">(</span><span class="n">size_x</span><span class="p">,</span> <span class="n">size_z</span><span class="p">,</span> <span class="n">fun</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">nabla_fun</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Generates 2D structured Cartesian grid data for x and z domains,</span>
+<span class="sd">    and evaluates a given function and optionally its gradient.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">    - size_x: number of points per axis for x (grid will be size_x^2)</span>
+<span class="sd">    - size_z: number of points per axis for z (grid will be size_z^2)</span>
+<span class="sd">    - fun: function to evaluate at each point</span>
+<span class="sd">    - nabla_fun: optional gradient function to evaluate</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">    - x, z: 2D Cartesian grids of shape (N, 2)</span>
+<span class="sd">    - fx, fz: function values at x and z</span>
+<span class="sd">    - nabla_fx, nabla_fz (if nabla_fun is provided)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">cartesian_grid</span><span class="p">(</span><span class="n">size</span><span class="p">,</span> <span class="n">box</span><span class="p">):</span>
+        <span class="n">lin</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">box</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">d</span><span class="p">],</span> <span class="n">box</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">d</span><span class="p">],</span> <span class="n">size</span><span class="p">)</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">)]</span>
+        <span class="n">X</span><span class="p">,</span> <span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="o">*</span><span class="n">lin</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">([</span><span class="n">X</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="n">Y</span><span class="o">.</span><span class="n">ravel</span><span class="p">()],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="c1"># Define domain boxes</span>
+    <span class="n">X_box</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
+    <span class="n">Z_box</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="o">-</span><span class="mf">1.5</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.5</span><span class="p">],</span> <span class="p">[</span><span class="mf">1.5</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">]])</span>
+
+    <span class="c1"># Generate Cartesian grids</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">cartesian_grid</span><span class="p">(</span><span class="n">size_x</span><span class="p">,</span> <span class="n">X_box</span><span class="p">)</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">cartesian_grid</span><span class="p">(</span><span class="n">size_z</span><span class="p">,</span> <span class="n">Z_box</span><span class="p">)</span>
+
+    <span class="c1"># Function evaluations</span>
+    <span class="n">fx</span> <span class="o">=</span> <span class="n">fun</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="k">if</span> <span class="n">fun</span> <span class="k">else</span> <span class="kc">None</span>
+    <span class="n">fz</span> <span class="o">=</span> <span class="n">fun</span><span class="p">(</span><span class="n">z</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="k">if</span> <span class="n">fun</span> <span class="k">else</span> <span class="kc">None</span>
+
+    <span class="k">if</span> <span class="n">nabla_fun</span><span class="p">:</span>
+        <span class="n">nabla_fx</span> <span class="o">=</span> <span class="n">nabla_fun</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">nabla_fz</span> <span class="o">=</span> <span class="n">nabla_fun</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">x</span><span class="p">,</span> <span class="n">fx</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">fz</span><span class="p">,</span> <span class="n">nabla_fx</span><span class="p">,</span> <span class="n">nabla_fz</span>
+
+    <span class="k">return</span> <span class="n">x</span><span class="p">,</span> <span class="n">fx</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">fz</span>
+
+
+<span class="c1"># Lets define helper function to plot 3D projection of the function</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">plot_trisurf</span><span class="p">(</span><span class="n">xfx</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">elev</span><span class="o">=</span><span class="mi">90</span><span class="p">,</span> <span class="n">azim</span><span class="o">=-</span><span class="mi">100</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">cm</span>
+
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Helper function to plot a 3D surface using a trisurf plot.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">    - xfx: A tuple containing the x-coordinates (2D points) and their</span>
+<span class="sd">      corresponding function values.</span>
+<span class="sd">    - ax: The matplotlib axis object for plotting.</span>
+<span class="sd">    - legend: The legend/title for the plot.</span>
+<span class="sd">    - elev, azim: Elevation and azimuth angles for the 3D view.</span>
+<span class="sd">    - kwargs: Additional keyword arguments for further customization.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">xp</span><span class="p">,</span> <span class="n">fxp</span> <span class="o">=</span> <span class="n">xfx</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">xfx</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">x</span><span class="p">,</span> <span class="n">fx</span> <span class="o">=</span> <span class="n">xp</span><span class="p">,</span> <span class="n">fxp</span>
+
+    <span class="n">X</span><span class="p">,</span> <span class="n">Y</span> <span class="o">=</span> <span class="n">x</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">x</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span>
+    <span class="n">Z</span> <span class="o">=</span> <span class="n">fx</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot_trisurf</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">antialiased</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cm</span><span class="o">.</span><span class="n">jet</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">view_init</span><span class="p">(</span><span class="n">azim</span><span class="o">=</span><span class="n">azim</span><span class="p">,</span> <span class="n">elev</span><span class="o">=</span><span class="n">elev</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">title</span><span class="o">.</span><span class="n">set_text</span><span class="p">(</span><span class="n">legend</span><span class="p">)</span>
+
+
+<span class="c1"># import CodPy&#39;s core module and Kernel class</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">codpy</span><span class="w"> </span><span class="kn">import</span> <span class="n">core</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">codpy.kernel</span><span class="w"> </span><span class="kn">import</span> <span class="n">Kernel</span>
+</pre></div>
+</div>
+<p>Integral operator - inverse gradient operator</p>
+<hr class="docutils" />
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">fun_NablainvNabla1</span><span class="p">(</span><span class="n">size_x</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">size_y</span><span class="o">=</span><span class="mi">50</span><span class="p">):</span>
+    <span class="n">x</span><span class="p">,</span> <span class="n">fx</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">fz</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">nabla_fz</span> <span class="o">=</span> <span class="n">generate_periodic_data_cartesian</span><span class="p">(</span>
+        <span class="n">size_x</span><span class="p">,</span> <span class="n">size_y</span><span class="p">,</span> <span class="n">periodic_fun</span><span class="p">,</span> <span class="n">nabla_fun</span><span class="o">=</span><span class="n">nabla_my_fun</span>
+    <span class="p">)</span>
+
+    <span class="n">nabla_fz</span> <span class="o">=</span> <span class="n">nabla_fz</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+    <span class="n">kernel_ptr</span> <span class="o">=</span> <span class="n">Kernel</span><span class="p">(</span>
+        <span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">fx</span><span class="o">=</span><span class="n">fx</span><span class="p">,</span> <span class="n">set_kernel</span><span class="o">=</span><span class="n">core</span><span class="o">.</span><span class="n">kernel_setter</span><span class="p">(</span><span class="s2">&quot;tensornorm&quot;</span><span class="p">,</span> <span class="s2">&quot;scale_to_unitcube&quot;</span><span class="p">)</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">get_kernel</span><span class="p">()</span>
+
+    <span class="n">fz_inv</span> <span class="o">=</span> <span class="n">core</span><span class="o">.</span><span class="n">DiffOps</span><span class="o">.</span><span class="n">nabla_inv</span><span class="p">(</span>
+        <span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span>
+        <span class="n">y</span><span class="o">=</span><span class="n">x</span><span class="p">,</span>
+        <span class="n">z</span><span class="o">=</span><span class="n">x</span><span class="p">,</span>
+        <span class="n">kernel_ptr</span><span class="o">=</span><span class="n">kernel_ptr</span><span class="p">,</span>
+        <span class="n">fz</span><span class="o">=</span><span class="n">core</span><span class="o">.</span><span class="n">DiffOps</span><span class="o">.</span><span class="n">nabla</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">fx</span><span class="o">=</span><span class="n">fx</span><span class="p">,</span> <span class="n">kernel_ptr</span><span class="o">=</span><span class="n">kernel_ptr</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">multi_plot</span><span class="p">(</span>
+        <span class="p">[(</span><span class="n">x</span><span class="p">,</span> <span class="n">fx</span><span class="p">),</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">fz_inv</span><span class="p">)],</span>
+        <span class="n">plot_trisurf</span><span class="p">,</span>
+        <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;3d&quot;</span><span class="p">,</span>
+        <span class="n">mp_nrows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">mp_figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
+        <span class="n">mp_titles</span><span class="o">=</span><span class="p">[</span>
+            <span class="s2">&quot;Comparison between original function to the product of the gradient operator and its inverse&quot;</span>
+        <span class="p">],</span>
+    <span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+
+<span class="n">fun_NablainvNabla1</span><span class="p">()</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">fun_NablainvNabla2</span><span class="p">(</span><span class="n">size_x</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">size_y</span><span class="o">=</span><span class="mi">50</span><span class="p">):</span>
+    <span class="n">x</span><span class="p">,</span> <span class="n">fx</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">fz</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">nabla_fz</span> <span class="o">=</span> <span class="n">generate_periodic_data_cartesian</span><span class="p">(</span>
+        <span class="n">size_x</span><span class="p">,</span> <span class="n">size_y</span><span class="p">,</span> <span class="n">periodic_fun</span><span class="p">,</span> <span class="n">nabla_fun</span><span class="o">=</span><span class="n">nabla_my_fun</span>
+    <span class="p">)</span>
+
+    <span class="n">nabla_fz</span> <span class="o">=</span> <span class="n">nabla_fz</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+    <span class="n">kernel_ptr</span> <span class="o">=</span> <span class="n">Kernel</span><span class="p">(</span>
+        <span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">fx</span><span class="o">=</span><span class="n">fx</span><span class="p">,</span> <span class="n">set_kernel</span><span class="o">=</span><span class="n">core</span><span class="o">.</span><span class="n">kernel_setter</span><span class="p">(</span><span class="s2">&quot;tensornorm&quot;</span><span class="p">,</span> <span class="s2">&quot;scale_to_unitcube&quot;</span><span class="p">)</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">get_kernel</span><span class="p">()</span>
+
+    <span class="n">fz_inv</span> <span class="o">=</span> <span class="n">core</span><span class="o">.</span><span class="n">DiffOps</span><span class="o">.</span><span class="n">nabla_inv</span><span class="p">(</span>
+        <span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span>
+        <span class="n">y</span><span class="o">=</span><span class="n">x</span><span class="p">,</span>
+        <span class="n">z</span><span class="o">=</span><span class="n">z</span><span class="p">,</span>
+        <span class="n">kernel_ptr</span><span class="o">=</span><span class="n">kernel_ptr</span><span class="p">,</span>
+        <span class="n">fz</span><span class="o">=</span><span class="n">core</span><span class="o">.</span><span class="n">DiffOps</span><span class="o">.</span><span class="n">nabla</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="n">z</span><span class="p">,</span> <span class="n">fx</span><span class="o">=</span><span class="n">fx</span><span class="p">,</span> <span class="n">kernel_ptr</span><span class="o">=</span><span class="n">kernel_ptr</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">multi_plot</span><span class="p">(</span>
+        <span class="p">[(</span><span class="n">x</span><span class="p">,</span> <span class="n">fx</span><span class="p">),</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">fz_inv</span><span class="p">)],</span>
+        <span class="n">plot_trisurf</span><span class="p">,</span>
+        <span class="n">projection</span><span class="o">=</span><span class="s2">&quot;3d&quot;</span><span class="p">,</span>
+        <span class="n">mp_nrows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">mp_figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
+        <span class="n">mp_titles</span><span class="o">=</span><span class="p">[</span>
+            <span class="s2">&quot;Comparison between original function to the product of the inverse of the gradient operator and the gradient operator&quot;</span>
+        <span class="p">],</span>
+    <span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+
+<span class="n">fun_NablainvNabla2</span><span class="p">()</span>
+</pre></div>
+</div>
+<ul class="sphx-glr-horizontal">
+<li><img src="../_images/sphx_glr_ch3_4_4_001.png" srcset="../_images/sphx_glr_ch3_4_4_001.png" alt="ch3 4 4" class = "sphx-glr-multi-img"/></li>
+<li><img src="../_images/sphx_glr_ch3_4_4_002.png" srcset="../_images/sphx_glr_ch3_4_4_002.png" alt="ch3 4 4" class = "sphx-glr-multi-img"/></li>
+</ul>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 2.915 seconds)</p>
+<div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-ch3-ch3-4-4-py">
+<div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
+<p><a class="reference download internal" download="" href="../_downloads/34970e53bf4b19ac3f05dfa5f74f9216/ch3_4_4.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">ch3_4_4.ipynb</span></code></a></p>
+</div>
+<div class="sphx-glr-download sphx-glr-download-python docutils container">
+<p><a class="reference download internal" download="" href="../_downloads/950c4d98dccee3008be95ac13a36da44/ch3_4_4.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">ch3_4_4.py</span></code></a></p>
+</div>
+<div class="sphx-glr-download sphx-glr-download-zip docutils container">
+<p><a class="reference download internal" download="" href="../_downloads/2678a4b6174466ae36703e443bdb94a2/ch3_4_4.zip"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">zipped:</span> <span class="pre">ch3_4_4.zip</span></code></a></p>
+</div>
+</div>
+<p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="ch3_4_3.html" class="btn btn-neutral float-left" title="3.4.3 Inverse Laplace operator" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="ch3_4_5.html" class="btn btn-neutral float-right" title="3.4.5 Integral operator - inverse divergence operator" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Philippe G. LeFloch , Jean-Marc Mercier, and Shohruh Miryusupov.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

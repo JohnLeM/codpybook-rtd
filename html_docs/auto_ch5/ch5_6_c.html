@@ -1,0 +1,641 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>5.6.c Application of OT in Disitribution Sampling : High-Dimensional case &mdash; CodPy Book 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css?v=f4aeca0c" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+      <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=8d563738"></script>
+      <script src="../_static/doctools.js?v=9a2dae69"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script>let toggleHintShow = 'Click to show';</script>
+      <script>let toggleHintHide = 'Click to hide';</script>
+      <script>let toggleOpenOnPrint = 'true';</script>
+      <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+      <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+      <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="5.6.d Exploration Data Analysis of the Latent Space: Spherical Data" href="ch5_6_d.html" />
+    <link rel="prev" title="5.6.b Application of OT in Disitribution Sampling : 2D" href="ch5_6_b.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            CodPy Book
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Chapter 2:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../auto_ch2/index.html">Chapter 2: Basic notions on reproducing kernels</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch2/ch2_2.html">2.2 Reproducing kernels and transformation maps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch2/ch2_ex1D.html">2.3 1D Periodic Function Extrapolation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch2/ch2_5.html">2.3.2 Applying maps to kernels</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch2/ch2_ex2D.html">2.4 2D Periodic Function Extrapolation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch2/ch2_discrepancy_functional.html">2.6.2 A study of the discrepancy functional</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Chapter 3:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../auto_ch3/index.html">Chapter 3: Discrete operators based on reproducing kernels</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch3/ch3_3_2.html">3.3.2 Partition of unity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch3/ch3_4_1.html">3.4.1 Gradient Operator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch3/ch3_4_2.html">3.4.2 Divergence Operator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch3/ch3_4_3.html">3.4.3  Inverse Laplace operator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch3/ch3_4_4.html">3.4.4 Integral operator - inverse gradient operator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch3/ch3_4_5.html">3.4.5  Integral operator - inverse divergence operator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch3/ch3_4_6.html">3.4.6 Leray-orthogonal operator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch3/ch3_4_7.html">3.4.7 Leray operator and Helmholtz-Hodge decomposition</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Chapter 4:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../auto_ch4/index.html">Chapter 4: Clustering strategies</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch4/ch4_2.html">4.2 Clustering</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Chapter 5:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Chapter 5: Optimal transport and statistical kernel methods</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="ch5_2.html">5.2 Optimal Transport: LSAP (Linear Sum Assignment Problem)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ch5_33.html">5.3.3 Kernel Conditional Density</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ch5_34.html">5.3.4 Kernel Conditional Expectation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ch5_6_a.html">5.6.a Application of OT in Disitribution Sampling : 1D</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ch5_6_b.html">5.6.b Application of OT in Disitribution Sampling : 2D</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">5.6.c Application of OT in Disitribution Sampling : High-Dimensional case</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ch5_6_d.html">5.6.d Exploration Data Analysis of the Latent Space: Spherical Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ch5_7.html">5.7. Conditional Sampling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ch5_8.html">5.8. Conditional Sampling</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Chapter 6:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../auto_ch6/index.html">Chapter 6: Applications to machine learning : supervised, unsupervised and generative methods</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch6/ch6_housing.html">6.1 Supervised learning: reproducibility illustration with housing prices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch6/ch6_mnist.html">6.2 Supervised learning: benchmarks of methods with MNIST</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch6/ch6_Clustering.html">6.3 Unsupervised learning: Clustering - MNIST</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch6/ch6_ClustMNIST.html">6.3 Unsupervised learning: Clustering - MNIST</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch6/ch6_CreditCardFraud.html">6.4 Unsupervised learning: Clustering - Fraud detection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch6/ch6_9_CelebA_reconstruction.html">6.4.1 Generating complex distributions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch6/ch6_9_CelebA.html">6.4.1 Generating complex distributions from celebA dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch6/ch6_9_transfert.html">6.4.5 Conditioning on discrete distributions of celebA dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch6/ch6_stockClustering.html">6.5 Unsupervised learning: Clustering - Stock Clustering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch6/ch6_iris.html">6.7. Conditional Sampling</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Chapter 7:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../auto_ch7/index.html">Chapter 7: Application to partial differential equations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch7/ch7_invLaplace.html">7.01 Inverse Laplace Operator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch7/ch7_denoising.html">7.02 Denoising</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch7/ch7_heat_eq.html">7.03 Heat Equation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch7/ch7_heatLagrange.html">7.04 Lagrange Heat Equation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch7/ch7_convexHull.html">7.05 Convex Hull Algorithm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch7/ch7_AAD.html">7.06 Automatic Differentiation</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Chapter 8:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../kqlearning.html">KQLearning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../auto_ch8/index.html">Chapter 8: Reinforcement learning.</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch8/ch8_example.html">8.1 Using KAgents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch8/ch8_cartpole.html">8.2 Experiments - Cartpole</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch8/ch8_lunarlander.html">8.3 Experiments - LunarLander</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Chapter 9:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../auto_ch9/index.html">Chapter 9: Mathematical Finance.</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_get_market_data.html">9.01 Free time series modeling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_random_walk_log_normal.html">9.02 Random walks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_arma.html">9.03 ARMA(p,1) model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_garch.html">9.04 GARCH(1,1) model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_lagrange.html">9.05 Lagrange interpolation model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_additive.html">9.06 Additive noise map</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_conditionning.html">9.07 Conditionning model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_stoch_vol.html">9.08 Stochastic volatility model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_HestonCompare.html">9.10 Heston Process - Path comparison</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_isocontours.html">9.11 Heston Process - Intraday interpolation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_priceExtrapolation.html">9.12 Price extrapolation using KRR and Taylor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_greeks.html">9.13 Greeks output after correction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_rst.html">9.13 Reverse Stress Test</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_HestonRepro.html">9.9 Heston Process - Reproducibility</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../utils/ch9/ch9_utils.html">Chapter 9 utility functions</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">CodPy Book</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Chapter 5: Optimal transport and statistical kernel methods</a></li>
+      <li class="breadcrumb-item active">5.6.c Application of OT in Disitribution Sampling : High-Dimensional case</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/auto_ch5/ch5_6_c.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="sphx-glr-download-link-note admonition note">
+<p class="admonition-title">Note</p>
+<p><a class="reference internal" href="#sphx-glr-download-auto-ch5-ch5-6-c-py"><span class="std std-ref">Go to the end</span></a>
+to download the full example code.</p>
+</div>
+<section class="sphx-glr-example-title" id="c-application-of-ot-in-disitribution-sampling-high-dimensional-case">
+<span id="sphx-glr-auto-ch5-ch5-6-c-py"></span><h1>5.6.c Application of OT in Disitribution Sampling : High-Dimensional case<a class="headerlink" href="#c-application-of-ot-in-disitribution-sampling-high-dimensional-case" title="Link to this heading"></a></h1>
+<p>This section introduces the concept of partition of unity in the context of
+kernel methods and how CodPy implements it via projection operators.</p>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Link to this heading"></a></h2>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">codpy</span><span class="w"> </span><span class="kn">import</span> <span class="n">core</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">codpy.kernel</span><span class="w"> </span><span class="kn">import</span> <span class="n">Kernel</span><span class="p">,</span><span class="n">Sampler</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">codpy.plot_utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">multi_plot</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">normal_wrapper</span><span class="p">(</span><span class="n">center</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="n">center</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">radius</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">size</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">student_wrapper</span><span class="p">(</span><span class="n">center</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;df&quot;</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">)</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">standard_t</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">size</span><span class="p">)</span>
+    <span class="n">out</span> <span class="o">+=</span> <span class="n">center</span>
+    <span class="k">return</span> <span class="n">out</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">generate_multimodal_data</span><span class="p">(</span>
+    <span class="n">N</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span>
+    <span class="n">D</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">num_clusters</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+    <span class="n">centers</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">radii</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">weights</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">random_variable</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">seed</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Generate synthetic multimodal data from a mixture of clusters.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">        N (int): Total number of samples.</span>
+<span class="sd">        D (int): Dimensionality of the data.</span>
+<span class="sd">        num_clusters (int): Number of clusters.</span>
+<span class="sd">        centers (np.ndarray): Optional. Shape (num_clusters, D).</span>
+<span class="sd">        radii (np.ndarray): Optional. Std dev per cluster.</span>
+<span class="sd">        weights (np.ndarray): Optional. Cluster weights (should sum to 1).</span>
+<span class="sd">        random_variable (callable): Custom sampling function. Default is np.random.normal.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        x (pd.DataFrame): Data samples.</span>
+<span class="sd">        labels (pd.Series): Cluster labels for each sample.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">seed</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">centers</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">centers</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">num_clusters</span><span class="p">,</span> <span class="n">D</span><span class="p">))</span>
+        <span class="n">centers</span> <span class="o">-=</span> <span class="n">centers</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">centers</span> <span class="o">=</span> <span class="n">centers</span> <span class="o">*</span> <span class="mf">4.</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">centers</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">radii</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">radii</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">num_clusters</span><span class="p">))</span>
+
+    <span class="k">if</span> <span class="n">weights</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">weights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">num_clusters</span><span class="p">)</span> <span class="o">/</span> <span class="n">num_clusters</span>
+
+    <span class="k">if</span> <span class="n">random_variable</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">random_variable</span> <span class="o">=</span> <span class="n">normal_wrapper</span>
+
+    <span class="n">x_list</span><span class="p">,</span> <span class="n">label_list</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_clusters</span><span class="p">):</span>
+        <span class="n">num_samples</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">N</span> <span class="o">*</span> <span class="n">weights</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+        <span class="n">samples</span> <span class="o">=</span> <span class="n">random_variable</span><span class="p">(</span>
+            <span class="n">center</span><span class="o">=</span><span class="n">centers</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">num_samples</span><span class="p">,</span> <span class="n">D</span><span class="p">),</span> <span class="n">radius</span><span class="o">=</span><span class="n">radii</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="o">**</span><span class="n">kwargs</span>
+        <span class="p">)</span>
+        <span class="n">x_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">samples</span><span class="p">)</span>
+        <span class="n">label_list</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">num_samples</span><span class="p">)</span>
+
+    <span class="n">x</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span><span class="n">x_list</span><span class="p">),</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;dim_</span><span class="si">{</span><span class="n">d</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">D</span><span class="p">)])</span>
+    <span class="n">labels</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">label_list</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;cluster&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">x</span><span class="p">,</span> <span class="n">labels</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">df_summary</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;Mean&quot;</span><span class="p">:</span> <span class="n">df</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span>
+            <span class="s2">&quot;Variance&quot;</span><span class="p">:</span> <span class="n">df</span><span class="o">.</span><span class="n">var</span><span class="p">(),</span>
+            <span class="s2">&quot;Skewness&quot;</span><span class="p">:</span> <span class="n">df</span><span class="o">.</span><span class="n">skew</span><span class="p">(),</span>
+            <span class="s2">&quot;Kurtosis&quot;</span><span class="p">:</span> <span class="n">df</span><span class="o">.</span><span class="n">kurtosis</span><span class="p">(),</span>
+        <span class="p">}</span>
+    <span class="p">)</span>
+
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="kn">import</span> <span class="n">ks_2samp</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">ks_testD</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.05</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Performs Kolmogorov-Smirnov test for each dimension.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">        x (np.ndarray or pd.DataFrame): First sample.</span>
+<span class="sd">        y (np.ndarray or pd.DataFrame): Second sample.</span>
+<span class="sd">        alpha (float): Significance level (default 0.05).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        pd.Series: p-values from the KS test.</span>
+<span class="sd">        pd.Series: Constant threshold values (same for all dimensions).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">values</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="k">else</span> <span class="n">x</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">values</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="k">else</span> <span class="n">y</span>
+
+    <span class="n">D</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">p_values</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">thresholds</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">D</span><span class="p">):</span>
+        <span class="n">stat</span> <span class="o">=</span> <span class="n">ks_2samp</span><span class="p">(</span><span class="n">x</span><span class="p">[:,</span> <span class="n">i</span><span class="p">],</span> <span class="n">y</span><span class="p">[:,</span> <span class="n">i</span><span class="p">])</span>
+        <span class="n">p_values</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">stat</span><span class="o">.</span><span class="n">pvalue</span><span class="p">)</span>
+        <span class="n">thresholds</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">alpha</span><span class="p">)</span>  <span class="c1"># Optional: could vary if computed per dim</span>
+
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">p_values</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;p-value&quot;</span><span class="p">),</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">thresholds</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;threshold&quot;</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">stats_df</span><span class="p">(</span><span class="n">dfx_list</span><span class="p">,</span> <span class="n">dfy_list</span><span class="p">,</span> <span class="n">f_names</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">{:.2g}</span><span class="s2">&quot;</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Computes and formats summary statistics between reference and sampled data.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">        dfx_list (list): List of reference datasets (np.ndarray or pd.DataFrame).</span>
+<span class="sd">        dfy_list (list): List of sampled datasets (np.ndarray or pd.DataFrame).</span>
+<span class="sd">        f_names (list): Optional. Row labels. Should match total number of columns across all datasets.</span>
+<span class="sd">        fmt (str): Format string for floats.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        pd.DataFrame: Formatted summary statistics.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dfx_list</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+        <span class="n">dfx_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">dfx_list</span><span class="p">]</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dfy_list</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+        <span class="n">dfy_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">dfy_list</span><span class="p">]</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">format_pair</span><span class="p">(</span><span class="n">x_vals</span><span class="p">,</span> <span class="n">y_vals</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">fmt</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">fmt</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">y</span><span class="p">)</span><span class="si">}</span><span class="s2">)&quot;</span> <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">x_vals</span><span class="p">,</span> <span class="n">y_vals</span><span class="p">)]</span>
+
+    <span class="n">all_stats</span><span class="p">,</span> <span class="n">full_index</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">dfx</span><span class="p">,</span> <span class="n">dfy</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">dfx_list</span><span class="p">,</span> <span class="n">dfy_list</span><span class="p">)):</span>
+        <span class="n">dfx</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">dfx</span><span class="p">)</span>
+        <span class="n">dfy</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">dfy</span><span class="p">)</span>
+
+        <span class="n">sx</span><span class="p">,</span> <span class="n">sy</span> <span class="o">=</span> <span class="n">df_summary</span><span class="p">(</span><span class="n">dfx</span><span class="p">),</span> <span class="n">df_summary</span><span class="p">(</span><span class="n">dfy</span><span class="p">)</span>
+        <span class="n">ks_df</span><span class="p">,</span> <span class="n">ks_thr</span> <span class="o">=</span> <span class="n">ks_testD</span><span class="p">(</span><span class="n">dfx</span><span class="p">,</span> <span class="n">dfy</span><span class="p">)</span>
+
+        <span class="n">stats</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;Mean&quot;</span><span class="p">:</span> <span class="n">format_pair</span><span class="p">(</span><span class="n">sx</span><span class="o">.</span><span class="n">Mean</span><span class="p">,</span> <span class="n">sy</span><span class="o">.</span><span class="n">Mean</span><span class="p">),</span>
+            <span class="s2">&quot;Variance&quot;</span><span class="p">:</span> <span class="n">format_pair</span><span class="p">(</span><span class="n">sx</span><span class="o">.</span><span class="n">Variance</span><span class="p">,</span> <span class="n">sy</span><span class="o">.</span><span class="n">Variance</span><span class="p">),</span>
+            <span class="s2">&quot;Skewness&quot;</span><span class="p">:</span> <span class="n">format_pair</span><span class="p">(</span><span class="n">sx</span><span class="o">.</span><span class="n">Skewness</span><span class="p">,</span> <span class="n">sy</span><span class="o">.</span><span class="n">Skewness</span><span class="p">),</span>
+            <span class="s2">&quot;Kurtosis&quot;</span><span class="p">:</span> <span class="n">format_pair</span><span class="p">(</span><span class="n">sx</span><span class="o">.</span><span class="n">Kurtosis</span><span class="p">,</span> <span class="n">sy</span><span class="o">.</span><span class="n">Kurtosis</span><span class="p">),</span>
+            <span class="s2">&quot;KS test&quot;</span><span class="p">:</span> <span class="n">format_pair</span><span class="p">(</span><span class="n">ks_df</span><span class="p">,</span> <span class="n">ks_thr</span><span class="p">),</span>
+        <span class="p">}</span>
+
+        <span class="n">all_stats</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">stats</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">dfx</span><span class="o">.</span><span class="n">columns</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">f_names</span> <span class="ow">and</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">f_names</span><span class="p">):</span>
+            <span class="n">full_index</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">f_names</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">col</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">dfx</span><span class="o">.</span><span class="n">columns</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">full_index</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">dfx</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+
+    <span class="n">result</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">all_stats</span><span class="p">)</span>
+    <span class="n">result</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">full_index</span>
+    <span class="k">return</span> <span class="n">result</span>
+</pre></div>
+</div>
+<p>High dimensional illustrations</p>
+<hr class="docutils" />
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">D_dim_table</span><span class="p">(</span><span class="n">f_x</span><span class="p">,</span> <span class="n">f_z</span><span class="p">,</span> <span class="n">f_names</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;OT&quot;</span><span class="p">,</span> <span class="s2">&quot;with encoding&quot;</span><span class="p">]):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Computes rows with Max, Median, and Min KS test values for both methods.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">        f_x, f_z: Tuple of (true_data, generated_data) for two methods.</span>
+<span class="sd">        f_names (list): Labels for the two methods.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        pd.DataFrame: Summary table with labeled rows.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">extract_extremes</span><span class="p">(</span><span class="n">df_stats</span><span class="p">):</span>
+        <span class="c1"># Parse KS values</span>
+        <span class="n">ks_vals</span> <span class="o">=</span> <span class="n">df_stats</span><span class="p">[</span><span class="s2">&quot;KS test&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;(&quot;</span><span class="p">,</span> <span class="n">expand</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+
+        <span class="c1"># Identify indices for extreme cases</span>
+        <span class="n">idx_max</span> <span class="o">=</span> <span class="n">ks_vals</span><span class="o">.</span><span class="n">idxmax</span><span class="p">()</span>
+        <span class="n">idx_median</span> <span class="o">=</span> <span class="p">(</span><span class="n">ks_vals</span> <span class="o">-</span> <span class="n">ks_vals</span><span class="o">.</span><span class="n">median</span><span class="p">())</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span><span class="o">.</span><span class="n">idxmin</span><span class="p">()</span>
+        <span class="n">idx_min</span> <span class="o">=</span> <span class="n">ks_vals</span><span class="o">.</span><span class="n">idxmin</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="n">df_stats</span><span class="o">.</span><span class="n">loc</span><span class="p">[[</span><span class="n">idx_max</span><span class="p">,</span> <span class="n">idx_median</span><span class="p">,</span> <span class="n">idx_min</span><span class="p">]]</span>
+
+    <span class="c1"># Get individual stats tables</span>
+    <span class="n">table1</span> <span class="o">=</span> <span class="n">stats_df</span><span class="p">(</span><span class="n">f_x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">f_x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">table2</span> <span class="o">=</span> <span class="n">stats_df</span><span class="p">(</span><span class="n">f_z</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">f_z</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+    <span class="c1"># Extract key rows</span>
+    <span class="n">summary1</span> <span class="o">=</span> <span class="n">extract_extremes</span><span class="p">(</span><span class="n">table1</span><span class="p">)</span>
+    <span class="n">summary2</span> <span class="o">=</span> <span class="n">extract_extremes</span><span class="p">(</span><span class="n">table2</span><span class="p">)</span>
+
+    <span class="c1"># Assign readable row labels</span>
+    <span class="n">summary1</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">f_names</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2"> (Max)&quot;</span><span class="p">,</span>
+        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">f_names</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2"> (Median)&quot;</span><span class="p">,</span>
+        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">f_names</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2"> (Min)&quot;</span><span class="p">,</span>
+    <span class="p">]</span>
+    <span class="n">summary2</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">f_names</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2"> (Max)&quot;</span><span class="p">,</span>
+        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">f_names</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2"> (Median)&quot;</span><span class="p">,</span>
+        <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">f_names</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2"> (Min)&quot;</span><span class="p">,</span>
+    <span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">summary1</span><span class="p">,</span> <span class="n">summary2</span><span class="p">])</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">D_dim_index</span><span class="p">(</span><span class="n">f_x</span><span class="p">,</span> <span class="n">f_z</span><span class="p">,</span> <span class="n">f_names</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;OT&quot;</span><span class="p">,</span> <span class="s2">&quot;with encoding&quot;</span><span class="p">]):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Identifies indices with lowest and highest KS test scores across dimensions.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        (list, list): (min_indices, max_indices)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">min_indices</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">max_indices</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">z</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">f_x</span><span class="p">,</span> <span class="n">f_z</span><span class="p">):</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">stats_df</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span>
+
+        <span class="n">ks_vals</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;KS test&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;(&quot;</span><span class="p">,</span> <span class="n">expand</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+        <span class="n">min_indices</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">ks_vals</span><span class="o">.</span><span class="n">nsmallest</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+        <span class="n">max_indices</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">ks_vals</span><span class="o">.</span><span class="n">nlargest</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+
+    <span class="k">return</span> <span class="n">min_indices</span><span class="p">,</span> <span class="n">max_indices</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">scatter_plot</span><span class="p">(</span><span class="n">xfx</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="n">xp</span><span class="p">,</span> <span class="n">fxp</span> <span class="o">=</span> <span class="n">xfx</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">xfx</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">xp</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">xp</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;True&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">fxp</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">xp</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Generated&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">plot_best_worst</span><span class="p">(</span><span class="n">true_data</span><span class="p">,</span> <span class="n">generated_data</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Plots best and worst reconstructed dimensions based on KS statistics.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">min_indices</span><span class="p">,</span> <span class="n">max_indices</span> <span class="o">=</span> <span class="n">D_dim_index</span><span class="p">(</span><span class="n">true_data</span><span class="p">,</span> <span class="n">generated_data</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">extract_by_index</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">indices</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[</span>
+            <span class="n">d</span><span class="p">[:,</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">indices</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">or</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])]]</span>
+            <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">data</span>
+        <span class="p">]</span>
+
+    <span class="n">best_OT</span> <span class="o">=</span> <span class="n">extract_by_index</span><span class="p">([</span><span class="n">true_data</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">generated_data</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span> <span class="n">max_indices</span><span class="p">)</span>
+    <span class="n">best_enc</span> <span class="o">=</span> <span class="n">extract_by_index</span><span class="p">([</span><span class="n">true_data</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">generated_data</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span> <span class="n">max_indices</span><span class="p">)</span>
+    <span class="n">worst_OT</span> <span class="o">=</span> <span class="n">extract_by_index</span><span class="p">([</span><span class="n">true_data</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">generated_data</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span> <span class="n">min_indices</span><span class="p">)</span>
+    <span class="n">worst_enc</span> <span class="o">=</span> <span class="n">extract_by_index</span><span class="p">([</span><span class="n">true_data</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">generated_data</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span> <span class="n">min_indices</span><span class="p">)</span>
+
+    <span class="n">plot_data</span> <span class="o">=</span> <span class="p">[</span><span class="n">best_OT</span><span class="p">,</span> <span class="n">best_enc</span><span class="p">,</span> <span class="n">worst_OT</span><span class="p">,</span> <span class="n">worst_enc</span><span class="p">]</span>
+    <span class="n">titles</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Monge best&quot;</span><span class="p">,</span> <span class="s2">&quot;Gromov-Monge best&quot;</span><span class="p">,</span> <span class="s2">&quot;Monge worst&quot;</span><span class="p">,</span> <span class="s2">&quot;Gromov-Monge worst&quot;</span><span class="p">]</span>
+
+    <span class="n">multi_plot</span><span class="p">(</span>
+        <span class="n">plot_data</span><span class="p">,</span>
+        <span class="n">fun_plot</span><span class="o">=</span><span class="n">scatter_plot</span><span class="p">,</span>
+        <span class="n">f_names</span><span class="o">=</span><span class="n">titles</span><span class="p">,</span>
+        <span class="n">mp_nrows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">mp_figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>
+        <span class="n">legends</span><span class="o">=</span><span class="p">[[</span><span class="s2">&quot;True&quot;</span><span class="p">,</span> <span class="s2">&quot;Generated&quot;</span><span class="p">]]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">plot_data</span><span class="p">),</span>
+    <span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">get_figures_data</span><span class="p">(</span>
+    <span class="n">D</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">N</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">N_samples</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">centers</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">random_variable</span><span class="o">=</span><span class="n">normal_wrapper</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Generates synthetic multimodal data and samples from it using kernel-based mapping.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">        D (int): Dimension of the data.</span>
+<span class="sd">        N (int): Number of reference samples.</span>
+<span class="sd">        N_samples (int): Number of samples to generate from the learned sampler.</span>
+<span class="sd">        centers (np.ndarray): Optional custom centers for the clusters.</span>
+<span class="sd">        random_variable (callable): Sampling function (e.g., normal_wrapper or student_wrapper).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        tuple: (reference_data (np.ndarray), sampled_data (np.ndarray))</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Default centers: two symmetric clusters</span>
+    <span class="k">if</span> <span class="n">centers</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">centers</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="n">D</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="n">D</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.0</span><span class="p">)])</span>
+
+    <span class="c1"># Generate reference multimodal dataset</span>
+    <span class="n">ref_df</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">generate_multimodal_data</span><span class="p">(</span>
+        <span class="n">N</span><span class="o">=</span><span class="n">N</span><span class="p">,</span> <span class="n">D</span><span class="o">=</span><span class="n">D</span><span class="p">,</span> <span class="n">centers</span><span class="o">=</span><span class="n">centers</span><span class="p">,</span> <span class="n">random_variable</span><span class="o">=</span><span class="n">random_variable</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+    <span class="p">)</span>
+    <span class="n">ref</span> <span class="o">=</span> <span class="n">ref_df</span><span class="o">.</span><span class="n">values</span>
+
+    <span class="c1"># Sample from it using kernel + sampler</span>
+    <span class="n">sampler</span> <span class="o">=</span> <span class="n">Sampler</span><span class="p">(</span><span class="n">ref</span><span class="p">,</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">sampled</span> <span class="o">=</span> <span class="n">sampler</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">N_samples</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">ref</span><span class="p">,</span> <span class="n">sampled</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">figure</span><span class="p">(</span>
+    <span class="n">xy</span><span class="p">,</span>
+    <span class="n">f_names</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">mp_ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+    <span class="n">mp_nrows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">fun_plot</span><span class="o">=</span><span class="n">scatter_plot</span><span class="p">,</span>
+    <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span>
+    <span class="n">legends</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Displays multiple 2D plots of true vs generated data.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">        xy (list): List of (reference, sampled) pairs.</span>
+<span class="sd">        f_names (list): List of titles for each subplot.</span>
+<span class="sd">        mp_ncols (int): Number of columns in the plot grid.</span>
+<span class="sd">        mp_nrows (int): Number of rows in the plot grid.</span>
+<span class="sd">        fun_plot (callable): Plotting function (default: scatter_plot).</span>
+<span class="sd">        figsize (tuple): Figure size for the whole plot.</span>
+<span class="sd">        legends (list): Custom legends per subplot.</span>
+<span class="sd">        **kwargs: Additional keyword arguments for plotting function.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Default names if none provided</span>
+    <span class="k">if</span> <span class="n">f_names</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">f_names</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;Figure </span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">xy</span><span class="p">))]</span>
+
+    <span class="c1"># Default legends</span>
+    <span class="k">if</span> <span class="n">legends</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">legends</span> <span class="o">=</span> <span class="p">[[</span><span class="s2">&quot;True&quot;</span><span class="p">,</span> <span class="s2">&quot;Generated&quot;</span><span class="p">]]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">xy</span><span class="p">)</span>
+
+    <span class="n">multi_plot</span><span class="p">(</span>
+        <span class="n">xy</span><span class="p">,</span>
+        <span class="n">fun_plot</span><span class="o">=</span><span class="n">fun_plot</span><span class="p">,</span>
+        <span class="n">f_names</span><span class="o">=</span><span class="n">f_names</span><span class="p">,</span>
+        <span class="n">mp_ncols</span><span class="o">=</span><span class="n">mp_ncols</span><span class="p">,</span>
+        <span class="n">mp_nrows</span><span class="o">=</span><span class="n">mp_nrows</span><span class="p">,</span>
+        <span class="n">mp_figsize</span><span class="o">=</span><span class="n">figsize</span><span class="p">,</span>
+        <span class="n">legends</span><span class="o">=</span><span class="n">legends</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+    <span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">label413</span><span class="p">(</span>
+    <span class="n">kwargs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">encode_d</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">f_names</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Monge&quot;</span><span class="p">,</span> <span class="s2">&quot;Gromov-Monge&quot;</span><span class="p">],</span>
+    <span class="n">fun_plot</span><span class="o">=</span><span class="n">scatter_plot</span><span class="p">,</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compare performance of OT vs Parametric encoder over high-dimensional data (D=15).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">kwargs</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="c1"># Generate data (normal for both, but one with encoder Dx=1)</span>
+    <span class="n">out_ot</span> <span class="o">=</span> <span class="n">get_figures_data</span><span class="p">(</span><span class="n">dist</span><span class="o">=</span><span class="n">normal_wrapper</span><span class="p">,</span> <span class="n">Nz</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">D</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">latent_generator</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">n</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">))</span><span class="o">/</span><span class="n">n</span>
+    <span class="n">out_enc</span> <span class="o">=</span> <span class="n">get_figures_data</span><span class="p">(</span><span class="n">dist</span><span class="o">=</span><span class="n">normal_wrapper</span><span class="p">,</span> <span class="n">Nz</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">D</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">latent_dim</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">reg</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span><span class="n">latent_generator</span><span class="o">=</span><span class="n">latent_generator</span><span class="p">,</span><span class="n">seed</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="c1"># Summary table</span>
+    <span class="n">summary_table</span> <span class="o">=</span> <span class="n">D_dim_table</span><span class="p">(</span><span class="n">out_ot</span><span class="p">,</span> <span class="n">out_enc</span><span class="p">,</span> <span class="n">f_names</span><span class="o">=</span><span class="n">f_names</span><span class="p">)</span>
+
+    <span class="c1"># Show plots</span>
+    <span class="n">figure</span><span class="p">([</span><span class="n">out_ot</span><span class="p">,</span> <span class="n">out_enc</span><span class="p">],</span> <span class="n">f_names</span><span class="o">=</span><span class="n">f_names</span><span class="p">,</span> <span class="n">fun_plot</span><span class="o">=</span><span class="n">fun_plot</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">plot_best_worst</span><span class="p">([</span><span class="n">out_ot</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">out_enc</span><span class="p">[</span><span class="mi">0</span><span class="p">]],</span> <span class="p">[</span><span class="n">out_ot</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">out_enc</span><span class="p">[</span><span class="mi">1</span><span class="p">]])</span>
+
+    <span class="k">return</span> <span class="n">summary_table</span>
+
+<span class="c1"># core.KerInterface.set_verbose()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">label413</span><span class="p">())</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<ul class="sphx-glr-horizontal">
+<li><img src="../_images/sphx_glr_ch5_6_c_001.png" srcset="../_images/sphx_glr_ch5_6_c_001.png" alt="Monge, Gromov-Monge" class = "sphx-glr-multi-img"/></li>
+<li><img src="../_images/sphx_glr_ch5_6_c_002.png" srcset="../_images/sphx_glr_ch5_6_c_002.png" alt="Monge best, Gromov-Monge best, Monge worst, Gromov-Monge worst" class = "sphx-glr-multi-img"/></li>
+</ul>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>                                    Mean   Variance         Skewness    Kurtosis         KS test
+Monge (Max)              0.013 (-0.0096)  9.2 (5.5)   0.004 (-0.074)   -2 (-0.1)  2.2e-16 (0.05)
+Monge (Median)          -0.0026 (-0.022)    9 (5.4)  0.0028 (-0.083)  -2 (-0.11)  5.1e-17 (0.05)
+Monge (Min)             -0.0051 (-0.021)  9.2 (5.4)  0.0056 (-0.074)  -2 (-0.14)  1.2e-17 (0.05)
+Gromov-Monge (Max)     -0.0026 (-0.0031)      9 (9)  0.0028 (0.0032)     -2 (-2)        1 (0.05)
+Gromov-Monge (Median)  -0.0026 (-0.0031)      9 (9)  0.0028 (0.0032)     -2 (-2)        1 (0.05)
+Gromov-Monge (Min)     -0.0026 (-0.0031)      9 (9)  0.0028 (0.0032)     -2 (-2)        1 (0.05)
+</pre></div>
+</div>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.572 seconds)</p>
+<div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-ch5-ch5-6-c-py">
+<div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
+<p><a class="reference download internal" download="" href="../_downloads/715e576077e0813a2a42d5a5d432d075/ch5_6_c.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">ch5_6_c.ipynb</span></code></a></p>
+</div>
+<div class="sphx-glr-download sphx-glr-download-python docutils container">
+<p><a class="reference download internal" download="" href="../_downloads/715b9f159aa774f58fef683b872aaf08/ch5_6_c.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">ch5_6_c.py</span></code></a></p>
+</div>
+<div class="sphx-glr-download sphx-glr-download-zip docutils container">
+<p><a class="reference download internal" download="" href="../_downloads/0af8395b3102ff9ce835bc5a6047569b/ch5_6_c.zip"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">zipped:</span> <span class="pre">ch5_6_c.zip</span></code></a></p>
+</div>
+</div>
+<p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="ch5_6_b.html" class="btn btn-neutral float-left" title="5.6.b Application of OT in Disitribution Sampling : 2D" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="ch5_6_d.html" class="btn btn-neutral float-right" title="5.6.d Exploration Data Analysis of the Latent Space: Spherical Data" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Philippe G. LeFloch , Jean-Marc Mercier, and Shohruh Miryusupov.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
