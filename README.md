@@ -1,10 +1,10 @@
 # Reproducing kernel methods for machine learning, PDEs, and statistics with CodPy
 
 This repository accompanies the book  
-**[Reproducing kernel methods for machine learning, PDEs, and statistics with Python](https://arxiv.org/)**  
+**[Reproducing kernel methods for machine learning, PDEs, and statistics with Python](https://arxiv.org/pdf/2402.07084)**  
 by *Philippe G. LeFloch, Jean-Marc Mercier, and Shohruh Miryusupov* (available on arXiv).  
 
-It provides **Python code implementations** and **reproductions of the experiments** detailed in the book using the [CodPy library](lien_a_ajouter).
+It provides **Python code implementations** and allows to **reproduce all figures of the book**, which is based on the RKHS [CodPy library](https://pypi.org/project/codpy/).
 
 ---
 
@@ -27,7 +27,7 @@ This repository focuses on **reproducing the experiments from the book** chapter
 You can install the package directly from GitHub:
 
 ```bash
-pip install git+https://github.com/smiryusupov2/codpybook.git
+pip install git+https://github.com/JohnLeM/codpybook-rtd.git
 ```
 
 # License
