@@ -1,0 +1,21 @@
+Metadata-Version: 2.1
+Name: codpybook
+Version: 0.1.0
+Summary: A gallery of illustrative examples for the book 'Reproducing kernel methods for machine learning, PDEs, and statistics with Python'.
+Home-page: https://github.com/smiryusupov2/codpybook
+Author: jean-marc mercier
+Author-email: jeanmarc.mercier@gmail.com
+Maintainer: jean-marc mercier
+License: new BSD
+Platform: UNKNOWN
+Classifier: Development Status :: 2 - Pre-Alpha
+Classifier: Environment :: Win32 (MS Windows)
+Classifier: Programming Language :: Python
+Classifier: Topic :: Scientific/Engineering
+Classifier: Operating System :: Microsoft :: Windows :: Windows 11
+Description-Content-Type: text/markdown
+
+# codpy-book
+ a set of examples running codpy
+
+

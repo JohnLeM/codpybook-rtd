@@ -1,0 +1,17 @@
+codpy==0.2.1
+Sphinx
+sphinx-gallery
+sphinx-togglebutton==0.3.2
+sphinx-math-dollar==1.2.1
+ipython
+sphinx-rtd-theme==3.0.2
+xgboost
+seaborn==0.13.2
+tqdm==4.67.1
+QuantLib==1.39
+arch==7.2.0
+numdifftools==0.9.41
+scikit-image
+torchvision==0.14.0
+kagglehub==0.3.12
+gymnasium

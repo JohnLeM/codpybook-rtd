@@ -1,0 +1,2 @@
+sphinx-build -b html . _build
+sphinx-build -b html -D exclude_patterns="ch8/**" . _build

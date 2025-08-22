@@ -1,0 +1,7 @@
+README.md
+setup.py
+codpybook.egg-info/PKG-INFO
+codpybook.egg-info/SOURCES.txt
+codpybook.egg-info/dependency_links.txt
+codpybook.egg-info/requires.txt
+codpybook.egg-info/top_level.txt
