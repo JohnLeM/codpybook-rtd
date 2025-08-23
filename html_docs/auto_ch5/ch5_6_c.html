@@ -7,7 +7,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>5.6.c Application of OT in Disitribution Sampling : High-Dimensional case &mdash; CodPy Book 1.0.0 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
       <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
@@ -135,7 +135,6 @@
 <li class="toctree-l1"><a class="reference internal" href="../auto_ch8/index.html">Chapter 8: Reinforcement learning.</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../auto_ch8/ch8_example.html">8.1 Using KAgents</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../auto_ch8/ch8_cartpole.html">8.2 Experiments - Cartpole</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../auto_ch8/ch8_lunarlander.html">8.3 Experiments - LunarLander</a></li>
 </ul>
 </li>
 </ul>
@@ -197,27 +196,27 @@ to download the full example code.</p>
 kernel methods and how CodPy implements it via projection operators.</p>
 <section id="overview">
 <h2>Overview<a class="headerlink" href="#overview" title="Link to this heading"></a></h2>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
 
-<span class="kn">from</span><span class="w"> </span><span class="nn">codpy</span><span class="w"> </span><span class="kn">import</span> <span class="n">core</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">codpy.kernel</span><span class="w"> </span><span class="kn">import</span> <span class="n">Kernel</span><span class="p">,</span><span class="n">Sampler</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">codpy.plot_utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">multi_plot</span>
+<span class="kn">from</span> <span class="nn">codpy</span> <span class="kn">import</span> <span class="n">core</span>
+<span class="kn">from</span> <span class="nn">codpy.kernel</span> <span class="kn">import</span> <span class="n">Kernel</span><span class="p">,</span><span class="n">Sampler</span>
+<span class="kn">from</span> <span class="nn">codpy.plot_utils</span> <span class="kn">import</span> <span class="n">multi_plot</span>
 
 
-<span class="k">def</span><span class="w"> </span><span class="nf">normal_wrapper</span><span class="p">(</span><span class="n">center</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">normal_wrapper</span><span class="p">(</span><span class="n">center</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="n">center</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">radius</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">size</span><span class="p">)</span>
 
 
-<span class="k">def</span><span class="w"> </span><span class="nf">student_wrapper</span><span class="p">(</span><span class="n">center</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">student_wrapper</span><span class="p">(</span><span class="n">center</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="n">df</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;df&quot;</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">)</span>
     <span class="n">out</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">standard_t</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">size</span><span class="p">)</span>
     <span class="n">out</span> <span class="o">+=</span> <span class="n">center</span>
     <span class="k">return</span> <span class="n">out</span>
 
 
-<span class="k">def</span><span class="w"> </span><span class="nf">generate_multimodal_data</span><span class="p">(</span>
+<span class="k">def</span> <span class="nf">generate_multimodal_data</span><span class="p">(</span>
     <span class="n">N</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span>
     <span class="n">D</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
     <span class="n">num_clusters</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
@@ -275,7 +274,7 @@ kernel methods and how CodPy implements it via projection operators.</p>
     <span class="k">return</span> <span class="n">x</span><span class="p">,</span> <span class="n">labels</span>
 
 
-<span class="k">def</span><span class="w"> </span><span class="nf">df_summary</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">df_summary</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
         <span class="p">{</span>
             <span class="s2">&quot;Mean&quot;</span><span class="p">:</span> <span class="n">df</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span>
@@ -286,10 +285,10 @@ kernel methods and how CodPy implements it via projection operators.</p>
     <span class="p">)</span>
 
 
-<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="kn">import</span> <span class="n">ks_2samp</span>
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">ks_2samp</span>
 
 
-<span class="k">def</span><span class="w"> </span><span class="nf">ks_testD</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.05</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">ks_testD</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.05</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Performs Kolmogorov-Smirnov test for each dimension.</span>
 
@@ -317,7 +316,7 @@ kernel methods and how CodPy implements it via projection operators.</p>
     <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">p_values</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;p-value&quot;</span><span class="p">),</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">thresholds</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;threshold&quot;</span><span class="p">)</span>
 
 
-<span class="k">def</span><span class="w"> </span><span class="nf">stats_df</span><span class="p">(</span><span class="n">dfx_list</span><span class="p">,</span> <span class="n">dfy_list</span><span class="p">,</span> <span class="n">f_names</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">{:.2g}</span><span class="s2">&quot;</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">stats_df</span><span class="p">(</span><span class="n">dfx_list</span><span class="p">,</span> <span class="n">dfy_list</span><span class="p">,</span> <span class="n">f_names</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">{:.2g}</span><span class="s2">&quot;</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Computes and formats summary statistics between reference and sampled data.</span>
 
@@ -336,7 +335,7 @@ kernel methods and how CodPy implements it via projection operators.</p>
     <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dfy_list</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
         <span class="n">dfy_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">dfy_list</span><span class="p">]</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">format_pair</span><span class="p">(</span><span class="n">x_vals</span><span class="p">,</span> <span class="n">y_vals</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">format_pair</span><span class="p">(</span><span class="n">x_vals</span><span class="p">,</span> <span class="n">y_vals</span><span class="p">):</span>
         <span class="k">return</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">fmt</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">fmt</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">y</span><span class="p">)</span><span class="si">}</span><span class="s2">)&quot;</span> <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">x_vals</span><span class="p">,</span> <span class="n">y_vals</span><span class="p">)]</span>
 
     <span class="n">all_stats</span><span class="p">,</span> <span class="n">full_index</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
@@ -368,7 +367,7 @@ kernel methods and how CodPy implements it via projection operators.</p>
 </div>
 <p>High dimensional illustrations</p>
 <hr class="docutils" />
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">D_dim_table</span><span class="p">(</span><span class="n">f_x</span><span class="p">,</span> <span class="n">f_z</span><span class="p">,</span> <span class="n">f_names</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;OT&quot;</span><span class="p">,</span> <span class="s2">&quot;with encoding&quot;</span><span class="p">]):</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">D_dim_table</span><span class="p">(</span><span class="n">f_x</span><span class="p">,</span> <span class="n">f_z</span><span class="p">,</span> <span class="n">f_names</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;OT&quot;</span><span class="p">,</span> <span class="s2">&quot;with encoding&quot;</span><span class="p">]):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Computes rows with Max, Median, and Min KS test values for both methods.</span>
 
@@ -380,7 +379,7 @@ kernel methods and how CodPy implements it via projection operators.</p>
 <span class="sd">        pd.DataFrame: Summary table with labeled rows.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">extract_extremes</span><span class="p">(</span><span class="n">df_stats</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">extract_extremes</span><span class="p">(</span><span class="n">df_stats</span><span class="p">):</span>
         <span class="c1"># Parse KS values</span>
         <span class="n">ks_vals</span> <span class="o">=</span> <span class="n">df_stats</span><span class="p">[</span><span class="s2">&quot;KS test&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;(&quot;</span><span class="p">,</span> <span class="n">expand</span><span class="o">=</span><span class="kc">True</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
 
@@ -414,7 +413,7 @@ kernel methods and how CodPy implements it via projection operators.</p>
     <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">summary1</span><span class="p">,</span> <span class="n">summary2</span><span class="p">])</span>
 
 
-<span class="k">def</span><span class="w"> </span><span class="nf">D_dim_index</span><span class="p">(</span><span class="n">f_x</span><span class="p">,</span> <span class="n">f_z</span><span class="p">,</span> <span class="n">f_names</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;OT&quot;</span><span class="p">,</span> <span class="s2">&quot;with encoding&quot;</span><span class="p">]):</span>
+<span class="k">def</span> <span class="nf">D_dim_index</span><span class="p">(</span><span class="n">f_x</span><span class="p">,</span> <span class="n">f_z</span><span class="p">,</span> <span class="n">f_names</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;OT&quot;</span><span class="p">,</span> <span class="s2">&quot;with encoding&quot;</span><span class="p">]):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Identifies indices with lowest and highest KS test scores across dimensions.</span>
 
@@ -434,7 +433,7 @@ kernel methods and how CodPy implements it via projection operators.</p>
     <span class="k">return</span> <span class="n">min_indices</span><span class="p">,</span> <span class="n">max_indices</span>
 
 
-<span class="k">def</span><span class="w"> </span><span class="nf">scatter_plot</span><span class="p">(</span><span class="n">xfx</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">scatter_plot</span><span class="p">(</span><span class="n">xfx</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="n">xp</span><span class="p">,</span> <span class="n">fxp</span> <span class="o">=</span> <span class="n">xfx</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">xfx</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">xp</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">xp</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;True&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">fxp</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">xp</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Generated&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
@@ -442,13 +441,13 @@ kernel methods and how CodPy implements it via projection operators.</p>
     <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 
 
-<span class="k">def</span><span class="w"> </span><span class="nf">plot_best_worst</span><span class="p">(</span><span class="n">true_data</span><span class="p">,</span> <span class="n">generated_data</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">plot_best_worst</span><span class="p">(</span><span class="n">true_data</span><span class="p">,</span> <span class="n">generated_data</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Plots best and worst reconstructed dimensions based on KS statistics.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">min_indices</span><span class="p">,</span> <span class="n">max_indices</span> <span class="o">=</span> <span class="n">D_dim_index</span><span class="p">(</span><span class="n">true_data</span><span class="p">,</span> <span class="n">generated_data</span><span class="p">)</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">extract_by_index</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">indices</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">extract_by_index</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">indices</span><span class="p">):</span>
         <span class="k">return</span> <span class="p">[</span>
             <span class="n">d</span><span class="p">[:,</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">indices</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">or</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])]]</span>
             <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">data</span>
@@ -472,7 +471,7 @@ kernel methods and how CodPy implements it via projection operators.</p>
     <span class="p">)</span>
 
 
-<span class="k">def</span><span class="w"> </span><span class="nf">get_figures_data</span><span class="p">(</span>
+<span class="k">def</span> <span class="nf">get_figures_data</span><span class="p">(</span>
     <span class="n">D</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">N</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">N_samples</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">centers</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">random_variable</span><span class="o">=</span><span class="n">normal_wrapper</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
@@ -505,7 +504,7 @@ kernel methods and how CodPy implements it via projection operators.</p>
     <span class="k">return</span> <span class="n">ref</span><span class="p">,</span> <span class="n">sampled</span>
 
 
-<span class="k">def</span><span class="w"> </span><span class="nf">figure</span><span class="p">(</span>
+<span class="k">def</span> <span class="nf">figure</span><span class="p">(</span>
     <span class="n">xy</span><span class="p">,</span>
     <span class="n">f_names</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">mp_ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
@@ -548,7 +547,7 @@ kernel methods and how CodPy implements it via projection operators.</p>
     <span class="p">)</span>
 
 
-<span class="k">def</span><span class="w"> </span><span class="nf">label413</span><span class="p">(</span>
+<span class="k">def</span> <span class="nf">label413</span><span class="p">(</span>
     <span class="n">kwargs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">encode_d</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
     <span class="n">f_names</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Monge&quot;</span><span class="p">,</span> <span class="s2">&quot;Gromov-Monge&quot;</span><span class="p">],</span>

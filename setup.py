@@ -11,12 +11,12 @@ DISTNAME = "codpybook"
 DESCRIPTION = "A gallery of illustrative examples for the book 'Reproducing kernel methods for machine learning, PDEs, and statistics with Python'."
 MAINTAINER = "jean-marc mercier"
 MAINTAINER_EMAIL = "jeanmarc.mercier@gmail.com"
-URL = "https://github.com/smiryusupov2/codpybook"
+URL = "https://github.com/JohnLeM/codpybook-rtd"
 LICENSE = "new BSD"
 PROJECT_URLS = {
-    "Bug Tracker": "https://github.com/smiryusupov2/codpybook/issues",
-    "Documentation": "https://",
-    "Source Code": "https://github.com/smiryusupov2/codpybook",
+    "Bug Tracker": "https://github.com/JohnLeM/codpybook-rtd/issues",
+    "Documentation": "https://codpybook-read-the-docs.readthedocs.io/en/latest/",
+    "Source Code": "https://github.com/JohnLeM/codpybook-rtd",
 }
 
 # codpy_path = os.path.dirname(__file__)

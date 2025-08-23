@@ -7,7 +7,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>5.6.d Exploration Data Analysis of the Latent Space: Spherical Data &mdash; CodPy Book 1.0.0 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
       <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
@@ -135,7 +135,6 @@
 <li class="toctree-l1"><a class="reference internal" href="../auto_ch8/index.html">Chapter 8: Reinforcement learning.</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../auto_ch8/ch8_example.html">8.1 Using KAgents</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../auto_ch8/ch8_cartpole.html">8.2 Experiments - Cartpole</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../auto_ch8/ch8_lunarlander.html">8.3 Experiments - LunarLander</a></li>
 </ul>
 </li>
 </ul>
@@ -201,16 +200,16 @@ kernel methods and how CodPy implements it via projection operators.</p>
 <li><img src="../_images/sphx_glr_ch5_6_d_001.png" srcset="../_images/sphx_glr_ch5_6_d_001.png" alt="Parametrization of Original Data" class = "sphx-glr-multi-img"/></li>
 <li><img src="../_images/sphx_glr_ch5_6_d_002.png" srcset="../_images/sphx_glr_ch5_6_d_002.png" alt="Original Data, Latent Representation, Reconstructed, Generated Samples" class = "sphx-glr-multi-img"/></li>
 </ul>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
 
-<span class="kn">from</span><span class="w"> </span><span class="nn">codpy</span><span class="w"> </span><span class="kn">import</span> <span class="n">core</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">codpy.kernel</span><span class="w"> </span><span class="kn">import</span> <span class="n">Kernel</span><span class="p">,</span> <span class="n">KernelClassifier</span><span class="p">,</span> <span class="n">Sampler</span>
+<span class="kn">from</span> <span class="nn">codpy</span> <span class="kn">import</span> <span class="n">core</span>
+<span class="kn">from</span> <span class="nn">codpy.kernel</span> <span class="kn">import</span> <span class="n">Kernel</span><span class="p">,</span> <span class="n">KernelClassifier</span><span class="p">,</span> <span class="n">Sampler</span>
 
 
-<span class="k">def</span><span class="w"> </span><span class="nf">sphere_sampling</span><span class="p">(</span><span class="n">center</span><span class="p">,</span> <span class="n">radius</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">epsilon</span><span class="o">=</span><span class="mf">0.01</span><span class="p">):</span>
-    <span class="kn">from</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="kn">import</span> <span class="n">linalg</span> <span class="k">as</span> <span class="n">la</span>
+<span class="k">def</span> <span class="nf">sphere_sampling</span><span class="p">(</span><span class="n">center</span><span class="p">,</span> <span class="n">radius</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">epsilon</span><span class="o">=</span><span class="mf">0.01</span><span class="p">):</span>
+    <span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">linalg</span> <span class="k">as</span> <span class="n">la</span>
 
     <span class="n">samples</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="n">size</span><span class="p">)</span>
     <span class="n">noise</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="n">size</span><span class="p">)</span> <span class="o">*</span> <span class="n">epsilon</span>
@@ -221,7 +220,7 @@ kernel methods and how CodPy implements it via projection operators.</p>
     <span class="k">return</span> <span class="n">samples</span>
 
 
-<span class="k">def</span><span class="w"> </span><span class="nf">generate_sphere_data</span><span class="p">(</span><span class="n">N</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">D</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">centers</span><span class="o">=</span><span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">]],</span> <span class="n">radius</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">generate_sphere_data</span><span class="p">(</span><span class="n">N</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">D</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">centers</span><span class="o">=</span><span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">]],</span> <span class="n">radius</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
     <span class="n">num_clusters</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">centers</span><span class="p">)</span>
     <span class="n">samples_list</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">labels</span> <span class="o">=</span> <span class="p">[]</span>
@@ -238,7 +237,7 @@ kernel methods and how CodPy implements it via projection operators.</p>
     <span class="k">return</span> <span class="n">df</span><span class="p">,</span> <span class="n">labels</span>
 
 
-<span class="k">def</span><span class="w"> </span><span class="nf">scatter_plot_multiple</span><span class="p">(</span><span class="n">dfs</span><span class="p">,</span> <span class="n">titles</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">)):</span>
+<span class="k">def</span> <span class="nf">scatter_plot_multiple</span><span class="p">(</span><span class="n">dfs</span><span class="p">,</span> <span class="n">titles</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">)):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Plots a row of scatter plots, with special label visualization for latent variables.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -275,7 +274,7 @@ kernel methods and how CodPy implements it via projection operators.</p>
     <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
 
-<span class="k">def</span><span class="w"> </span><span class="nf">simple_hot_encoder</span><span class="p">(</span><span class="n">y_label</span><span class="p">,</span><span class="n">num_classes</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">simple_hot_encoder</span><span class="p">(</span><span class="n">y_label</span><span class="p">,</span><span class="n">num_classes</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="n">y_label</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">y_label</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">num_classes</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">num_classes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">y_label</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
@@ -284,7 +283,7 @@ kernel methods and how CodPy implements it via projection operators.</p>
     <span class="k">return</span> <span class="n">out</span>
 
 
-<span class="k">def</span><span class="w"> </span><span class="nf">assign_labels_by_projection</span><span class="p">(</span><span class="n">circles</span><span class="p">,</span> <span class="n">latent</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">latent_label</span><span class="p">,</span> <span class="n">sampler</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">assign_labels_by_projection</span><span class="p">(</span><span class="n">circles</span><span class="p">,</span> <span class="n">latent</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">latent_label</span><span class="p">,</span> <span class="n">sampler</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Assign labels to latent and sampled points using kernel class + softmaxindice.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -307,7 +306,7 @@ kernel methods and how CodPy implements it via projection operators.</p>
     <span class="k">return</span> <span class="n">latent_proj</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">variate_proj</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 
 
-<span class="k">def</span><span class="w"> </span><span class="nf">run_sampler_on_sphere_with_projection</span><span class="p">(</span><span class="n">method</span> <span class="o">=</span> <span class="s2">&quot;combinatorial&quot;</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">run_sampler_on_sphere_with_projection</span><span class="p">(</span><span class="n">method</span> <span class="o">=</span> <span class="s2">&quot;combinatorial&quot;</span><span class="p">):</span>
     <span class="c1"># Generate original data</span>
     <span class="n">y_df</span><span class="p">,</span> <span class="n">y_labels</span> <span class="o">=</span> <span class="n">generate_sphere_data</span><span class="p">(</span>
         <span class="n">N</span><span class="o">=</span><span class="mi">499</span><span class="p">,</span> <span class="n">D</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">centers</span><span class="o">=</span><span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">]],</span> <span class="n">radius</span><span class="o">=</span><span class="mf">1.0</span>
@@ -317,7 +316,7 @@ kernel methods and how CodPy implements it via projection operators.</p>
     <span class="n">sampler</span> <span class="o">=</span> <span class="n">Sampler</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">circles</span><span class="p">,</span> <span class="n">latent_generator</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">n</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">))</span><span class="o">/</span><span class="n">n</span><span class="p">,</span> <span class="n">distance</span> <span class="o">=</span> <span class="s2">&quot;norm22&quot;</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="n">method</span><span class="p">)</span>
     <span class="c1"># sampler = Sampler(x=circles, latent_generator = lambda n: np.array(range(n))/n, distance = &quot;norm22&quot;)</span>
     <span class="c1"># sampler = Sampler(x=circles,iter=10,latent_dim=1)</span>
-    <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+    <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">sampler</span><span class="o">.</span><span class="n">get_fx</span><span class="p">()[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">sampler</span><span class="o">.</span><span class="n">get_fx</span><span class="p">()[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;original distrib.&quot;</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">sampler</span><span class="o">.</span><span class="n">get_fx</span><span class="p">()[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">sampler</span><span class="o">.</span><span class="n">get_fx</span><span class="p">()[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;latent connection.&quot;</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;y&quot;</span><span class="p">)</span>

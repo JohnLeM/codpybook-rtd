@@ -7,7 +7,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>4.2 Clustering &mdash; CodPy Book 1.0.0 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
       <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
@@ -135,7 +135,6 @@
 <li class="toctree-l1"><a class="reference internal" href="../auto_ch8/index.html">Chapter 8: Reinforcement learning.</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../auto_ch8/ch8_example.html">8.1 Using KAgents</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../auto_ch8/ch8_cartpole.html">8.2 Experiments - Cartpole</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../auto_ch8/ch8_lunarlander.html">8.3 Experiments - LunarLander</a></li>
 </ul>
 </li>
 </ul>
@@ -195,23 +194,23 @@ to download the full example code.</p>
 <span id="sphx-glr-auto-ch4-ch4-2-py"></span><h1>4.2 Clustering<a class="headerlink" href="#clustering" title="Link to this heading"></a></h1>
 <p>In this section, we will explore clustering methods using the CodPy library.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import necessary modules and setup the environment</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">random</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
 
-<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.cluster</span><span class="w"> </span><span class="kn">import</span> <span class="n">KMeans</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_blobs</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">pairwise_distances</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">sklearn.cluster</span> <span class="kn">import</span> <span class="n">KMeans</span>
+<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">make_blobs</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">pairwise_distances</span>
 
-<span class="kn">import</span><span class="w"> </span><span class="nn">codpy.core</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">core</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">codpy.clustering</span><span class="w"> </span><span class="kn">import</span> <span class="n">RandomClusters</span><span class="p">,</span> <span class="n">MiniBatchkmeans</span><span class="p">,</span> <span class="n">BalancedClustering</span><span class="p">,</span> <span class="n">GreedySearch</span><span class="p">,</span> <span class="n">SharpDiscrepancy</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">codpy.kernel</span><span class="w"> </span><span class="kn">import</span> <span class="n">Kernel</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">codpy.plot_utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">multi_plot</span>
+<span class="kn">import</span> <span class="nn">codpy.core</span> <span class="k">as</span> <span class="nn">core</span>
+<span class="kn">from</span> <span class="nn">codpy.clustering</span> <span class="kn">import</span> <span class="n">RandomClusters</span><span class="p">,</span> <span class="n">MiniBatchkmeans</span><span class="p">,</span> <span class="n">BalancedClustering</span><span class="p">,</span> <span class="n">GreedySearch</span><span class="p">,</span> <span class="n">SharpDiscrepancy</span>
+<span class="kn">from</span> <span class="nn">codpy.kernel</span> <span class="kn">import</span> <span class="n">Kernel</span>
+<span class="kn">from</span> <span class="nn">codpy.plot_utils</span> <span class="kn">import</span> <span class="n">multi_plot</span>
 
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
 
@@ -228,7 +227,7 @@ to download the full example code.</p>
 </pre></div>
 </div>
 <p><strong>Define Functions for Generating Blob Data and Clustering</strong></p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">gen_blobs</span><span class="p">(</span><span class="n">Nx</span><span class="p">,</span> <span class="n">Ny</span><span class="p">,</span> <span class="n">D</span><span class="p">):</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">gen_blobs</span><span class="p">(</span><span class="n">Nx</span><span class="p">,</span> <span class="n">Ny</span><span class="p">,</span> <span class="n">D</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Generate blob data for clustering.</span>
 
@@ -259,7 +258,7 @@ to download the full example code.</p>
 </dd>
 </dl>
 <hr class="docutils" />
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">greedy_clustering</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">Ny</span><span class="p">):</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">greedy_clustering</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">Ny</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Apply a fast greedy search algorithms for clustering.</span>
 
@@ -280,33 +279,33 @@ to download the full example code.</p>
     <span class="k">return</span> <span class="n">fx</span><span class="p">,</span> <span class="n">centers</span>
 
 
-<span class="k">def</span><span class="w"> </span><span class="nf">sharp_clustering</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">Ny</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">sharp_clustering</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">Ny</span><span class="p">):</span>
     <span class="c1"># Set up a kernel and select centers</span>
     <span class="n">kernel</span> <span class="o">=</span> <span class="n">SharpDiscrepancy</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">N</span><span class="o">=</span><span class="n">Ny</span><span class="p">,</span> <span class="n">set_kernel</span><span class="o">=</span><span class="n">set_gaussian_kernel</span><span class="p">)</span>
     <span class="n">centers</span> <span class="o">=</span> <span class="n">kernel</span><span class="o">.</span><span class="n">cluster_centers_</span>
     <span class="n">labels</span> <span class="o">=</span> <span class="n">kernel</span><span class="o">.</span><span class="n">get_labels</span><span class="p">()</span>
     <span class="k">return</span> <span class="n">labels</span><span class="p">,</span> <span class="n">centers</span>
 
-<span class="k">def</span><span class="w"> </span><span class="nf">balanced_sharp_clustering</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">Ny</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">balanced_sharp_clustering</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">Ny</span><span class="p">):</span>
     <span class="c1"># Set up a kernel and select centers</span>
     <span class="n">kernel</span> <span class="o">=</span> <span class="n">BalancedClustering</span><span class="p">(</span><span class="n">SharpDiscrepancy</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">N</span><span class="o">=</span><span class="n">Ny</span><span class="p">)</span>
     <span class="n">centers</span> <span class="o">=</span> <span class="n">kernel</span><span class="o">.</span><span class="n">cluster_centers_</span>
     <span class="n">labels</span> <span class="o">=</span> <span class="n">kernel</span><span class="o">.</span><span class="n">get_labels</span><span class="p">()</span>
     <span class="k">return</span> <span class="n">labels</span><span class="p">,</span> <span class="n">centers</span>
 
-<span class="k">def</span><span class="w"> </span><span class="nf">kmeans_clustering</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">Ny</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">kmeans_clustering</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">Ny</span><span class="p">):</span>
     <span class="n">kernel</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="n">Ny</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
     <span class="n">centers</span> <span class="o">=</span> <span class="n">kernel</span><span class="o">.</span><span class="n">cluster_centers_</span>
     <span class="n">labels</span> <span class="o">=</span> <span class="n">kernel</span><span class="o">.</span><span class="n">labels_</span>
     <span class="k">return</span> <span class="n">labels</span><span class="p">,</span> <span class="n">centers</span>
 
-<span class="k">def</span><span class="w"> </span><span class="nf">balanced_kmeans_clustering</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">Ny</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">balanced_kmeans_clustering</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">Ny</span><span class="p">):</span>
     <span class="n">kernel</span> <span class="o">=</span> <span class="n">BalancedClustering</span><span class="p">(</span><span class="n">MiniBatchkmeans</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">N</span><span class="o">=</span><span class="n">Ny</span><span class="p">)</span>
     <span class="n">centers</span> <span class="o">=</span> <span class="n">kernel</span><span class="o">.</span><span class="n">cluster_centers_</span>
     <span class="n">labels</span> <span class="o">=</span> <span class="n">kernel</span><span class="o">.</span><span class="n">labels_</span>
     <span class="k">return</span> <span class="n">labels</span><span class="p">,</span> <span class="n">centers</span>
 
-<span class="k">def</span><span class="w"> </span><span class="nf">balanced_greedy_clustering</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">Ny</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">balanced_greedy_clustering</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">Ny</span><span class="p">):</span>
     <span class="n">method</span> <span class="o">=</span> <span class="n">BalancedClustering</span><span class="p">(</span><span class="n">GreedySearch</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">N</span><span class="o">=</span><span class="n">Ny</span><span class="p">)</span>
     <span class="n">centers</span> <span class="o">=</span> <span class="n">method</span><span class="o">.</span><span class="n">cluster_centers_</span>
     <span class="n">labels</span> <span class="o">=</span> <span class="n">method</span><span class="o">.</span><span class="n">get_labels</span><span class="p">()</span>
@@ -327,13 +326,13 @@ to download the full example code.</p>
 <span class="c1">#         return core.KerOp.dnm(x, y)</span>
 
 
-<span class="k">def</span><span class="w"> </span><span class="nf">balanced_random_clustering</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">Ny</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">balanced_random_clustering</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">Ny</span><span class="p">):</span>
     <span class="n">method</span> <span class="o">=</span> <span class="n">BalancedClustering</span><span class="p">(</span><span class="n">RandomClusters</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">N</span><span class="o">=</span><span class="n">Ny</span><span class="p">)</span>
     <span class="n">centers</span> <span class="o">=</span> <span class="n">method</span><span class="o">.</span><span class="n">cluster_centers_</span>
     <span class="n">labels</span> <span class="o">=</span> <span class="n">method</span><span class="o">.</span><span class="n">get_labels</span><span class="p">()</span>
     <span class="k">return</span> <span class="n">labels</span><span class="p">,</span> <span class="n">centers</span>
 
-<span class="k">def</span><span class="w"> </span><span class="nf">random_clustering</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">Ny</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">random_clustering</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">Ny</span><span class="p">):</span>
     <span class="n">method</span> <span class="o">=</span> <span class="n">RandomClusters</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">N</span><span class="o">=</span><span class="n">Ny</span><span class="p">)</span>
     <span class="n">centers</span> <span class="o">=</span> <span class="n">method</span><span class="o">.</span><span class="n">cluster_centers_</span>
     <span class="n">labels</span> <span class="o">=</span> <span class="n">method</span><span class="o">.</span><span class="n">get_labels</span><span class="p">()</span>
@@ -348,18 +347,18 @@ to download the full example code.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">set_gaussian_kernel</span> <span class="o">=</span> <span class="n">core</span><span class="o">.</span><span class="n">kernel_setter</span><span class="p">(</span><span class="n">kernel_string</span><span class="o">=</span><span class="s2">&quot;gaussian&quot;</span><span class="p">,</span> <span class="n">map_string</span><span class="o">=</span><span class="s2">&quot;standardmean&quot;</span><span class="p">)</span>
 
 
-<span class="k">def</span><span class="w"> </span><span class="nf">compute_mmd</span><span class="p">(</span><span class="n">x_test</span><span class="p">,</span> <span class="n">z</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">compute_mmd</span><span class="p">(</span><span class="n">x_test</span><span class="p">,</span> <span class="n">z</span><span class="p">):</span>
     <span class="n">kernel</span> <span class="o">=</span> <span class="n">Kernel</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x_test</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">set_kernel</span><span class="o">=</span><span class="n">set_gaussian_kernel</span><span class="p">)</span>
     <span class="n">mmd</span> <span class="o">=</span> <span class="n">kernel</span><span class="o">.</span><span class="n">discrepancy</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">mmd</span>
 
 
-<span class="k">def</span><span class="w"> </span><span class="nf">compute_inertia</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">compute_inertia</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">pairwise_distances</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
 
 
-<span class="k">def</span><span class="w"> </span><span class="nf">one_experiment</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Ny</span><span class="p">,</span> <span class="n">get_predictor</span><span class="p">):</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">get_score</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">cluster_centers</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">one_experiment</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Ny</span><span class="p">,</span> <span class="n">get_predictor</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">get_score</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">cluster_centers</span><span class="p">):</span>
         <span class="n">inertia</span> <span class="o">=</span> <span class="n">compute_inertia</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">cluster_centers</span><span class="p">)</span>
         <span class="c1"># Calculate MMD for K-means</span>
         <span class="n">mmd</span> <span class="o">=</span> <span class="n">compute_mmd</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">cluster_centers</span><span class="p">)</span>
@@ -372,7 +371,7 @@ to download the full example code.</p>
     <span class="k">return</span> <span class="n">inertia</span><span class="p">,</span> <span class="n">mmd</span><span class="p">,</span> <span class="n">elapsed_time</span>
 
 
-<span class="k">def</span><span class="w"> </span><span class="nf">run_experiment</span><span class="p">(</span><span class="n">Nx_values</span><span class="p">,</span> <span class="n">D</span><span class="p">,</span> <span class="n">Ny_values</span><span class="p">,</span> <span class="n">get_predictors</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">file_name</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">run_experiment</span><span class="p">(</span><span class="n">Nx_values</span><span class="p">,</span> <span class="n">D</span><span class="p">,</span> <span class="n">Ny_values</span><span class="p">,</span> <span class="n">get_predictors</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">file_name</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">Nx</span> <span class="ow">in</span> <span class="n">Nx_values</span><span class="p">:</span>
         <span class="k">for</span> <span class="n">Ny</span> <span class="ow">in</span> <span class="n">Ny_values</span><span class="p">:</span>
@@ -408,7 +407,7 @@ to download the full example code.</p>
     <span class="k">return</span> <span class="n">out</span>
 
 
-<span class="k">def</span><span class="w"> </span><span class="nf">plot_experiment</span><span class="p">(</span><span class="n">Nx_values</span><span class="p">,</span> <span class="n">D</span><span class="p">,</span> <span class="n">Ny_values</span><span class="p">,</span> <span class="n">get_predictors</span><span class="p">,</span> <span class="n">names</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">plot_experiment</span><span class="p">(</span><span class="n">Nx_values</span><span class="p">,</span> <span class="n">D</span><span class="p">,</span> <span class="n">Ny_values</span><span class="p">,</span> <span class="n">get_predictors</span><span class="p">,</span> <span class="n">names</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Run the clustering experiment with different numbers of clusters (Ny) and visualize the results.</span>
 
@@ -420,7 +419,7 @@ to download the full example code.</p>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">results</span><span class="p">,</span> <span class="n">legends</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">one_experiment</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Ny</span><span class="p">,</span> <span class="n">get_predictor</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">one_experiment</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Ny</span><span class="p">,</span> <span class="n">get_predictor</span><span class="p">):</span>
         <span class="n">labels</span><span class="p">,</span> <span class="n">cluster_centers</span> <span class="o">=</span> <span class="n">get_predictor</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Ny</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">labels</span><span class="p">,</span> <span class="n">cluster_centers</span>
 
@@ -434,7 +433,7 @@ to download the full example code.</p>
                 <span class="n">legends</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;,  </span><span class="si">{</span><span class="n">Ny</span><span class="si">}</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="s2">&quot; clusters&quot;</span><span class="p">)</span>
 
     <span class="c1"># Plot the clustering results using multi_plot</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">plot_clusters</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">plot_clusters</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="n">x</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">centers</span> <span class="o">=</span> <span class="n">data</span>
         <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">x</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">labels</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;viridis&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">centers</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>

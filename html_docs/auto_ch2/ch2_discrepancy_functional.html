@@ -7,7 +7,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>2.6.2 A study of the discrepancy functional &mdash; CodPy Book 1.0.0 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
       <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
@@ -137,7 +137,6 @@
 <li class="toctree-l1"><a class="reference internal" href="../auto_ch8/index.html">Chapter 8: Reinforcement learning.</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../auto_ch8/ch8_example.html">8.1 Using KAgents</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../auto_ch8/ch8_cartpole.html">8.2 Experiments - Cartpole</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../auto_ch8/ch8_lunarlander.html">8.3 Experiments - LunarLander</a></li>
 </ul>
 </li>
 </ul>
@@ -197,18 +196,18 @@ to download the full example code.</p>
 <span id="sphx-glr-auto-ch2-ch2-discrepancy-functional-py"></span><h1>2.6.2 A study of the discrepancy functional<a class="headerlink" href="#a-study-of-the-discrepancy-functional" title="Link to this heading"></a></h1>
 <p>In this experiment,</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Importing necessary modules</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">sys</span>
 
-<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
 
-<span class="kn">from</span><span class="w"> </span><span class="nn">codpy.kernel</span><span class="w"> </span><span class="kn">import</span> <span class="n">Kernel</span>
+<span class="kn">from</span> <span class="nn">codpy.kernel</span> <span class="kn">import</span> <span class="n">Kernel</span>
 
 <span class="n">curr_f</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span> <span class="s2">&quot;codpy-book&quot;</span><span class="p">,</span> <span class="s2">&quot;utils&quot;</span><span class="p">)</span>
 <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">curr_f</span><span class="p">)</span>
 
 
-<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 </pre></div>
 </div>
 <p><strong>Discrepancy Functionals and Kernel Smoothness</strong></p>
@@ -222,11 +221,11 @@ or continuous. This can lead to flat regions or multiple minima, making gradient
 or ill-posed. Visual experiments with these kernels illustrate how the geometry of <span class="math notranslate nohighlight">\(d_k(X, y)\)</span> changes depending on
 the kernel’s regularity.
 import CodPy’s core module and Kernel class</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">codpy</span><span class="w"> </span><span class="kn">import</span> <span class="n">core</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">codpy</span> <span class="kn">import</span> <span class="n">core</span>
 
 <span class="c1"># from codpy.plotting import plot1D</span>
 <span class="c1"># Lets import multi_plot function from codpy utils</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">codpy.plot_utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">compare_plot_lists</span><span class="p">,</span> <span class="n">multi_plot</span>
+<span class="kn">from</span> <span class="nn">codpy.plot_utils</span> <span class="kn">import</span> <span class="n">compare_plot_lists</span><span class="p">,</span> <span class="n">multi_plot</span>
 
 <span class="c1"># x = np.random.randn(10, 1)</span>
 <span class="c1"># kernel = Kernel(</span>
@@ -236,11 +235,11 @@ import CodPy’s core module and Kernel class</p>
 <span class="c1"># )</span>
 
 
-<span class="k">def</span><span class="w"> </span><span class="nf">graphicMMD1</span><span class="p">(</span><span class="n">datas</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">graphicMMD1</span><span class="p">(</span><span class="n">datas</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="n">multi_plot</span><span class="p">(</span><span class="n">datas</span><span class="p">,</span> <span class="n">compare_plot_lists</span><span class="p">,</span> <span class="n">mp_nrows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">mp_figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
 
-<span class="k">def</span><span class="w"> </span><span class="nf">MMD_experiment_1D</span><span class="p">():</span>
+<span class="k">def</span> <span class="nf">MMD_experiment_1D</span><span class="p">():</span>
     <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
     <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
 
@@ -296,8 +295,8 @@ import CodPy’s core module and Kernel class</p>
 </div>
 <img src="../_images/sphx_glr_ch2_discrepancy_functional_001.png" srcset="../_images/sphx_glr_ch2_discrepancy_functional_001.png" alt="Gaussian kernel, RELU kernel, Matern kernel" class = "sphx-glr-single-img"/><p><strong>2D Example</strong></p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Lets define helper function to plot 3D projection of the function</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">plot_trisurf</span><span class="p">(</span><span class="n">xfx</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">elev</span><span class="o">=</span><span class="mi">90</span><span class="p">,</span> <span class="n">azim</span><span class="o">=-</span><span class="mi">100</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">cm</span>
+<span class="k">def</span> <span class="nf">plot_trisurf</span><span class="p">(</span><span class="n">xfx</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">elev</span><span class="o">=</span><span class="mi">90</span><span class="p">,</span> <span class="n">azim</span><span class="o">=-</span><span class="mi">100</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">cm</span>
 
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Helper function to plot a 3D surface using a trisurf plot.</span>
@@ -321,7 +320,7 @@ import CodPy’s core module and Kernel class</p>
     <span class="n">ax</span><span class="o">.</span><span class="n">title</span><span class="o">.</span><span class="n">set_text</span><span class="p">(</span><span class="n">legend</span><span class="p">)</span>
 
 
-<span class="k">def</span><span class="w"> </span><span class="nf">graphicMMD2</span><span class="p">(</span><span class="n">datas</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">graphicMMD2</span><span class="p">(</span><span class="n">datas</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="n">y</span> <span class="o">=</span> <span class="n">datas</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;listxs&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
     <span class="n">dysg</span><span class="p">,</span> <span class="n">dysn</span><span class="p">,</span> <span class="n">dysm</span> <span class="o">=</span> <span class="p">(</span>
         <span class="n">datas</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;listfxs&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span>
@@ -340,7 +339,7 @@ import CodPy’s core module and Kernel class</p>
 
 
 <span class="c1"># Function to generate periodic data</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">MMD_experiment_2D</span><span class="p">(</span><span class="n">size_x</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">size_y</span><span class="o">=</span><span class="mi">1000</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">MMD_experiment_2D</span><span class="p">(</span><span class="n">size_x</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">size_y</span><span class="o">=</span><span class="mi">1000</span><span class="p">):</span>
     <span class="c1"># Generate x and z data of different sizes</span>
     <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="p">(</span><span class="n">size_x</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
     <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">-</span><span class="mf">1.5</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">,</span> <span class="p">(</span><span class="n">size_y</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>

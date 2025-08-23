@@ -7,7 +7,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>6.4.5 Conditioning on discrete distributions of celebA dataset &mdash; CodPy Book 1.0.0 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
       <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
@@ -135,7 +135,6 @@
 <li class="toctree-l1"><a class="reference internal" href="../auto_ch8/index.html">Chapter 8: Reinforcement learning.</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../auto_ch8/ch8_example.html">8.1 Using KAgents</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../auto_ch8/ch8_cartpole.html">8.2 Experiments - Cartpole</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../auto_ch8/ch8_lunarlander.html">8.3 Experiments - LunarLander</a></li>
 </ul>
 </li>
 </ul>
@@ -201,7 +200,7 @@ By varying the strength of those features, resulting in a verion of “no hats a
 <dt>Necessary Imports</dt><dd></dd>
 </dl>
 <p>Everything is already made in the previous file, so we just import it here.</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">ch6_9_CelebA</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ch6_9_CelebA</span> <span class="kn">import</span> <span class="o">*</span>
 
 
 <span class="n">config</span> <span class="o">=</span> <span class="p">{</span>
@@ -212,7 +211,7 @@ By varying the strength of those features, resulting in a verion of “no hats a
     <span class="s1">&#39;seed&#39;</span><span class="p">:</span><span class="mi">40</span><span class="p">,</span>
     <span class="s2">&quot;main_folder&quot;</span><span class="p">:</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_path</span><span class="p">,</span><span class="s1">&#39;celebA&#39;</span><span class="p">),</span>
 <span class="p">}</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">style_transferts</span><span class="p">(</span>
+<span class="k">def</span> <span class="nf">style_transferts</span><span class="p">(</span>
       <span class="n">selected_features</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Young&#39;</span><span class="p">,</span><span class="s1">&#39;Attractive&#39;</span><span class="p">],</span>
       <span class="n">drop_features</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Male&#39;</span><span class="p">,</span><span class="s1">&#39;Heavy_Makeup&#39;</span><span class="p">],</span>
       <span class="n">conditionned_features</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Wearing_Hat&#39;</span><span class="p">,</span><span class="s1">&#39;Eyeglasses&#39;</span><span class="p">],</span>

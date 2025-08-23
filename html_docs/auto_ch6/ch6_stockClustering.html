@@ -7,7 +7,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>6.5 Unsupervised learning: Clustering - Stock Clustering &mdash; CodPy Book 1.0.0 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
       <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
@@ -135,7 +135,6 @@
 <li class="toctree-l1"><a class="reference internal" href="../auto_ch8/index.html">Chapter 8: Reinforcement learning.</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../auto_ch8/ch8_example.html">8.1 Using KAgents</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../auto_ch8/ch8_cartpole.html">8.2 Experiments - Cartpole</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../auto_ch8/ch8_lunarlander.html">8.3 Experiments - LunarLander</a></li>
 </ul>
 </li>
 </ul>
@@ -197,21 +196,21 @@ to download the full example code.</p>
 We will compare different clusters obtained with the codpy MMD minimization-based algorithm and scikit learn k-means.</p>
 <section id="necessary-imports">
 <h2>Necessary Imports<a class="headerlink" href="#necessary-imports" title="Link to this heading"></a></h2>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">urllib.request</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">defaultdict</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">urllib.request</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
 
 <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;OPENBLAS_NUM_THREADS&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;32&quot;</span>
 <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;OMP_NUM_THREADS&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;4&quot;</span>
 
-<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">IPython.display</span><span class="w"> </span><span class="kn">import</span> <span class="n">HTML</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.cluster</span><span class="w"> </span><span class="kn">import</span> <span class="n">KMeans</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Normalizer</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">HTML</span>
+<span class="kn">from</span> <span class="nn">sklearn.cluster</span> <span class="kn">import</span> <span class="n">KMeans</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">Normalizer</span>
 
-<span class="kn">from</span><span class="w"> </span><span class="nn">codpy.clustering</span><span class="w"> </span><span class="kn">import</span> <span class="n">SharpDiscrepancy</span>
+<span class="kn">from</span> <span class="nn">codpy.clustering</span> <span class="kn">import</span> <span class="n">SharpDiscrepancy</span>
 
 <span class="k">try</span><span class="p">:</span>
     <span class="n">current_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span>
@@ -229,11 +228,11 @@ We will compare different clusters obtained with the codpy MMD minimization-base
 <h2>Stocks Data Preparation<a class="headerlink" href="#stocks-data-preparation" title="Link to this heading"></a></h2>
 <p>We get the data from a csv, using data from Yahoo Finance.
 The data is normalized using a standard normalizer from sklearn.preprocessing.</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">df_standard_normalize</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">df_standard_normalize</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">Normalizer</span><span class="p">()</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">values</span><span class="p">),</span> <span class="n">index</span><span class="o">=</span><span class="n">x</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
 
 
-<span class="k">def</span><span class="w"> </span><span class="nf">get_dataset</span><span class="p">():</span>
+<span class="k">def</span> <span class="nf">get_dataset</span><span class="p">():</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Loads the dataset from local disk or downloads it from GitHub if not present.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -262,7 +261,7 @@ The data is normalized using a standard normalizer from sklearn.preprocessing.</
 <h2>Clustering Models<a class="headerlink" href="#clustering-models" title="Link to this heading"></a></h2>
 <p>This section defines the K-means and CodPy clustering models.
 Because we only observe the clusters and don’t compare with labels, we only instanciate the clustering models.</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">sharp_clustering</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">Ny</span><span class="p">):</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">sharp_clustering</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">Ny</span><span class="p">):</span>
     <span class="c1"># SharpDiscrepancy is a clustering algorithm based on MMD minimization.</span>
     <span class="c1"># It finds cluster centers and assigns labels to the data points.</span>
     <span class="n">kernel</span> <span class="o">=</span> <span class="n">SharpDiscrepancy</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">N</span><span class="o">=</span><span class="n">Ny</span><span class="p">)</span>
@@ -271,7 +270,7 @@ Because we only observe the clusters and don’t compare with labels, we only in
     <span class="k">return</span> <span class="n">labels</span><span class="p">,</span> <span class="n">centers</span><span class="p">,</span> <span class="n">kernel</span>
 
 
-<span class="k">def</span><span class="w"> </span><span class="nf">kmeans_clustering</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">Ny</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">kmeans_clustering</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">Ny</span><span class="p">):</span>
     <span class="n">kernel</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="n">Ny</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
     <span class="n">predictor</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">z</span><span class="p">:</span> <span class="n">kernel</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
     <span class="n">centers</span> <span class="o">=</span> <span class="n">kernel</span><span class="o">.</span><span class="n">cluster_centers_</span>
@@ -283,7 +282,7 @@ Because we only observe the clusters and don’t compare with labels, we only in
 <section id="running-the-experiment">
 <h2>Running the Experiment<a class="headerlink" href="#running-the-experiment" title="Link to this heading"></a></h2>
 <p>This section runs the experiment to compare K-means and CodPy clustering.</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">run_experiment</span><span class="p">(</span><span class="n">data_generator</span><span class="p">,</span> <span class="n">get_predictors</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">file_name</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">run_experiment</span><span class="p">(</span><span class="n">data_generator</span><span class="p">,</span> <span class="n">get_predictors</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">file_name</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="n">results</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="n">N</span> <span class="o">=</span> <span class="mi">10</span>
     <span class="n">companies</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="n">data_generator</span><span class="p">()</span>
@@ -304,7 +303,7 @@ Because we only observe the clusters and don’t compare with labels, we only in
 <section id="plotting">
 <h2>Plotting<a class="headerlink" href="#plotting" title="Link to this heading"></a></h2>
 <p>This section formats data and prints it as a table.</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">build_cluster_dict</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">build_cluster_dict</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
     <span class="n">cluster_dict</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">cluster</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
         <span class="n">cluster_dict</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">cluster</span><span class="p">)]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
@@ -312,7 +311,7 @@ Because we only observe the clusters and don’t compare with labels, we only in
     <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">cluster_dict</span><span class="o">.</span><span class="n">items</span><span class="p">()))</span>
 
 
-<span class="k">def</span><span class="w"> </span><span class="nf">build_table_dataframe</span><span class="p">(</span>
+<span class="k">def</span> <span class="nf">build_table_dataframe</span><span class="p">(</span>
     <span class="n">kmeans_clusters</span><span class="p">,</span> <span class="n">mmd_clusters</span><span class="p">,</span> <span class="n">max_line_length</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">max_lines</span><span class="o">=</span><span class="mi">5</span>
 <span class="p">):</span>
     <span class="n">all_cluster_ids</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">kmeans_clusters</span><span class="p">)</span> <span class="o">|</span> <span class="nb">set</span><span class="p">(</span><span class="n">mmd_clusters</span><span class="p">))</span>

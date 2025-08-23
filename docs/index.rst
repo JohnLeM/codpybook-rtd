@@ -3,18 +3,24 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to the Companion Site
-=============================
+Welcome to the Codpy, the book
+===============================
 
-This site accompanies the book *Reproducing Kernel Methods for Machine Learning, PDEs, and Statistics with Python*,
-available on `arXiv <https://arxiv.org/abs/2402.07084>`_ by Philippe G. LeFloch, Jean-Marc Mercier, and Shohruh Miryusupov.  
+This site is the companion site to the book *Reproducing Kernel Methods for Machine Learning, PDEs, and Statistics with Python*,
+available on `arXiv <https://arxiv.org/abs/2402.07084>`_ by Philippe G. LeFloch, Jean-Marc Mercier, and Shohruh Miryusupov.
+
+The main purpose of this companion site is to provide facilities to reproduce all figures of the book, 
+in order to ease the diffusion of RKHS methods to teachers, students and practitioners. It allows to
+
+- facilitate the understanding of the material presented in the book, and to provide a hands-on introduction to CodPy, an open-source Python library for numerical algorithms, machine learning, and computational statistics.
+- enable readers to experiment with the algorithms presented in the book, and to modify the code for their own purposes.
+- offer a platform for sharing additional resources, such as datasets, code snippets, and tutorials related to the book's content.
+
 
 About CodPy
 -----------
-CodPy (Curse Of Dimensionality in Python) is an open-source Python library designed for numerical algorithms, machine learning, and computational statistics. It has a wide range of applications in finance, engineering, and industry.
-
-Note: This site is **not the official CodPy documentation**.  
-Instead, it illustrates how CodPy can be used to reproduce and extend the experiments described in the book.
+CodPy (Curse Of Dimensionality in Python) is an open-source, RKHS dedicated, Python library designed for numerical algorithms, machine learning, and computational statistics. It has a wide range of applications in finance, engineering, and industry, 
+and its technical documentation is located at this `url <https://codpy.readthedocs.io/en/latest>`_.  
 
 
 .. toctree::

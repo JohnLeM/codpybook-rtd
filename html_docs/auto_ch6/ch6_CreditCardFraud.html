@@ -7,7 +7,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>6.4 Unsupervised learning: Clustering - Fraud detection &mdash; CodPy Book 1.0.0 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
       <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
@@ -135,7 +135,6 @@
 <li class="toctree-l1"><a class="reference internal" href="../auto_ch8/index.html">Chapter 8: Reinforcement learning.</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../auto_ch8/ch8_example.html">8.1 Using KAgents</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../auto_ch8/ch8_cartpole.html">8.2 Experiments - Cartpole</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../auto_ch8/ch8_lunarlander.html">8.3 Experiments - LunarLander</a></li>
 </ul>
 </li>
 </ul>
@@ -200,24 +199,24 @@ The goal is to show the different scores as we increase the number of centroids 
 <dt>Necessary Imports</dt><dd></dd>
 </dl>
 <hr class="docutils" />
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
 
-<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">RobustScaler</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">kagglehub</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">RobustScaler</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">import</span> <span class="nn">kagglehub</span>
 
-<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">codpy.clustering</span><span class="w"> </span><span class="kn">import</span> <span class="n">GreedySearch</span><span class="p">,</span> <span class="n">SharpDiscrepancy</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">codpy.kernel</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">codpy.data_processing</span><span class="w"> </span><span class="kn">import</span> <span class="n">hot_encoder</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">ch6_Clustering</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.cluster</span><span class="w"> </span><span class="kn">import</span> <span class="n">KMeans</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">codpy.clustering</span> <span class="kn">import</span> <span class="n">GreedySearch</span><span class="p">,</span> <span class="n">SharpDiscrepancy</span>
+<span class="kn">from</span> <span class="nn">codpy.kernel</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">codpy.data_processing</span> <span class="kn">import</span> <span class="n">hot_encoder</span>
+<span class="kn">from</span> <span class="nn">ch6_Clustering</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">sklearn.cluster</span> <span class="kn">import</span> <span class="n">KMeans</span>
 
 <span class="k">try</span><span class="p">:</span>
     <span class="n">current_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span>
@@ -235,7 +234,7 @@ The goal is to show the different scores as we increase the number of centroids 
 </dl>
 <p>We get the data from Kagglehub. We scale the values using RobustScaler, which is robust to outliers.
 This is usefull for the CreditCardFraud dataset, which contains a very small percentage of fraudulent transactions.</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">get_dataset</span><span class="p">():</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_dataset</span><span class="p">():</span>
     <span class="n">path</span> <span class="o">=</span> <span class="n">kagglehub</span><span class="o">.</span><span class="n">dataset_download</span><span class="p">(</span><span class="s2">&quot;mlg-ulb/creditcardfraud&quot;</span><span class="p">)</span>
 
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Path to dataset files:&quot;</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
@@ -243,7 +242,7 @@ This is usefull for the CreditCardFraud dataset, which contains a very small per
     <span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;creditcard.csv&quot;</span><span class="p">))</span>
     <span class="k">return</span> <span class="n">data</span>
 
-<span class="k">def</span><span class="w"> </span><span class="nf">prep_data</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">n</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">prep_data</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">n</span><span class="p">):</span>
     <span class="n">rob_scaler</span> <span class="o">=</span> <span class="n">RobustScaler</span><span class="p">()</span>
     <span class="n">x</span><span class="p">[</span><span class="s2">&quot;Time&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">rob_scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="s1">&#39;Time&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
     <span class="n">x</span><span class="p">[</span><span class="s2">&quot;Amount&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">rob_scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="s1">&#39;Amount&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
@@ -271,7 +270,7 @@ This is usefull for the CreditCardFraud dataset, which contains a very small per
 
     <span class="k">return</span> <span class="n">x</span><span class="p">,</span><span class="n">fx</span><span class="p">,</span><span class="n">z</span><span class="p">,</span><span class="n">fz</span>
 
-<span class="k">def</span><span class="w"> </span><span class="nf">fraud_generator</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">fraud_generator</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">prep_data</span><span class="p">(</span><span class="n">get_dataset</span><span class="p">(),</span><span class="n">n</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -280,8 +279,8 @@ This is usefull for the CreditCardFraud dataset, which contains a very small per
 </dl>
 <p>This section runs the experiment to compare K-means and CodPy clustering.
 We use the models defined in 6.3 Unsupervised learning: Clustering - MNIST</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">one_experiment</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">fx</span><span class="p">,</span> <span class="n">Ny</span><span class="p">,</span> <span class="n">get_predictor</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">fz</span><span class="p">):</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">get_score</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">cluster_centers</span><span class="p">,</span> <span class="n">predictor</span><span class="p">):</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">one_experiment</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">fx</span><span class="p">,</span> <span class="n">Ny</span><span class="p">,</span> <span class="n">get_predictor</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">fz</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">get_score</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">cluster_centers</span><span class="p">,</span> <span class="n">predictor</span><span class="p">):</span>
         <span class="n">inertia</span> <span class="o">=</span> <span class="n">compute_inertia</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">cluster_centers</span><span class="p">)</span>
         <span class="n">mmd</span> <span class="o">=</span> <span class="n">compute_mmd</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">cluster_centers</span><span class="p">)</span>
 
@@ -298,7 +297,7 @@ We use the models defined in 6.3 Unsupervised learning: Clustering - MNIST</p>
     <span class="n">inertia</span><span class="p">,</span> <span class="n">mmd</span><span class="p">,</span> <span class="n">conf_matrix</span> <span class="o">=</span> <span class="n">get_score</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">cluster_centers</span><span class="p">,</span> <span class="n">predictor</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">inertia</span><span class="p">,</span> <span class="n">mmd</span><span class="p">,</span> <span class="n">elapsed_time</span><span class="p">,</span> <span class="n">conf_matrix</span>
 
-<span class="k">def</span><span class="w"> </span><span class="nf">run_experiment</span><span class="p">(</span><span class="n">data_generator</span><span class="p">,</span> <span class="n">Nx</span><span class="p">,</span> <span class="n">Ny_values</span><span class="p">,</span> <span class="n">get_predictors</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">file_name</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">run_experiment</span><span class="p">(</span><span class="n">data_generator</span><span class="p">,</span> <span class="n">Nx</span><span class="p">,</span> <span class="n">Ny_values</span><span class="p">,</span> <span class="n">get_predictors</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">file_name</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">conf_matrices</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="k">for</span> <span class="n">Ny</span> <span class="ow">in</span> <span class="n">Ny_values</span><span class="p">:</span>
@@ -336,7 +335,7 @@ We use the models defined in 6.3 Unsupervised learning: Clustering - MNIST</p>
 <dt>Plotting</dt><dd></dd>
 </dl>
 <p>This section formats data plots the different experiments on a figure.</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">plot_experiment</span><span class="p">(</span><span class="n">inputs</span><span class="p">):</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_experiment</span><span class="p">(</span><span class="n">inputs</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This is mainly boilerplate formatting the data for plotting.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -352,7 +351,7 @@ We use the models defined in 6.3 Unsupervised learning: Clustering - MNIST</p>
         <span class="n">results</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="s2">&quot;data&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">ny</span><span class="p">,</span> <span class="p">{})[</span><span class="n">method</span><span class="p">]</span> <span class="o">=</span> <span class="n">t</span>
 
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">plot_one</span><span class="p">(</span><span class="n">inputs</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">plot_one</span><span class="p">(</span><span class="n">inputs</span><span class="p">):</span>
         <span class="n">results</span> <span class="o">=</span> <span class="n">inputs</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">]</span>
         <span class="n">ax</span> <span class="o">=</span> <span class="n">inputs</span><span class="p">[</span><span class="s2">&quot;ax&quot;</span><span class="p">]</span>
         <span class="n">legend</span> <span class="o">=</span> <span class="n">inputs</span><span class="p">[</span><span class="s2">&quot;legend&quot;</span><span class="p">]</span>
@@ -376,7 +375,7 @@ We use the models defined in 6.3 Unsupervised learning: Clustering - MNIST</p>
         <span class="n">legends</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;discrepancy_errors&quot;</span><span class="p">,</span> <span class="s2">&quot;inertia&quot;</span><span class="p">,</span> <span class="s2">&quot;execution_time&quot;</span><span class="p">],</span>
     <span class="p">)</span>
 
-<span class="k">def</span><span class="w"> </span><span class="nf">plot_conf_matrix</span><span class="p">(</span><span class="n">inputs</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">plot_conf_matrix</span><span class="p">(</span><span class="n">inputs</span><span class="p">):</span>
     <span class="n">conf_matrix</span> <span class="o">=</span> <span class="n">inputs</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">]</span>
     <span class="n">ax</span> <span class="o">=</span> <span class="n">inputs</span><span class="p">[</span><span class="s2">&quot;ax&quot;</span><span class="p">]</span>
     <span class="n">legend</span> <span class="o">=</span> <span class="n">inputs</span><span class="p">[</span><span class="s2">&quot;legend&quot;</span><span class="p">]</span>

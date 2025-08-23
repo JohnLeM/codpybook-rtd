@@ -597,33 +597,19 @@ KController
 .. code-block:: pytb
 
     Traceback (most recent call last):
-      File "C:\Users\geoff\Desktop\Github\testcodpybook\codpybook\docs\ch8\ch8_lunarlander.py", line 492, in <module>
+      File "C:\Users\geoff\Desktop\Github\codpybook-rtd\docs\ch8\ch8_lunarlander.py", line 492, in <module>
         Benchmark()(
-      File "C:\Users\geoff\Desktop\Github\testcodpybook\codpybook\docs\ch8\ignore_utils.py", line 292, in __call__
+      File "C:\Users\geoff\Desktop\Github\codpybook-rtd\docs\ch8\ignore_utils.py", line 292, in __call__
         ) = self.benchmark_agents(agent_classes, game_id, num_games, **extras)
-      File "C:\Users\geoff\Desktop\Github\testcodpybook\codpybook\docs\ch8\ignore_utils.py", line 66, in benchmark_agents
-        env = gym.make(game_name)
-      File "C:\venv\lib\site-packages\gymnasium\envs\registration.py", line 704, in make
-        env_creator = load_env_creator(env_spec.entry_point)
-      File "C:\venv\lib\site-packages\gymnasium\envs\registration.py", line 551, in load_env_creator
-        mod = importlib.import_module(mod_name)
-      File "C:\Informatique\python\lib\importlib\__init__.py", line 127, in import_module
-        return _bootstrap._gcd_import(name[level:], package, level)
-      File "<frozen importlib._bootstrap>", line 1030, in _gcd_import
-      File "<frozen importlib._bootstrap>", line 1007, in _find_and_load
-      File "<frozen importlib._bootstrap>", line 972, in _find_and_load_unlocked
-      File "<frozen importlib._bootstrap>", line 228, in _call_with_frames_removed
-      File "<frozen importlib._bootstrap>", line 1030, in _gcd_import
-      File "<frozen importlib._bootstrap>", line 1007, in _find_and_load
-      File "<frozen importlib._bootstrap>", line 986, in _find_and_load_unlocked
-      File "<frozen importlib._bootstrap>", line 680, in _load_unlocked
-      File "<frozen importlib._bootstrap_external>", line 850, in exec_module
-      File "<frozen importlib._bootstrap>", line 228, in _call_with_frames_removed
-      File "C:\venv\lib\site-packages\gymnasium\envs\box2d\__init__.py", line 1, in <module>
-        from gymnasium.envs.box2d.bipedal_walker import BipedalWalker, BipedalWalkerHardcore
-      File "C:\venv\lib\site-packages\gymnasium\envs\box2d\bipedal_walker.py", line 25, in <module>
-        raise DependencyNotInstalled(
-    gymnasium.error.DependencyNotInstalled: Box2D is not installed, you can install it by run `pip install swig` followed by `pip install "gymnasium[box2d]"`
+      File "C:\Users\geoff\Desktop\Github\codpybook-rtd\docs\ch8\ignore_utils.py", line 92, in benchmark_agents
+        game = play(env_copy, agent, max_game=max_game)
+      File "C:\Users\geoff\Desktop\Github\codpybook-rtd\docs\ch8\ignore_utils.py", line 326, in play
+        action = agent(state, **kwargs)
+      File "C:\Users\geoff\Desktop\Github\codpybook-rtd\docs\ch8\ch8_lunarlander.py", line 243, in __call__
+        q_values = self.critic(z)
+      File "c:\users\geoff\desktop\github\codpy-lite\src\codpy\KQLearning.py", line 197, in __call__
+        for key in mapped_indices.keys():
+    AttributeError: 'numpy.ndarray' object has no attribute 'keys'
 
 
 
@@ -631,7 +617,7 @@ KController
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.014 seconds)
+   **Total running time of the script:** (4 minutes 30.764 seconds)
 
 
 .. _sphx_glr_download_auto_ch8_ch8_lunarlander.py:

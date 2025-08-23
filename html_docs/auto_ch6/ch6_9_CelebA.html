@@ -7,7 +7,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>6.4.1 Generating complex distributions from celebA dataset &mdash; CodPy Book 1.0.0 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
       <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
@@ -135,7 +135,6 @@
 <li class="toctree-l1"><a class="reference internal" href="../auto_ch8/index.html">Chapter 8: Reinforcement learning.</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../auto_ch8/ch8_example.html">8.1 Using KAgents</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../auto_ch8/ch8_cartpole.html">8.2 Experiments - Cartpole</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../auto_ch8/ch8_lunarlander.html">8.3 Experiments - LunarLander</a></li>
 </ul>
 </li>
 </ul>
@@ -198,20 +197,20 @@ We generate new images from different latent dimension spaces, and compare them 
 We define “closest” using a distance metric in the latent space between images.</p>
 <section id="necessary-imports">
 <h2>Necessary Imports<a class="headerlink" href="#necessary-imports" title="Link to this heading"></a></h2>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">math</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">import</span> <span class="nn">os</span>
 
-<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">skimage.io</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">skimage.transform</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">scipy</span><span class="w"> </span><span class="kn">import</span> <span class="n">optimize</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">skimage.io</span>
+<span class="kn">import</span> <span class="nn">skimage.transform</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">optimize</span>
 
-<span class="kn">from</span><span class="w"> </span><span class="nn">codpy</span><span class="w"> </span><span class="kn">import</span> <span class="n">core</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">codpy.kernel</span><span class="w"> </span><span class="kn">import</span> <span class="n">Kernel</span><span class="p">,</span> <span class="n">Sampler</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">codpy.permutation</span><span class="w"> </span><span class="kn">import</span> <span class="n">scipy_lsap</span><span class="p">,</span> <span class="n">lsap</span><span class="p">,</span> <span class="n">map_invertion</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">codpy.conditioning</span>
+<span class="kn">from</span> <span class="nn">codpy</span> <span class="kn">import</span> <span class="n">core</span>
+<span class="kn">from</span> <span class="nn">codpy.kernel</span> <span class="kn">import</span> <span class="n">Kernel</span><span class="p">,</span> <span class="n">Sampler</span>
+<span class="kn">from</span> <span class="nn">codpy.permutation</span> <span class="kn">import</span> <span class="n">scipy_lsap</span><span class="p">,</span> <span class="n">lsap</span><span class="p">,</span> <span class="n">map_invertion</span>
+<span class="kn">import</span> <span class="nn">codpy.conditioning</span>
 <span class="k">try</span><span class="p">:</span>
     <span class="n">current_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span>
     <span class="n">data_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">current_dir</span><span class="p">,</span> <span class="s2">&quot;data&quot;</span><span class="p">)</span>
@@ -228,8 +227,8 @@ We define “closest” using a distance metric in the latent space between imag
 <p>The CelebA dataset comes with a .csv file containing attributes for each image, and corresponding file names.
 The actual image files can be found in a subfolder, where the file names match those in the .csv file.
 We define a class to handle the loading and processing of this dataset.</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">CelebA_data_generator</span><span class="p">:</span>
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">CelebA_data_generator</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">main_folder</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;main_folder&quot;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_path</span><span class="p">,</span> <span class="s2">&quot;celebA&quot;</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">images_folder</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">main_folder</span><span class="p">,</span> <span class="s2">&quot;img_align_celeba/img_align_celeba/&quot;</span>
@@ -237,7 +236,7 @@ We define a class to handle the loading and processing of this dataset.</p>
         <span class="bp">self</span><span class="o">.</span><span class="n">attributes_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">main_folder</span><span class="p">,</span> <span class="s2">&quot;list_attr_celeba.csv&quot;</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">main_folder</span><span class="p">)</span> <span class="ow">and</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">attributes_path</span><span class="p">)</span> <span class="ow">and</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">images_folder</span><span class="p">)):</span>
-            <span class="kn">import</span><span class="w"> </span><span class="nn">kagglehub</span>
+            <span class="kn">import</span> <span class="nn">kagglehub</span>
             <span class="n">dataset</span> <span class="o">=</span> <span class="n">kagglehub</span><span class="o">.</span><span class="n">dataset_download</span><span class="p">(</span><span class="s2">&quot;jessicali9530/celeba-dataset&quot;</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">main_folder</span> <span class="o">=</span> <span class="n">dataset</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">images_folder</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
@@ -250,7 +249,7 @@ We define a class to handle the loading and processing of this dataset.</p>
         <span class="bp">self</span><span class="o">.</span><span class="n">features_name</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__prepare</span><span class="p">()</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">__prepare</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__prepare</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="c1"># Read the CSV, and only keep files matching selected features</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">attributes</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">attributes_path</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">feat</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">selected_features</span><span class="p">:</span>
@@ -273,7 +272,7 @@ We define a class to handle the loading and processing of this dataset.</p>
         <span class="c1"># We remove attributes which only appear once, as they do not provide useful information</span>
         <span class="n">drop_unique</span> <span class="o">=</span> <span class="p">[]</span>
 
-        <span class="k">def</span><span class="w"> </span><span class="nf">helper</span><span class="p">(</span><span class="n">col</span><span class="p">):</span>
+        <span class="k">def</span> <span class="nf">helper</span><span class="p">(</span><span class="n">col</span><span class="p">):</span>
             <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">attributes</span><span class="p">[</span><span class="n">col</span><span class="p">]))</span>
             <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
                 <span class="n">drop_unique</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">col</span><span class="p">)</span>
@@ -283,7 +282,7 @@ We define a class to handle the loading and processing of this dataset.</p>
         <span class="c1"># self.attributes.reset_index(drop=True, inplace=True)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">num_features</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">get_images</span><span class="p">(</span>
+    <span class="k">def</span> <span class="nf">get_images</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">image_ids</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">exclude_image_ids</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -343,13 +342,13 @@ We define a class to handle the loading and processing of this dataset.</p>
 
         <span class="k">return</span> <span class="n">images</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">get_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">N</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">get_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">N</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="n">images</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_images</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="n">attributes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">attributes</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">images</span><span class="o">.</span><span class="n">index</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">images</span><span class="p">,</span> <span class="n">images</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">attributes</span>
 
 
-<span class="k">def</span><span class="w"> </span><span class="nf">get_images_list</span><span class="p">(</span><span class="n">list_pics</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">get_images_list</span><span class="p">(</span><span class="n">list_pics</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">list_pics</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
         <span class="n">out</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">([</span><span class="n">get_images_list</span><span class="p">(</span><span class="n">pic</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="k">for</span> <span class="n">pic</span> <span class="ow">in</span> <span class="n">list_pics</span><span class="p">])</span>
         <span class="n">out</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="p">[</span><span class="n">out</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="o">-</span><span class="mi">1</span><span class="p">])</span>
@@ -370,14 +369,14 @@ We define a class to handle the loading and processing of this dataset.</p>
     <span class="k">return</span> <span class="n">pic</span>
 
 
-<span class="k">def</span><span class="w"> </span><span class="nf">basic_filter</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">basic_filter</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">reshape</span><span class="p">([</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">//</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
     <span class="n">x</span> <span class="o">-=</span> <span class="n">x</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
     <span class="n">x</span> <span class="o">/=</span> <span class="n">x</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
 
 
-<span class="k">def</span><span class="w"> </span><span class="nf">tiles</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">tiles</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="n">SQ</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;N&quot;</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])))</span>
     <span class="n">tile_shape</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;tile_shape&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">SQ</span><span class="p">,</span> <span class="n">SQ</span><span class="p">])</span>
     <span class="n">pic_shape</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;pic_shape&quot;</span><span class="p">]</span>
@@ -424,7 +423,7 @@ Rescale shape is the size to which images will be resized for processing, before
 <span class="p">}</span>
 
 
-<span class="k">def</span><span class="w"> </span><span class="nf">launch_celebA_generator</span><span class="p">(</span>
+<span class="k">def</span> <span class="nf">launch_celebA_generator</span><span class="p">(</span>
     <span class="n">kwargs</span><span class="o">=</span><span class="n">config</span><span class="p">,</span>
     <span class="n">selected_features</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Blond_Hair&quot;</span><span class="p">,</span> <span class="s2">&quot;Attractive&quot;</span><span class="p">,</span> <span class="s2">&quot;Smiling&quot;</span><span class="p">],</span>
     <span class="n">drop_features</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Male&quot;</span><span class="p">],</span>
@@ -483,7 +482,7 @@ Rescale shape is the size to which images will be resized for processing, before
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Saved&quot;</span><span class="p">,</span> <span class="n">pic_name</span><span class="p">)</span>
 
 
-<span class="k">def</span><span class="w"> </span><span class="nf">launch_celebA_Wasserstein_generator</span><span class="p">(</span>
+<span class="k">def</span> <span class="nf">launch_celebA_Wasserstein_generator</span><span class="p">(</span>
     <span class="n">kwargs</span><span class="o">=</span><span class="n">config</span><span class="p">,</span>
     <span class="n">selected_features</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Blond_Hair&quot;</span><span class="p">,</span> <span class="s2">&quot;Attractive&quot;</span><span class="p">,</span> <span class="s2">&quot;Smiling&quot;</span><span class="p">],</span>
     <span class="n">drop_features</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Male&quot;</span><span class="p">],</span>
@@ -495,7 +494,7 @@ Rescale shape is the size to which images will be resized for processing, before
     <span class="p">),</span> <span class="s2">&quot;Number of generated images (Nz) must be a perfect square for plotting on tiles&quot;</span>
     <span class="n">N</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">celebA_Wasserstein_descent</span><span class="p">(</span><span class="n">pics</span><span class="p">,</span> <span class="n">database_pics</span><span class="p">,</span> <span class="n">latent_values</span><span class="p">,</span> <span class="n">generator</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">celebA_Wasserstein_descent</span><span class="p">(</span><span class="n">pics</span><span class="p">,</span> <span class="n">database_pics</span><span class="p">,</span> <span class="n">latent_values</span><span class="p">,</span> <span class="n">generator</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This function performs a Wasserstein descent on the generated images to find the closest images in the database.</span>
 <span class="sd">        It uses the Sampler to generate images and find the closest ones in the database.</span>
@@ -508,7 +507,7 @@ Rescale shape is the size to which images will be resized for processing, before
         <span class="n">closest_images_indice</span> <span class="o">=</span> <span class="n">closest_images_indice</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
         <span class="n">closest_images</span> <span class="o">=</span> <span class="n">database_pics</span><span class="p">[</span><span class="n">closest_images_indice</span><span class="p">]</span>
 
-        <span class="k">def</span><span class="w"> </span><span class="nf">sgn</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+        <span class="k">def</span> <span class="nf">sgn</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
             <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">copysign</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
 
         <span class="c1"># diff = np.vectorize(sgn)(generated_pics - closest_images)</span>
@@ -517,13 +516,13 @@ Rescale shape is the size to which images will be resized for processing, before
         <span class="n">nablas</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">einsum</span><span class="p">(</span><span class="s2">&quot;ijk,ik-&gt;ij&quot;</span><span class="p">,</span> <span class="n">nablas</span><span class="p">,</span> <span class="n">diff</span><span class="p">)</span>
 
         <span class="c1"># nablas /= np.abs(nablas).mean(1)[:,None]</span>
-        <span class="k">def</span><span class="w"> </span><span class="nf">error</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+        <span class="k">def</span> <span class="nf">error</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
             <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">a</span> <span class="o">-</span> <span class="n">b</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span>
             <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">a</span> <span class="o">-</span> <span class="n">b</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 
         <span class="n">error_</span> <span class="o">=</span> <span class="n">error</span><span class="p">(</span><span class="n">pics</span><span class="p">,</span> <span class="n">generated_pics</span><span class="p">)</span>
 
-        <span class="k">def</span><span class="w"> </span><span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+        <span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
             <span class="n">latent</span> <span class="o">=</span> <span class="n">latent_values</span> <span class="o">+</span> <span class="n">x</span> <span class="o">*</span> <span class="n">nablas</span>
             <span class="n">out</span> <span class="o">=</span> <span class="n">generator</span><span class="p">(</span><span class="n">z</span><span class="o">=</span><span class="n">latent</span><span class="p">)</span>
             <span class="n">out</span> <span class="o">=</span> <span class="n">error</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">pics</span><span class="p">)</span>

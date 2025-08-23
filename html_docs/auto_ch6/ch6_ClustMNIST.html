@@ -7,7 +7,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>6.3 Unsupervised learning: Clustering - MNIST &mdash; CodPy Book 1.0.0 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
       <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
@@ -135,7 +135,6 @@
 <li class="toctree-l1"><a class="reference internal" href="../auto_ch8/index.html">Chapter 8: Reinforcement learning.</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../auto_ch8/ch8_example.html">8.1 Using KAgents</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../auto_ch8/ch8_cartpole.html">8.2 Experiments - Cartpole</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../auto_ch8/ch8_lunarlander.html">8.3 Experiments - LunarLander</a></li>
 </ul>
 </li>
 </ul>
@@ -198,23 +197,23 @@ We will compare the codpy MMD minimization-based algorithm with scikit learn k-m
 The goal is to show the different scores as we increase the number of centroids Ny used for clustering.</p>
 <section id="necessary-imports">
 <h2>Necessary Imports<a class="headerlink" href="#necessary-imports" title="Link to this heading"></a></h2>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">time</span>
 
 <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;OPENBLAS_NUM_THREADS&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;32&quot;</span>
 <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;OMP_NUM_THREADS&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;4&quot;</span>
 
-<span class="kn">import</span><span class="w"> </span><span class="nn">random</span>
+<span class="kn">import</span> <span class="nn">random</span>
 
-<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
-<span class="kn">from</span><span class="w"> </span><span class="nn">ch6_Clustering</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">codpy.kernel</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.cluster</span><span class="w"> </span><span class="kn">import</span> <span class="n">KMeans</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">confusion_matrix</span><span class="p">,</span> <span class="n">pairwise_distances</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">torchvision</span><span class="w"> </span><span class="kn">import</span> <span class="n">datasets</span><span class="p">,</span> <span class="n">transforms</span>
+<span class="kn">from</span> <span class="nn">ch6_Clustering</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">codpy.kernel</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">sklearn.cluster</span> <span class="kn">import</span> <span class="n">KMeans</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">confusion_matrix</span><span class="p">,</span> <span class="n">pairwise_distances</span>
+<span class="kn">from</span> <span class="nn">torchvision</span> <span class="kn">import</span> <span class="n">datasets</span><span class="p">,</span> <span class="n">transforms</span>
 
 <span class="k">try</span><span class="p">:</span>
     <span class="n">current_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span>
@@ -232,7 +231,7 @@ The goal is to show the different scores as we increase the number of centroids 
 <h2>MNIST Data Preparation<a class="headerlink" href="#mnist-data-preparation" title="Link to this heading"></a></h2>
 <p>We normalize pixel values and reshape data for processing.
 Pixel data is used as flat vectors, and labels are one-hot encoded.</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">get_MNIST_data</span><span class="p">(</span><span class="n">N</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">flatten</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">one_hot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">43</span><span class="p">):</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_MNIST_data</span><span class="p">(</span><span class="n">N</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">flatten</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">one_hot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">43</span><span class="p">):</span>
     <span class="n">transform</span> <span class="o">=</span> <span class="n">transforms</span><span class="o">.</span><span class="n">ToTensor</span><span class="p">()</span>
 
     <span class="n">train_data</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">MNIST</span><span class="p">(</span>
@@ -269,7 +268,7 @@ Pixel data is used as flat vectors, and labels are one-hot encoded.</p>
 <p>This section defines the K-means and CodPy clustering models.
 We wrap the clustering methods with kernels assigning labels to clusters based on the target values <cite>fx</cite>.
 This allow us to compute score metrics for the models.</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">codpy_sharp</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">fx</span><span class="p">,</span> <span class="n">Ny</span><span class="p">):</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">codpy_sharp</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">fx</span><span class="p">,</span> <span class="n">Ny</span><span class="p">):</span>
     <span class="c1"># Select the codpy model for clustering and select centers</span>
     <span class="n">greedy_search</span> <span class="o">=</span> <span class="n">SharpDiscrepancy</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">N</span><span class="o">=</span><span class="n">Ny</span><span class="p">)</span>
     <span class="n">centers</span> <span class="o">=</span> <span class="n">greedy_search</span><span class="o">.</span><span class="n">cluster_centers_</span>
@@ -279,7 +278,7 @@ This allow us to compute score metrics for the models.</p>
     <span class="k">return</span> <span class="n">centers</span><span class="p">,</span> <span class="n">kernel</span>
 
 
-<span class="k">def</span><span class="w"> </span><span class="nf">codpy_clustering</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">fx</span><span class="p">,</span> <span class="n">Ny</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">codpy_clustering</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">fx</span><span class="p">,</span> <span class="n">Ny</span><span class="p">):</span>
     <span class="c1"># Select the codpy model for clustering and select centers</span>
     <span class="n">greedy_search</span> <span class="o">=</span> <span class="n">GreedySearch</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span> <span class="n">N</span><span class="o">=</span><span class="n">Ny</span><span class="p">)</span>
     <span class="n">centers</span> <span class="o">=</span> <span class="n">greedy_search</span><span class="o">.</span><span class="n">cluster_centers_</span>
@@ -289,7 +288,7 @@ This allow us to compute score metrics for the models.</p>
     <span class="k">return</span> <span class="n">centers</span><span class="p">,</span> <span class="n">kernel</span>
 
 
-<span class="k">def</span><span class="w"> </span><span class="nf">kmeans_clustering</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">fx</span><span class="p">,</span> <span class="n">Ny</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">kmeans_clustering</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">fx</span><span class="p">,</span> <span class="n">Ny</span><span class="p">):</span>
     <span class="c1"># Use Kmeans from sklearn to get the clusters</span>
     <span class="k">if</span> <span class="n">Ny</span> <span class="o">&gt;=</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
         <span class="n">centers</span> <span class="o">=</span> <span class="n">x</span>
@@ -304,8 +303,8 @@ This allow us to compute score metrics for the models.</p>
 <section id="running-the-experiment">
 <h2>Running the Experiment<a class="headerlink" href="#running-the-experiment" title="Link to this heading"></a></h2>
 <p>This section runs the experiment to compare K-means and CodPy clustering.</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">one_experiment</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">fx</span><span class="p">,</span> <span class="n">Ny</span><span class="p">,</span> <span class="n">get_predictor</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">fz</span><span class="p">):</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">get_score</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">cluster_centers</span><span class="p">,</span> <span class="n">predictor</span><span class="p">):</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">one_experiment</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">fx</span><span class="p">,</span> <span class="n">Ny</span><span class="p">,</span> <span class="n">get_predictor</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">fz</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">get_score</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">cluster_centers</span><span class="p">,</span> <span class="n">predictor</span><span class="p">):</span>
         <span class="n">inertia</span> <span class="o">=</span> <span class="n">compute_inertia</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">cluster_centers</span><span class="p">)</span>
         <span class="n">mmd</span> <span class="o">=</span> <span class="n">compute_mmd</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">cluster_centers</span><span class="p">)</span>
 
@@ -325,7 +324,7 @@ This allow us to compute score metrics for the models.</p>
     <span class="k">return</span> <span class="n">inertia</span><span class="p">,</span> <span class="n">mmd</span><span class="p">,</span> <span class="n">elapsed_time</span><span class="p">,</span> <span class="n">score</span>
 
 
-<span class="k">def</span><span class="w"> </span><span class="nf">run_experiment</span><span class="p">(</span>
+<span class="k">def</span> <span class="nf">run_experiment</span><span class="p">(</span>
     <span class="n">data_generator</span><span class="p">,</span> <span class="n">Nx</span><span class="p">,</span> <span class="n">Ny_values</span><span class="p">,</span> <span class="n">get_predictors</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">file_name</span><span class="o">=</span><span class="kc">None</span>
 <span class="p">):</span>
     <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
@@ -372,7 +371,7 @@ This allow us to compute score metrics for the models.</p>
 <section id="plotting">
 <h2>Plotting<a class="headerlink" href="#plotting" title="Link to this heading"></a></h2>
 <p>This section formats data plots the different experiments on a figure.</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">plot_experiment</span><span class="p">(</span><span class="n">inputs</span><span class="p">):</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_experiment</span><span class="p">(</span><span class="n">inputs</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This is mainly boilerplate formatting the data for plotting.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -389,7 +388,7 @@ This allow us to compute score metrics for the models.</p>
         <span class="n">results</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="s2">&quot;data&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">ny</span><span class="p">,</span> <span class="p">{})[</span><span class="n">method</span><span class="p">]</span> <span class="o">=</span> <span class="n">inertia</span>
         <span class="n">results</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="s2">&quot;data&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">ny</span><span class="p">,</span> <span class="p">{})[</span><span class="n">method</span><span class="p">]</span> <span class="o">=</span> <span class="n">t</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">plot_one</span><span class="p">(</span><span class="n">inputs</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">plot_one</span><span class="p">(</span><span class="n">inputs</span><span class="p">):</span>
         <span class="n">results</span> <span class="o">=</span> <span class="n">inputs</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">]</span>
         <span class="n">ax</span> <span class="o">=</span> <span class="n">inputs</span><span class="p">[</span><span class="s2">&quot;ax&quot;</span><span class="p">]</span>
         <span class="n">legend</span> <span class="o">=</span> <span class="n">inputs</span><span class="p">[</span><span class="s2">&quot;legend&quot;</span><span class="p">]</span>

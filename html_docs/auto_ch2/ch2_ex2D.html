@@ -7,7 +7,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>2.4 2D Periodic Function Extrapolation &mdash; CodPy Book 1.0.0 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
       <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css?v=d2d258e8" />
@@ -135,7 +135,6 @@
 <li class="toctree-l1"><a class="reference internal" href="../auto_ch8/index.html">Chapter 8: Reinforcement learning.</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../auto_ch8/ch8_example.html">8.1 Using KAgents</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../auto_ch8/ch8_cartpole.html">8.2 Experiments - Cartpole</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../auto_ch8/ch8_lunarlander.html">8.3 Experiments - LunarLander</a></li>
 </ul>
 </li>
 </ul>
@@ -203,34 +202,34 @@ applies both CodPy and SciPy models, and visualizes the results using 3D plots.<
 <li><p>Model application: Applying CodPy and SciPy models for interpolation.</p></li>
 </ul>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Importing necessary modules</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">time</span>
 
 <span class="n">curr_f</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span> <span class="s2">&quot;codpy-book&quot;</span><span class="p">,</span> <span class="s2">&quot;utils&quot;</span><span class="p">)</span>
 <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">curr_f</span><span class="p">)</span>
 
 
-<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.interpolate</span><span class="w"> </span><span class="kn">import</span> <span class="n">Rbf</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">scipy.interpolate</span> <span class="kn">import</span> <span class="n">Rbf</span>
 
 <span class="c1"># import CodPy&#39;s core module and Kernel class</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">codpy</span><span class="w"> </span><span class="kn">import</span> <span class="n">core</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">codpy.kernel</span><span class="w"> </span><span class="kn">import</span> <span class="n">Kernel</span>
+<span class="kn">from</span> <span class="nn">codpy</span> <span class="kn">import</span> <span class="n">core</span>
+<span class="kn">from</span> <span class="nn">codpy.kernel</span> <span class="kn">import</span> <span class="n">Kernel</span>
 
 <span class="c1"># from codpy.plotting import plot1D</span>
 <span class="c1"># Lets import multi_plot function from codpy utils</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">codpy.plot_utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">multi_plot</span>
+<span class="kn">from</span> <span class="nn">codpy.plot_utils</span> <span class="kn">import</span> <span class="n">multi_plot</span>
 
-<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">mean_squared_error</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">mean_squared_error</span>
 
 <span class="c1"># Define the sinusoidal function</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">periodic_fun</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">periodic_fun</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A sinusoidal function that generates a sum of sines based on the input ``x``.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="kn">from</span><span class="w"> </span><span class="nn">math</span><span class="w"> </span><span class="kn">import</span> <span class="n">pi</span>
+    <span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">pi</span>
 
     <span class="n">sinss</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">x</span> <span class="o">*</span> <span class="n">pi</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
@@ -243,8 +242,8 @@ applies both CodPy and SciPy models, and visualizes the results using 3D plots.<
 
 
 <span class="c1"># Lets define helper function to plot 3D projection of the function</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">plot_trisurf</span><span class="p">(</span><span class="n">xfx</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">elev</span><span class="o">=</span><span class="mi">90</span><span class="p">,</span> <span class="n">azim</span><span class="o">=-</span><span class="mi">100</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">cm</span>
+<span class="k">def</span> <span class="nf">plot_trisurf</span><span class="p">(</span><span class="n">xfx</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">elev</span><span class="o">=</span><span class="mi">90</span><span class="p">,</span> <span class="n">azim</span><span class="o">=-</span><span class="mi">100</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">cm</span>
 
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Helper function to plot a 3D surface using a trisurf plot.</span>
@@ -269,7 +268,7 @@ applies both CodPy and SciPy models, and visualizes the results using 3D plots.<
 
 
 <span class="c1"># Function to generate periodic data</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">generate_periodic_data</span><span class="p">(</span><span class="n">sizes_x</span><span class="p">,</span> <span class="n">sizes_z</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">generate_periodic_data</span><span class="p">(</span><span class="n">sizes_x</span><span class="p">,</span> <span class="n">sizes_z</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Generates 2D periodic data for given sizes of x and z.</span>
 
@@ -295,7 +294,7 @@ applies both CodPy and SciPy models, and visualizes the results using 3D plots.<
 
 
 <span class="c1"># Function to plot the generated data points</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">plot_x_fx_z_fz</span><span class="p">(</span><span class="n">N</span><span class="o">=</span><span class="mi">1024</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">plot_x_fx_z_fz</span><span class="p">(</span><span class="n">N</span><span class="o">=</span><span class="mi">1024</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Inline plot of the periodic data (x, fx) and (z, fz) for a fixed size N.</span>
 
@@ -336,7 +335,7 @@ applies both CodPy and SciPy models, and visualizes the results using 3D plots.<
 The two curves for <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">z</span></code> exhibits the sinusoidal variations defined by <code class="docutils literal notranslate"><span class="pre">periodic_fun(x)</span></code>.</p>
 <p><strong>Model Setup and Training</strong></p>
 <hr class="docutils" />
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">run_experiment</span><span class="p">(</span><span class="n">data_x</span><span class="p">,</span> <span class="n">data_fx</span><span class="p">,</span> <span class="n">data_z</span><span class="p">):</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">run_experiment</span><span class="p">(</span><span class="n">data_x</span><span class="p">,</span> <span class="n">data_fx</span><span class="p">,</span> <span class="n">data_z</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Runs the experiment applying CodPy and SciPy models on the data and plots the results.</span>
 
@@ -391,7 +390,7 @@ The two curves for <code class="docutils literal notranslate"><span class="pre">
 
     <span class="n">res</span> <span class="o">=</span> <span class="p">[{</span><span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="n">results</span><span class="p">},</span> <span class="p">{</span><span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="n">mmds</span><span class="p">},</span> <span class="p">{</span><span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="n">times</span><span class="p">}]</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">plot_one</span><span class="p">(</span><span class="n">inputs</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">plot_one</span><span class="p">(</span><span class="n">inputs</span><span class="p">):</span>
         <span class="n">results</span> <span class="o">=</span> <span class="n">inputs</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">]</span>
         <span class="n">ax</span> <span class="o">=</span> <span class="n">inputs</span><span class="p">[</span><span class="s2">&quot;ax&quot;</span><span class="p">]</span>
         <span class="n">legend</span> <span class="o">=</span> <span class="n">inputs</span><span class="p">[</span><span class="s2">&quot;legend&quot;</span><span class="p">]</span>
@@ -415,7 +414,7 @@ The two curves for <code class="docutils literal notranslate"><span class="pre">
     <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
 <span class="c1"># Applies CodPy&#39;s kernel-based model for interpolation.</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">codpy_model</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">fx</span><span class="p">,</span> <span class="n">z</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">codpy_model</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">fx</span><span class="p">,</span> <span class="n">z</span><span class="p">):</span>
     <span class="n">kernel</span> <span class="o">=</span> <span class="n">Kernel</span><span class="p">(</span>
         <span class="n">set_kernel</span><span class="o">=</span><span class="n">core</span><span class="o">.</span><span class="n">kernel_setter</span><span class="p">(</span><span class="s2">&quot;gaussianper&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mf">1e-9</span><span class="p">),</span>
         <span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span>
@@ -424,11 +423,11 @@ The two curves for <code class="docutils literal notranslate"><span class="pre">
     <span class="p">)</span>
     <span class="k">return</span> <span class="n">kernel</span>
 
-<span class="k">def</span><span class="w"> </span><span class="nf">codpy_pred</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">fx</span><span class="p">,</span><span class="n">z</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">codpy_pred</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">fx</span><span class="p">,</span><span class="n">z</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">codpy_model</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">fx</span><span class="p">,</span> <span class="n">z</span><span class="p">)(</span><span class="n">z</span><span class="p">)</span>
 
 <span class="c1"># SciPy RBF Interpolator for 2D data interpolation.</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">rbf_interpolator</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">fx</span><span class="p">,</span> <span class="n">z</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">rbf_interpolator</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">fx</span><span class="p">,</span> <span class="n">z</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    SciPy RBF Interpolator for 2D data interpolation.</span>
 

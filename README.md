@@ -10,7 +10,7 @@ It provides **Python code implementations** and allows to **reproduce all figure
 
 ## About CodPy
 
-**CodPy (Curse Of Dimensionality in Python)** is an open-source Python library for:
+**CodPy (Curse Of Dimensionality in Python)** is an open-source Python library dedicated to RKHS for:
 
 - Numerical algorithms  
 - Machine learning  
