@@ -6,7 +6,7 @@
 
 Computation times
 =================
-**20:44.550** total execution time for 10 files **from auto_ch6**:
+**00:50.348** total execution time for 10 files **from auto_ch6**:
 
 .. container::
 
@@ -32,33 +32,33 @@ Computation times
    * - Example
      - Time
      - Mem (MB)
-   * - :ref:`sphx_glr_auto_ch6_ch6_ClustMNIST.py` (``ch6_ClustMNIST.py``)
-     - 05:25.077
-     - 0.0
-   * - :ref:`sphx_glr_auto_ch6_ch6_9_CelebA_reconstruction.py` (``ch6_9_CelebA_reconstruction.py``)
-     - 04:49.502
+   * - :ref:`sphx_glr_auto_ch6_ch6_mnist.py` (``ch6_mnist.py``)
+     - 00:50.348
      - 0.0
    * - :ref:`sphx_glr_auto_ch6_ch6_9_CelebA.py` (``ch6_9_CelebA.py``)
-     - 04:12.934
+     - 00:00.000
      - 0.0
-   * - :ref:`sphx_glr_auto_ch6_ch6_mnist.py` (``ch6_mnist.py``)
-     - 03:32.425
+   * - :ref:`sphx_glr_auto_ch6_ch6_9_CelebA_reconstruction.py` (``ch6_9_CelebA_reconstruction.py``)
+     - 00:00.000
      - 0.0
    * - :ref:`sphx_glr_auto_ch6_ch6_9_transfert.py` (``ch6_9_transfert.py``)
-     - 02:30.995
+     - 00:00.000
      - 0.0
-   * - :ref:`sphx_glr_auto_ch6_ch6_CreditCardFraud.py` (``ch6_CreditCardFraud.py``)
-     - 00:06.787
-     - 0.0
-   * - :ref:`sphx_glr_auto_ch6_ch6_housing.py` (``ch6_housing.py``)
-     - 00:06.025
-     - 0.0
-   * - :ref:`sphx_glr_auto_ch6_ch6_stockClustering.py` (``ch6_stockClustering.py``)
-     - 00:00.533
-     - 0.0
-   * - :ref:`sphx_glr_auto_ch6_ch6_iris.py` (``ch6_iris.py``)
-     - 00:00.270
+   * - :ref:`sphx_glr_auto_ch6_ch6_ClustMNIST.py` (``ch6_ClustMNIST.py``)
+     - 00:00.000
      - 0.0
    * - :ref:`sphx_glr_auto_ch6_ch6_Clustering.py` (``ch6_Clustering.py``)
-     - 00:00.002
+     - 00:00.000
+     - 0.0
+   * - :ref:`sphx_glr_auto_ch6_ch6_CreditCardFraud.py` (``ch6_CreditCardFraud.py``)
+     - 00:00.000
+     - 0.0
+   * - :ref:`sphx_glr_auto_ch6_ch6_housing.py` (``ch6_housing.py``)
+     - 00:00.000
+     - 0.0
+   * - :ref:`sphx_glr_auto_ch6_ch6_iris.py` (``ch6_iris.py``)
+     - 00:00.000
+     - 0.0
+   * - :ref:`sphx_glr_auto_ch6_ch6_stockClustering.py` (``ch6_stockClustering.py``)
+     - 00:00.000
      - 0.0

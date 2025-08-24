@@ -6,7 +6,7 @@
 
 Computation times
 =================
-**06:00.312** total execution time for 3 files **from auto_ch8**:
+**21:01.483** total execution time for 3 files **from auto_ch8**:
 
 .. container::
 
@@ -33,11 +33,11 @@ Computation times
      - Time
      - Mem (MB)
    * - :ref:`sphx_glr_auto_ch8_ch8_lunarlander.py` (``ch8_lunarlander.py``)
-     - 04:30.764
-     - 0.0
-   * - :ref:`sphx_glr_auto_ch8_ch8_example.py` (``ch8_example.py``)
-     - 01:29.548
+     - 21:01.483
      - 0.0
    * - :ref:`sphx_glr_auto_ch8_ch8_cartpole.py` (``ch8_cartpole.py``)
+     - 00:00.000
+     - 0.0
+   * - :ref:`sphx_glr_auto_ch8_ch8_example.py` (``ch8_example.py``)
      - 00:00.000
      - 0.0

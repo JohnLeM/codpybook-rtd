@@ -408,7 +408,7 @@ class KControllerLN(KQLearning.KController):
             core.get_matrix(done.mean(axis=0)).T,
         )
 
-if __name__ == "__main__":
+def main():
     # Define agents here, which will be trained in the benchmark. If game_dictionnary is empty, the benchmark will try to load data from the .pkl file
     game_dictionary = {
         "PPOAgent": PPOAgent,
@@ -416,7 +416,7 @@ if __name__ == "__main__":
         "KACAgent": KActorCriticLN,
         "PolicyGradient": PolicyGradientLN,
         "DQNAgent": DQNAgent,
-        "KQLearningHJBCP": KQLearningHJBLN,
+        # "KQLearningHJBCP": KQLearningHJBLN, #bug to solve get_transition
         "KQLearning": KQLearningLN,
     }
 
@@ -479,16 +479,17 @@ if __name__ == "__main__":
             "reg": 1e-4,
             "order": 3,
         },
-        "max_game": 1500,
+        "max_game": 2000,
         "gamma": 0.99,
         "capacity": 10000,
-        "max_training_game_size": 300,
+        "max_training_game_size": 1000,
         # "max_kernel": 40
         # "seed": 42,
     }
     seed = extras.get("seed", None)
     np.random.seed(seed)
-
+    softmax = lambda x: np.exp(x) / np.sum(np.exp(x), axis=0)
+    test = softmax([1,0])
     Benchmark()(
         game_dictionary,
         "LunarLander-v3",
@@ -502,3 +503,5 @@ if __name__ == "__main__":
     )
     plt.show()
     pass
+
+main()

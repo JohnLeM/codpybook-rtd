@@ -194,27 +194,45 @@ to download the full example code.</p>
 <span id="sphx-glr-auto-ch6-ch6-mnist-py"></span><h1>6.2 Supervised learning: benchmarks of methods with MNIST<a class="headerlink" href="#supervised-learning-benchmarks-of-methods-with-mnist" title="Link to this heading"></a></h1>
 <p>Here we reproduce the results of chapter 6.2.2 - Classification problem: handwritten digits.
 We will compare different models with codpy for a classification task, scoring models on unseen data.</p>
-<section id="necessary-imports">
-<h2>Necessary Imports<a class="headerlink" href="#necessary-imports" title="Link to this heading"></a></h2>
+<dl class="simple">
+<dt>Necessary Imports</dt><dd></dd>
+</dl>
+<hr class="docutils" />
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">random</span>
 <span class="kn">import</span> <span class="nn">time</span>
 
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">scipy</span>
+<span class="kn">import</span> <span class="nn">scipy.fft</span>
+<span class="kn">import</span> <span class="nn">scipy.linalg</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">ndimage</span>
+
 <span class="kn">import</span> <span class="nn">torch</span>
 <span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
-<span class="kn">from</span> <span class="nn">codpydll</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestClassifier</span>
 <span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LinearRegression</span>
+<span class="kn">import</span> <span class="nn">torchvision.transforms.functional</span> <span class="k">as</span> <span class="nn">tf</span>
 <span class="kn">from</span> <span class="nn">torch.utils.data</span> <span class="kn">import</span> <span class="n">DataLoader</span><span class="p">,</span> <span class="n">TensorDataset</span>
 <span class="kn">from</span> <span class="nn">torchvision</span> <span class="kn">import</span> <span class="n">datasets</span><span class="p">,</span> <span class="n">transforms</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span><span class="n">Set</span><span class="p">,</span><span class="n">Dict</span><span class="p">,</span><span class="n">get_type_hints</span>
+
+<span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
 
 <span class="kn">import</span> <span class="nn">codpy.core</span> <span class="k">as</span> <span class="nn">core</span>
+<span class="kn">import</span> <span class="nn">codpy.lalg</span> <span class="k">as</span> <span class="nn">lalg</span>
+<span class="kn">from</span> <span class="nn">codpy.data_processing</span> <span class="kn">import</span> <span class="n">hot_encoder</span>
 <span class="kn">from</span> <span class="nn">codpy.kernel</span> <span class="kn">import</span> <span class="n">KernelClassifier</span>
 <span class="kn">from</span> <span class="nn">codpy.plot_utils</span> <span class="kn">import</span> <span class="n">multi_plot</span>
+<span class="kn">from</span> <span class="nn">scipy.special</span> <span class="kn">import</span> <span class="n">softmax</span>
+<span class="kn">from</span> <span class="nn">codpydll</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">codpy.kernel</span> <span class="kn">import</span> <span class="n">Kernel</span><span class="p">,</span><span class="n">Sampler</span>
+<span class="kn">from</span> <span class="nn">codpy.sampling</span> <span class="kn">import</span> <span class="n">get_uniforms</span><span class="p">,</span><span class="n">get_normals</span><span class="p">,</span><span class="n">get_qmc_uniforms</span><span class="p">,</span><span class="n">get_qmc_normals</span>
+<span class="kn">from</span> <span class="nn">codpy.permutation</span> <span class="kn">import</span> <span class="n">lsap</span><span class="p">,</span> <span class="n">map_invertion</span><span class="p">,</span><span class="n">Gromov_Monge</span><span class="p">,</span><span class="n">dic_invertion</span>
+<span class="kn">from</span> <span class="nn">codpy.conditioning</span> <span class="kn">import</span> <span class="n">ConditionerKernel</span>
 </pre></div>
 </div>
-</section>
 <section id="mnist-data-preparation">
 <h2>MNIST Data Preparation<a class="headerlink" href="#mnist-data-preparation" title="Link to this heading"></a></h2>
 <p>We normalize pixel values and reshape data for processing.
@@ -242,9 +260,10 @@ Pixel data is used as flat vectors, and labels are one-hot encoded.</p>
     <span class="k">if</span> <span class="n">one_hot</span><span class="p">:</span>
         <span class="n">fx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">10</span><span class="p">)[</span><span class="n">fx</span><span class="p">]</span>
         <span class="n">fz</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">10</span><span class="p">)[</span><span class="n">fz</span><span class="p">]</span>
-    <span class="k">if</span> <span class="n">N</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">N</span><span class="o">==-</span><span class="mi">1</span><span class="p">:</span>
         <span class="n">N</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="n">indices</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="nb">min</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+    <span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
+    <span class="n">indices</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="nb">min</span><span class="p">(</span><span class="n">N</span><span class="p">,</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
     <span class="n">x</span><span class="p">,</span> <span class="n">fx</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="n">indices</span><span class="p">],</span> <span class="n">fx</span><span class="p">[</span><span class="n">indices</span><span class="p">]</span>
 
     <span class="k">return</span> <span class="n">x</span><span class="p">,</span> <span class="n">fx</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">fz</span>
@@ -254,10 +273,10 @@ Pixel data is used as flat vectors, and labels are one-hot encoded.</p>
 <section id="classification-models">
 <h2>Classification Models<a class="headerlink" href="#classification-models" title="Link to this heading"></a></h2>
 <p>Below we define the 3 classification models which will be used in our experiments.
-We use the accuracy loss as a metric along with Maximum Mean Discrepancy (MMD) for the codpy model to showcase the inverse relationship between the score and MMD.
-For classification tasks, use KernelClassifier.
-This is used the same way as Kernel, but it returns a softmax distribution over classes.</p>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">codpy_model</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">fx</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">fz</span><span class="p">):</span>
+We use the accuracy loss as a metric along with Maximum Mean Discrepancy (MMD) for the codpy model to showcase the inverse relationship between the score and MMD.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># For classification tasks, use KernelClassifier.</span>
+<span class="c1"># This is used the same way as Kernel, but it returns a softmax distribution over classes.</span>
+<span class="k">def</span> <span class="nf">RKHS_ridge_regression</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">fx</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">fz</span><span class="p">):</span>
     <span class="n">kernel</span> <span class="o">=</span> <span class="n">KernelClassifier</span><span class="p">(</span>
         <span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span>
         <span class="n">fx</span><span class="o">=</span><span class="n">fx</span><span class="p">,</span>
@@ -265,26 +284,180 @@ This is used the same way as Kernel, but it returns a softmax distribution over 
     <span class="p">)</span>
     <span class="n">preds</span> <span class="o">=</span> <span class="n">kernel</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
     <span class="n">end_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span>
-    <span class="c1"># mmd = np.sqrt(kernel.discrepancy(z))</span>
-    <span class="n">mmd</span> <span class="o">=</span> <span class="mi">0</span>
-
+    <span class="n">mmd</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">kernel</span><span class="o">.</span><span class="n">discrepancy</span><span class="p">(</span><span class="n">z</span><span class="p">))</span>
     <span class="k">return</span> <span class="n">preds</span><span class="p">,</span> <span class="n">fz</span><span class="p">,</span> <span class="n">mmd</span><span class="p">,</span> <span class="n">end_time</span>
 
 
-<span class="k">def</span> <span class="nf">codpy_convolutional_model</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">fx</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">fz</span><span class="p">):</span>
-    <span class="k">class</span> <span class="nc">myclassifier</span><span class="p">(</span><span class="n">KernelClassifier</span><span class="p">):</span>
-        <span class="k">def</span> <span class="nf">get_kernel</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">callable</span><span class="p">:</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;kernel&quot;</span><span class="p">):</span>
-                <span class="n">cd</span><span class="o">.</span><span class="n">set_kernel</span><span class="p">(</span><span class="s2">&quot;tinv_poly_kernel&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;p&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="mi">1</span><span class="p">)})</span>
-                <span class="c1"># ones = &quot;1;&quot; * (x.shape[0] - 1) + &quot;1&quot;</span>
-                <span class="c1"># cd.set_kernel(&quot;tinv_maternnorm&quot;)</span>
-                <span class="n">cd</span><span class="o">.</span><span class="n">kernel_interface</span><span class="o">.</span><span class="n">set_polynomial_order</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-                <span class="n">cd</span><span class="o">.</span><span class="n">kernel_interface</span><span class="o">.</span><span class="n">set_regularization</span><span class="p">(</span><span class="mf">1e-9</span><span class="p">)</span>
-                <span class="n">cd</span><span class="o">.</span><span class="n">kernel_interface</span><span class="o">.</span><span class="n">set_map</span><span class="p">(</span><span class="s2">&quot;scale_to_unitcube&quot;</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">kernel</span> <span class="o">=</span> <span class="n">core</span><span class="o">.</span><span class="n">KerInterface</span><span class="o">.</span><span class="n">get_kernel_ptr</span><span class="p">()</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">kernel</span>
 
-    <span class="n">kernel</span> <span class="o">=</span> <span class="n">myclassifier</span><span class="p">(</span>
+<span class="k">class</span> <span class="nc">conv_classifier</span><span class="p">(</span><span class="n">KernelClassifier</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">get_kernel</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">callable</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;kernel&quot;</span><span class="p">):</span>
+            <span class="n">cd</span><span class="o">.</span><span class="n">set_kernel</span><span class="p">(</span><span class="s2">&quot;tinv_poly_kernel&quot;</span><span class="p">,{</span><span class="s2">&quot;p&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="mi">1</span><span class="p">)})</span>
+            <span class="c1"># ones =&quot;1;&quot;*(x.shape[0]-1)+&quot;1&quot;</span>
+            <span class="c1"># cd.set_kernel(&quot;tinv_maternnorm&quot;,{&quot;weights&quot; : ones})</span>
+            <span class="n">cd</span><span class="o">.</span><span class="n">kernel_interface</span><span class="o">.</span><span class="n">set_polynomial_order</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+            <span class="n">cd</span><span class="o">.</span><span class="n">kernel_interface</span><span class="o">.</span><span class="n">set_regularization</span><span class="p">(</span><span class="mf">1e-9</span><span class="p">)</span>
+            <span class="n">cd</span><span class="o">.</span><span class="n">kernel_interface</span><span class="o">.</span><span class="n">set_map</span><span class="p">(</span><span class="s2">&quot;scale_to_unitcube&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">kernel</span> <span class="o">=</span> <span class="n">core</span><span class="o">.</span><span class="n">KerInterface</span><span class="o">.</span><span class="n">get_kernel_ptr</span><span class="p">()</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">kernel</span>
+        <span class="c1"># pass</span>
+
+<span class="k">def</span> <span class="nf">cut</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">N</span><span class="p">):</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array_split</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">N</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">([</span><span class="n">o</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="mi">1</span><span class="p">])</span><span class="o">*</span><span class="n">i</span><span class="p">,</span><span class="n">o</span><span class="p">],</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">o</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">out</span><span class="p">)]</span>
+    <span class="k">return</span> <span class="n">out</span>
+
+<span class="k">def</span> <span class="nf">codpy_tr_model</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">fx</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">fz</span><span class="p">,</span><span class="n">N</span><span class="o">=</span><span class="mi">28</span><span class="p">):</span>
+
+    <span class="n">kernels</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">xs</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">latentxs</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">kernel</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">x_splitted</span> <span class="o">=</span> <span class="n">cut</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">N</span><span class="p">)</span>
+    <span class="n">fx_splitted</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">fx</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">x_splitted</span><span class="p">),</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">x_splitted</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">x_split</span><span class="p">,</span><span class="n">fx</span><span class="p">],</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">x_split</span><span class="p">,</span><span class="n">fx_split</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">x_splitted</span><span class="p">,</span><span class="n">fx_splitted</span><span class="p">)]</span>
+    <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">fx</span><span class="p">)</span>
+    <span class="n">values</span> <span class="o">/=</span> <span class="n">values</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="mi">1</span><span class="p">)[:,</span><span class="kc">None</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">x_split</span><span class="p">,</span><span class="n">fx_split</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">x_splitted</span><span class="p">,</span><span class="n">fx_splitted</span><span class="p">):</span>
+        <span class="n">test</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">x_split</span><span class="p">[</span><span class="mi">1</span><span class="p">:,:</span><span class="n">N</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">test</span> <span class="o">&gt;</span> <span class="mi">16</span><span class="p">:</span>
+            <span class="n">x_split</span><span class="p">[:,</span><span class="n">N</span><span class="o">+</span><span class="mi">1</span><span class="p">:]</span> <span class="o">=</span> <span class="n">values</span>
+            <span class="n">kernel</span> <span class="o">=</span> <span class="n">KernelClassifier</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x_split</span><span class="p">,</span><span class="n">fx</span> <span class="o">=</span> <span class="n">fx</span><span class="p">,</span><span class="n">reg</span><span class="o">=</span><span class="mf">1e-9</span><span class="p">)</span>
+            <span class="n">values</span> <span class="o">=</span> <span class="n">kernel</span><span class="p">(</span><span class="n">kernel</span><span class="o">.</span><span class="n">get_x</span><span class="p">())</span>
+            <span class="n">kernels</span> <span class="o">+=</span> <span class="p">[</span><span class="n">kernel</span><span class="p">]</span>
+            <span class="n">count</span> <span class="o">=</span> <span class="n">count</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="n">xs</span><span class="o">+=</span> <span class="p">[</span><span class="n">kernel</span><span class="o">.</span><span class="n">get_x</span><span class="p">()]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">kernels</span> <span class="o">+=</span> <span class="p">[</span><span class="kc">None</span><span class="p">]</span>
+        <span class="c1"># latentxs+= [kernel(kernel.get_x())]</span>
+
+    <span class="n">z_splitted</span> <span class="o">=</span> <span class="n">cut</span><span class="p">(</span><span class="n">z</span><span class="p">,</span><span class="n">N</span><span class="p">)</span>
+    <span class="n">values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">fz</span><span class="p">)</span>
+    <span class="n">values</span> <span class="o">/=</span> <span class="n">values</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="mi">1</span><span class="p">)[:,</span><span class="kc">None</span><span class="p">]</span>
+    <span class="c1"># values = fz</span>
+    <span class="k">for</span> <span class="n">kernel</span><span class="p">,</span><span class="n">z_split</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">kernels</span><span class="p">,</span><span class="n">z_splitted</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">kernel</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">z_split</span><span class="p">,</span><span class="n">values</span><span class="p">],</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">values</span> <span class="o">=</span> <span class="n">kernel</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
+    <span class="n">preds</span> <span class="o">=</span> <span class="n">values</span>
+    <span class="n">mmd</span><span class="o">=</span><span class="mi">0</span>
+    <span class="n">end_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">preds</span><span class="p">,</span> <span class="n">fz</span><span class="p">,</span> <span class="n">mmd</span><span class="p">,</span> <span class="n">end_time</span>
+<span class="k">def</span> <span class="nf">get_weights2D</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">fx</span><span class="p">,</span><span class="n">sigma</span><span class="o">=</span><span class="mf">.4</span><span class="p">):</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
+       <span class="n">j</span> <span class="o">=</span> <span class="n">n</span><span class="o">//</span><span class="mi">28</span> <span class="o">-</span><span class="mi">14</span>
+       <span class="n">i</span> <span class="o">=</span> <span class="n">n</span><span class="o">%</span><span class="mi">28</span> <span class="o">-</span> <span class="mi">14</span>
+       <span class="n">out</span><span class="p">[(</span><span class="n">i</span><span class="o">+</span><span class="mi">28</span><span class="o">*</span><span class="n">j</span><span class="p">)</span><span class="o">%</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span><span class="o">+=</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">i</span><span class="o">*</span><span class="n">i</span><span class="o">+</span><span class="n">j</span><span class="o">*</span><span class="n">j</span><span class="p">)</span><span class="o">*</span><span class="n">sigma</span><span class="p">)</span>
+    <span class="c1">#    out[(i+28*j)%x.shape[1]]+=max(1-np.sqrt(i*i+j*j)*sigma,0.)</span>
+    <span class="n">out</span> <span class="o">/=</span> <span class="n">out</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">toeplitz</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">out</span>
+<span class="k">def</span> <span class="nf">rotate</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">angle</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+    <span class="n">images</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="mi">28</span><span class="p">,</span><span class="mi">28</span><span class="p">)</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+        <span class="n">image</span> <span class="o">=</span> <span class="n">images</span><span class="p">[</span><span class="n">n</span><span class="p">]</span>
+        <span class="c1"># plt.imshow(image,cmap=&#39;gray&#39;)</span>
+        <span class="n">image</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">Image</span><span class="o">.</span><span class="n">fromarray</span><span class="p">(</span><span class="n">image</span><span class="p">),</span><span class="n">angle</span><span class="p">))</span>
+        <span class="c1"># plt.imshow(image,cmap=&#39;gray&#39;)</span>
+        <span class="n">out</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">out</span>
+
+<span class="k">def</span> <span class="nf">get_weights1D</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">fx</span><span class="p">,</span><span class="n">sigma</span><span class="o">=</span><span class="mf">4.</span><span class="p">):</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
+        <span class="n">i</span><span class="o">=</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">//</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">out</span><span class="p">[</span><span class="n">i</span><span class="o">%</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">i</span><span class="o">*</span><span class="n">i</span><span class="o">*</span><span class="n">sigma</span><span class="p">)</span>
+    <span class="n">out</span> <span class="o">/=</span> <span class="n">out</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">toeplitz</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">out</span>
+
+
+<span class="k">def</span> <span class="nf">RKHS_conv_model</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">fx</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">fz</span><span class="p">,</span><span class="n">get_weights</span><span class="o">=</span><span class="n">get_weights2D</span><span class="p">):</span>
+    <span class="n">sigma</span><span class="o">=</span><span class="mf">.5</span>
+    <span class="n">weights</span> <span class="o">=</span> <span class="n">get_weights</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">fx</span><span class="p">,</span><span class="n">sigma</span><span class="p">)</span>
+    <span class="n">xcs</span> <span class="o">=</span> <span class="n">x</span><span class="nd">@weights</span>
+    <span class="n">xrs1</span><span class="o">=</span><span class="n">rotate</span><span class="p">(</span><span class="n">xcs</span><span class="p">,</span><span class="o">-</span><span class="mf">10.</span><span class="p">)</span>
+    <span class="n">xrs2</span><span class="o">=</span><span class="n">rotate</span><span class="p">(</span><span class="n">xcs</span><span class="p">,</span><span class="o">+</span><span class="mf">10.</span><span class="p">)</span>
+    <span class="n">xs</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">x</span><span class="p">,</span><span class="n">xrs1</span><span class="p">,</span><span class="n">xrs2</span><span class="p">])</span>
+    <span class="n">fxs</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">fx</span><span class="p">,</span><span class="n">fx</span><span class="p">,</span><span class="n">fx</span><span class="p">])</span>
+    <span class="n">classifier_kernel</span> <span class="o">=</span> <span class="n">KernelClassifier</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">xs</span><span class="p">,</span><span class="n">fx</span><span class="o">=</span><span class="n">fxs</span><span class="p">,</span><span class="n">clip</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+    <span class="n">preds</span> <span class="o">=</span> <span class="n">classifier_kernel</span><span class="p">(</span><span class="n">z</span><span class="nd">@weights</span><span class="p">)</span>
+    <span class="n">mmd</span><span class="o">=</span><span class="mi">0</span>
+    <span class="n">end_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">preds</span><span class="p">,</span> <span class="n">fz</span><span class="p">,</span> <span class="n">mmd</span><span class="p">,</span> <span class="n">end_time</span>
+
+
+<span class="k">def</span> <span class="nf">codpy_fft_model</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">fx</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">fz</span><span class="p">,</span><span class="n">get_weights</span><span class="o">=</span><span class="n">get_weights2D</span><span class="p">):</span>
+    <span class="n">xs</span><span class="o">=</span><span class="n">scipy</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">fft</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">workers</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="c1"># xs = np.real(xs)</span>
+    <span class="n">xs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">x</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">xs</span><span class="p">)],</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">classifier_kernel</span> <span class="o">=</span> <span class="n">KernelClassifier</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">xs</span><span class="p">,</span><span class="n">fx</span><span class="o">=</span><span class="n">fx</span><span class="p">,</span><span class="n">clip</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+    <span class="n">zs</span><span class="o">=</span><span class="n">scipy</span><span class="o">.</span><span class="n">fft</span><span class="o">.</span><span class="n">fft</span><span class="p">(</span><span class="n">z</span><span class="p">,</span><span class="n">workers</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">zs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">z</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">zs</span><span class="p">)],</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="c1"># zs = np.real(zs)</span>
+    <span class="n">preds</span> <span class="o">=</span> <span class="n">classifier_kernel</span><span class="p">(</span><span class="n">zs</span><span class="p">)</span>
+    <span class="n">mmd</span><span class="o">=</span><span class="mi">0</span>
+    <span class="n">end_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">preds</span><span class="p">,</span> <span class="n">fz</span><span class="p">,</span> <span class="n">mmd</span><span class="p">,</span> <span class="n">end_time</span>
+
+<span class="k">def</span> <span class="nf">get_fun</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">fx</span><span class="p">):</span>
+    <span class="n">left</span> <span class="o">=</span> <span class="n">core</span><span class="o">.</span><span class="n">KerOp</span><span class="o">.</span><span class="n">dnm</span><span class="p">(</span><span class="n">fx</span><span class="p">,</span><span class="n">fx</span><span class="p">,</span><span class="n">distance</span><span class="o">=</span><span class="s2">&quot;norm22&quot;</span><span class="p">)</span>
+    <span class="n">right</span> <span class="o">=</span> <span class="n">core</span><span class="o">.</span><span class="n">KerOp</span><span class="o">.</span><span class="n">dnm</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">distance</span><span class="o">=</span><span class="s2">&quot;norm22&quot;</span><span class="p">)</span>
+    <span class="n">J1</span> <span class="o">=</span> <span class="p">(</span><span class="n">left</span> <span class="o">*</span> <span class="n">right</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+    <span class="n">J2</span> <span class="o">=</span> <span class="p">(</span><span class="n">left</span> <span class="o">-</span> <span class="n">right</span><span class="p">)</span>
+    <span class="n">J2</span> <span class="o">=</span> <span class="p">(</span><span class="n">J2</span><span class="o">*</span><span class="n">J2</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">J1</span><span class="p">,</span><span class="n">J2</span>
+
+<span class="k">def</span> <span class="nf">get_J</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">fx</span><span class="p">,</span><span class="n">weights</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">]):</span>
+    <span class="n">test</span> <span class="o">=</span> <span class="n">get_fun</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">fx</span><span class="p">)</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">core</span><span class="o">.</span><span class="n">KerOp</span><span class="o">.</span><span class="n">dnm</span><span class="p">(</span><span class="n">fx</span><span class="p">,</span><span class="n">fx</span><span class="p">,</span><span class="n">distance</span><span class="o">=</span><span class="s2">&quot;norm22&quot;</span><span class="p">)</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">out</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">out</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">out</span> <span class="o">@</span> <span class="n">x</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">out</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="n">out</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">+</span> <span class="n">out</span> <span class="o">/</span> <span class="p">(</span><span class="mf">2.</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">fabs</span><span class="p">(</span><span class="n">out</span><span class="p">)))</span>
+    <span class="k">return</span> <span class="n">out</span><span class="o">/</span><span class="n">out</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="mi">1</span><span class="p">)[:,</span><span class="kc">None</span><span class="p">]</span>
+<span class="k">def</span> <span class="nf">get_A</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">fx</span><span class="p">,</span><span class="n">weights</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">]):</span>
+    <span class="n">weights</span><span class="o">=</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">n</span><span class="o">*</span><span class="n">n</span><span class="o">*</span><span class="mf">.5</span><span class="p">)</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">)]</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="k">for</span> <span class="n">n</span><span class="p">,</span><span class="n">w</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">weights</span><span class="p">):</span>
+       <span class="n">i</span><span class="p">,</span><span class="n">j</span> <span class="o">=</span> <span class="n">n</span><span class="o">-</span><span class="nb">len</span><span class="p">(</span><span class="n">weights</span><span class="p">)</span><span class="o">//</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span>
+       <span class="n">out</span><span class="p">[(</span><span class="n">i</span><span class="o">+</span><span class="mi">28</span><span class="o">*</span><span class="n">j</span><span class="p">)</span><span class="o">%</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span><span class="o">+=</span><span class="n">w</span>
+       <span class="n">i</span><span class="p">,</span><span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span><span class="n">n</span><span class="o">-</span><span class="nb">len</span><span class="p">(</span><span class="n">weights</span><span class="p">)</span><span class="o">//</span><span class="mi">2</span>
+       <span class="n">out</span><span class="p">[(</span><span class="n">i</span><span class="o">+</span><span class="mi">28</span><span class="o">*</span><span class="n">j</span><span class="p">)</span><span class="o">%</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span><span class="o">+=</span><span class="n">w</span>
+    <span class="c1">#    i,j = n-len(weights)//2,n-len(weights)//2</span>
+    <span class="c1">#    out[i+28*j]+=w</span>
+    <span class="c1">#    i,j = n-len(weights)//2,len(weights)//2 - n</span>
+    <span class="c1">#    out[i+28*j]+=w</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">toeplitz</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">out</span><span class="o">/</span><span class="n">out</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="mi">1</span><span class="p">)[:,</span><span class="kc">None</span><span class="p">]</span>
+
+<span class="k">def</span> <span class="nf">get_A</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">fx</span><span class="p">):</span>
+    <span class="c1"># test = get_fun(x,fx)</span>
+    <span class="n">dfx</span> <span class="o">=</span> <span class="n">core</span><span class="o">.</span><span class="n">KerOp</span><span class="o">.</span><span class="n">dnm</span><span class="p">(</span><span class="n">fx</span><span class="p">,</span><span class="n">fx</span><span class="p">,</span><span class="n">distance</span><span class="o">=</span><span class="s2">&quot;norm22&quot;</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">fx</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">fx</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">dx</span> <span class="o">=</span> <span class="n">core</span><span class="o">.</span><span class="n">KerOp</span><span class="o">.</span><span class="n">dnm</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">distance</span><span class="o">=</span><span class="s2">&quot;norm22&quot;</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">D</span> <span class="o">=</span> <span class="n">dfx</span><span class="o">-</span><span class="n">dx</span>
+    <span class="n">B</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">B</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">toeplitz</span><span class="p">(</span><span class="n">B</span><span class="p">)</span>
+    <span class="n">B</span> <span class="o">*=</span> <span class="n">D</span>
+    <span class="n">B</span> <span class="o">-=</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">B</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+
+    <span class="n">xs</span> <span class="o">=</span> <span class="n">B</span><span class="nd">@x</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">xs</span>
+    <span class="n">U</span><span class="p">,</span><span class="n">D</span> <span class="o">=</span> <span class="n">lalg</span><span class="o">.</span><span class="n">LAlg</span><span class="o">.</span><span class="n">self_adjoint_eigen_decomposition</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
+    <span class="n">D</span> <span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">D</span><span class="p">)</span>
+    <span class="n">D</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">D</span><span class="p">)</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">U</span><span class="nd">@np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">D</span><span class="p">)</span><span class="nd">@U</span><span class="o">.</span><span class="n">T</span>
+    <span class="n">test</span> <span class="o">=</span> <span class="n">get_fun</span><span class="p">(</span><span class="n">x</span><span class="nd">@out</span><span class="p">,</span><span class="n">fx</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">out</span>
+
+
+
+<span class="k">def</span> <span class="nf">codpy_convolutional_model</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">fx</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">fz</span><span class="p">):</span>
+    <span class="n">kernel</span> <span class="o">=</span> <span class="n">conv_classifier</span><span class="p">(</span>
         <span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span>
         <span class="n">fx</span><span class="o">=</span><span class="n">fx</span><span class="p">,</span>
         <span class="n">clip</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>  <span class="c1"># Clipping is used for non-probability inputs</span>
@@ -293,10 +466,9 @@ This is used the same way as Kernel, but it returns a softmax distribution over 
     <span class="n">end_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span>
 
     <span class="c1"># mmd = np.sqrt(kernel.discrepancy(z))</span>
-    <span class="n">mmd</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">mmd</span><span class="o">=</span><span class="mi">0</span>
 
     <span class="k">return</span> <span class="n">preds</span><span class="p">,</span> <span class="n">fz</span><span class="p">,</span> <span class="n">mmd</span><span class="p">,</span> <span class="n">end_time</span>
-
 
 <span class="k">def</span> <span class="nf">random_forest_model</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">fx</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">fz</span><span class="p">):</span>
     <span class="c1"># Convert inputs to numpy arrays and one-hot to labels</span>
@@ -326,10 +498,6 @@ This is used the same way as Kernel, but it returns a softmax distribution over 
     <span class="n">z</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
     <span class="n">fz</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">fz</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">long</span><span class="p">)</span>
     <span class="n">out_shape</span> <span class="o">=</span> <span class="n">fz</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-    <span class="c1"># batch_size = max(x.shape[0] // 4, 32)</span>
-
-    <span class="n">dataset</span> <span class="o">=</span> <span class="n">TensorDataset</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">fx</span><span class="p">)</span>
-    <span class="n">trainloader</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="nb">min</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
     <span class="k">class</span> <span class="nc">FFN</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
         <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_dim</span><span class="p">,</span> <span class="n">output_dim</span><span class="p">):</span>
@@ -358,9 +526,19 @@ This is used the same way as Kernel, but it returns a softmax distribution over 
     <span class="n">optimizer</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.001</span><span class="p">)</span>
     <span class="n">loss_fn</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">CrossEntropyLoss</span><span class="p">()</span>
 
+    <span class="n">n_samples</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">batch_size</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">n_samples</span> <span class="o">//</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">32</span><span class="p">)</span>
+
     <span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
-    <span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">50</span><span class="p">):</span>
-        <span class="k">for</span> <span class="n">x_batch</span><span class="p">,</span> <span class="n">fx_batch</span> <span class="ow">in</span> <span class="n">trainloader</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">30</span><span class="p">):</span>
+        <span class="n">indices</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randperm</span><span class="p">(</span><span class="n">n_samples</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">start</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">n_samples</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">):</span>
+            <span class="n">end</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">start</span> <span class="o">+</span> <span class="n">batch_size</span><span class="p">,</span> <span class="n">n_samples</span><span class="p">)</span>
+            <span class="n">batch_idx</span> <span class="o">=</span> <span class="n">indices</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">end</span><span class="p">]</span>
+
+            <span class="n">x_batch</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="n">batch_idx</span><span class="p">]</span>
+            <span class="n">fx_batch</span> <span class="o">=</span> <span class="n">fx</span><span class="p">[</span><span class="n">batch_idx</span><span class="p">]</span>
+
             <span class="n">pred</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">x_batch</span><span class="p">)</span>
             <span class="n">loss</span> <span class="o">=</span> <span class="n">loss_fn</span><span class="p">(</span><span class="n">pred</span><span class="p">,</span> <span class="n">fx_batch</span><span class="p">)</span>
             <span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
@@ -374,16 +552,12 @@ This is used the same way as Kernel, but it returns a softmax distribution over 
     <span class="k">return</span> <span class="n">results</span><span class="o">.</span><span class="n">cpu</span><span class="p">(),</span> <span class="n">fz</span><span class="o">.</span><span class="n">cpu</span><span class="p">(),</span> <span class="kc">None</span><span class="p">,</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span>
 
 
-<span class="k">def</span> <span class="nf">torch_model_naive</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">fx</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">fz</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">Perceptron</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">fx</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">fz</span><span class="p">):</span>
     <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
     <span class="n">fx</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">fx</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
     <span class="n">z</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
     <span class="n">fz</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">fz</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
     <span class="n">out_shape</span> <span class="o">=</span> <span class="n">fz</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-
-    <span class="c1"># batch_size = x.shape[0] // 4</span>
-    <span class="n">dataset</span> <span class="o">=</span> <span class="n">TensorDataset</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">fx</span><span class="p">)</span>
-    <span class="n">trainloader</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="nb">min</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
     <span class="k">class</span> <span class="nc">FFN</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
         <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_dim</span><span class="p">,</span> <span class="n">output_dim</span><span class="p">):</span>
@@ -406,8 +580,19 @@ This is used the same way as Kernel, but it returns a softmax distribution over 
     <span class="n">optimizer</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.001</span><span class="p">)</span>
     <span class="n">loss_fn</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">CrossEntropyLoss</span><span class="p">()</span>
 
+    <span class="n">n_samples</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">batch_size</span> <span class="o">=</span> <span class="n">n_samples</span> <span class="o">//</span> <span class="mi">4</span>
     <span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">128</span><span class="p">):</span>
-        <span class="k">for</span> <span class="n">x_batch</span><span class="p">,</span> <span class="n">fx_batch</span> <span class="ow">in</span> <span class="n">trainloader</span><span class="p">:</span>
+        <span class="c1"># Shuffle data each epoch</span>
+        <span class="n">indices</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randperm</span><span class="p">(</span><span class="n">n_samples</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">start</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">n_samples</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">):</span>
+            <span class="n">end</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">start</span> <span class="o">+</span> <span class="n">batch_size</span><span class="p">,</span> <span class="n">n_samples</span><span class="p">)</span>
+            <span class="n">batch_idx</span> <span class="o">=</span> <span class="n">indices</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">end</span><span class="p">]</span>
+
+            <span class="n">x_batch</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="n">batch_idx</span><span class="p">]</span>
+            <span class="n">fx_batch</span> <span class="o">=</span> <span class="n">fx</span><span class="p">[</span><span class="n">batch_idx</span><span class="p">]</span>
+
             <span class="n">pred</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">x_batch</span><span class="p">)</span>
             <span class="n">loss</span> <span class="o">=</span> <span class="n">loss_fn</span><span class="p">(</span><span class="n">pred</span><span class="p">,</span> <span class="n">fx_batch</span><span class="p">)</span>
             <span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
@@ -463,7 +648,7 @@ This is used the same way as Kernel, but it returns a softmax distribution over 
     <span class="n">opt</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">AdamW</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.001</span><span class="p">,</span> <span class="n">weight_decay</span><span class="o">=</span><span class="mf">1e-4</span><span class="p">)</span>
     <span class="n">loss_fn</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">CrossEntropyLoss</span><span class="p">()</span>
 
-    <span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">30</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">x_batch</span><span class="p">,</span> <span class="n">fx_batch</span> <span class="ow">in</span> <span class="n">trainloader</span><span class="p">:</span>
             <span class="n">pred</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">x_batch</span><span class="p">)</span>
             <span class="n">loss</span> <span class="o">=</span> <span class="n">loss_fn</span><span class="p">(</span><span class="n">pred</span><span class="p">,</span> <span class="n">fx_batch</span><span class="p">)</span>
@@ -481,17 +666,26 @@ This is used the same way as Kernel, but it returns a softmax distribution over 
 <h2>Gathering Results<a class="headerlink" href="#gathering-results" title="Link to this heading"></a></h2>
 <p>We train the models on different subsets of the training dataset.
 We always evaluate the models on the entire test set.</p>
+<p>core.KerInterface.set_verbose()</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">results</span> <span class="o">=</span> <span class="p">{}</span>
 <span class="n">times</span> <span class="o">=</span> <span class="p">{}</span>
 <span class="n">mmds</span> <span class="o">=</span> <span class="p">{}</span>
 <span class="n">models</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="n">torch_model</span><span class="p">,</span>
-    <span class="n">torch_model_naive</span><span class="p">,</span>
-    <span class="n">random_forest_model</span><span class="p">,</span>
-    <span class="n">codpy_convolutional_model</span><span class="p">,</span>
-    <span class="n">codpy_model</span><span class="p">,</span>
+    <span class="n">RKHS_conv_model</span><span class="p">,</span>
+    <span class="n">RKHS_ridge_regression</span><span class="p">,</span>
+    <span class="c1"># torch_model,</span>
+    <span class="n">Perceptron</span><span class="p">,</span>
+    <span class="c1"># random_forest_model,</span>
     <span class="n">vgg_torch_model</span><span class="p">,</span>
 <span class="p">]</span>
+<span class="n">model_aliases</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;RKHS_conv_model&quot;</span><span class="p">:</span> <span class="s2">&quot;K_CM&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;RKHS_ridge_regression&quot;</span><span class="p">:</span> <span class="s2">&quot;K_RR&quot;</span><span class="p">,</span>
+    <span class="c1"># &quot;torch_model&quot;: &quot;FFN&quot;,</span>
+    <span class="s2">&quot;Perceptron&quot;</span><span class="p">:</span> <span class="s2">&quot;NN_PM&quot;</span><span class="p">,</span>
+    <span class="c1"># &quot;random_forest_model&quot;: &quot;RF&quot;,</span>
+    <span class="s2">&quot;vgg_torch_model&quot;</span><span class="p">:</span> <span class="s2">&quot;NN_VGG&quot;</span><span class="p">,</span>
+<span class="p">}</span>
 
 <span class="n">X</span><span class="p">,</span> <span class="n">FX</span><span class="p">,</span> <span class="n">Z</span><span class="p">,</span> <span class="n">FZ</span> <span class="o">=</span> <span class="n">get_MNIST_data</span><span class="p">()</span>
 <span class="c1"># torch.manual_seed(0)</span>
@@ -501,80 +695,48 @@ We always evaluate the models on the entire test set.</p>
 <span class="c1"># X, FX, Z, FZ = X[idxs][:SIZE], FX[idxs][:SIZE], Z[idxs_z][:SIZE], FZ[idxs_z][:SIZE]</span>
 <span class="n">length_</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
 <span class="n">scenarios_list</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="mi">2</span> <span class="o">**</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="mi">16</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="n">SIZE</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="mi">2</span> <span class="o">**</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">12</span><span class="p">)</span>
 <span class="p">]</span>
 
 <span class="k">for</span> <span class="n">scenario</span> <span class="ow">in</span> <span class="n">scenarios_list</span><span class="p">:</span>
     <span class="n">Nx</span><span class="p">,</span> <span class="n">Nfx</span><span class="p">,</span> <span class="n">Nz</span><span class="p">,</span> <span class="n">Nfz</span> <span class="o">=</span> <span class="n">scenario</span>
     <span class="n">x</span><span class="p">,</span> <span class="n">fx</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">fz</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:</span><span class="n">Nx</span><span class="p">],</span> <span class="n">FX</span><span class="p">[:</span><span class="n">Nfx</span><span class="p">],</span> <span class="n">Z</span><span class="p">[:</span><span class="n">Nz</span><span class="p">],</span> <span class="n">FZ</span><span class="p">[:</span><span class="n">Nfz</span><span class="p">]</span>
+    <span class="c1"># x, fx, z, fz = X[:Nx], FX[:Nfx], X[:Nx], FX[:Nfx]</span>
     <span class="n">results</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)]</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="n">times</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)]</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="n">mmds</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)]</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="c1"># mmds[len(x)] = {}</span>
     <span class="k">for</span> <span class="n">model</span> <span class="ow">in</span> <span class="n">models</span><span class="p">:</span>
         <span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span>
         <span class="n">logits</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">mmd</span><span class="p">,</span> <span class="n">end_time</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">fx</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">fz</span><span class="p">)</span>
-        <span class="n">mmds</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)][</span><span class="n">model</span><span class="o">.</span><span class="vm">__name__</span><span class="p">]</span> <span class="o">=</span> <span class="n">mmd</span>
+        <span class="c1"># mmds[len(x)][model.__name__] = mmd</span>
         <span class="n">pred_classes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">logits</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
         <span class="n">true_classes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
         <span class="n">accuracy</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">true_classes</span><span class="p">,</span> <span class="n">pred_classes</span><span class="p">)</span>
         <span class="n">results</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)][</span><span class="n">model</span><span class="o">.</span><span class="vm">__name__</span><span class="p">]</span> <span class="o">=</span> <span class="n">accuracy</span>
         <span class="n">times</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)][</span><span class="n">model</span><span class="o">.</span><span class="vm">__name__</span><span class="p">]</span> <span class="o">=</span> <span class="n">end_time</span> <span class="o">-</span> <span class="n">start_time</span>
         <span class="nb">print</span><span class="p">(</span>
-            <span class="sa">f</span><span class="s2">&quot;Model: </span><span class="si">{</span><span class="n">model</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">, size: </span><span class="si">{</span><span class="n">Nx</span><span class="si">}</span><span class="s2">, Time taken: </span><span class="si">{</span><span class="n">times</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)][</span><span class="n">model</span><span class="o">.</span><span class="vm">__name__</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> seconds, Accuracy: </span><span class="si">{</span><span class="n">results</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)][</span><span class="n">model</span><span class="o">.</span><span class="vm">__name__</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> seconds&quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;Model: </span><span class="si">{</span><span class="n">model</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">, size: </span><span class="si">{</span><span class="n">Nx</span><span class="si">}</span><span class="s2">, Time taken: </span><span class="si">{</span><span class="n">times</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)][</span><span class="n">model</span><span class="o">.</span><span class="vm">__name__</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> seconds, Accuracy: </span><span class="si">{</span><span class="n">results</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)][</span><span class="n">model</span><span class="o">.</span><span class="vm">__name__</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> %&quot;</span>
         <span class="p">)</span>
-
 <span class="n">res</span> <span class="o">=</span> <span class="p">[{</span><span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="n">results</span><span class="p">},</span> <span class="p">{</span><span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="n">times</span><span class="p">}]</span>
 <span class="c1"># res = [{&quot;data&quot;: results}, {&quot;data&quot;: mmds}, {&quot;data&quot;: times}]</span>
 </pre></div>
 </div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Model: torch_model, size: 16, Time taken: 0.1019 seconds, Accuracy: 0.3696 seconds
-Model: torch_model_naive, size: 16, Time taken: 0.0882 seconds, Accuracy: 0.2990 seconds
-Model: random_forest_model, size: 16, Time taken: 0.0855 seconds, Accuracy: 0.2684 seconds
-Model: codpy_convolutional_model, size: 16, Time taken: 0.3205 seconds, Accuracy: 0.2366 seconds
-Model: codpy_model, size: 16, Time taken: 0.2290 seconds, Accuracy: 0.3285 seconds
-Model: vgg_torch_model, size: 16, Time taken: 1.9280 seconds, Accuracy: 0.3755 seconds
-Model: torch_model, size: 32, Time taken: 0.1144 seconds, Accuracy: 0.5786 seconds
-Model: torch_model_naive, size: 32, Time taken: 0.1073 seconds, Accuracy: 0.5142 seconds
-Model: random_forest_model, size: 32, Time taken: 0.1197 seconds, Accuracy: 0.4705 seconds
-Model: codpy_convolutional_model, size: 32, Time taken: 0.4810 seconds, Accuracy: 0.4649 seconds
-Model: codpy_model, size: 32, Time taken: 0.2818 seconds, Accuracy: 0.5458 seconds
-Model: vgg_torch_model, size: 32, Time taken: 2.6791 seconds, Accuracy: 0.5984 seconds
-Model: torch_model, size: 64, Time taken: 0.1981 seconds, Accuracy: 0.6614 seconds
-Model: torch_model_naive, size: 64, Time taken: 0.1872 seconds, Accuracy: 0.6056 seconds
-Model: random_forest_model, size: 64, Time taken: 0.1153 seconds, Accuracy: 0.5987 seconds
-Model: codpy_convolutional_model, size: 64, Time taken: 0.8093 seconds, Accuracy: 0.5414 seconds
-Model: codpy_model, size: 64, Time taken: 0.2860 seconds, Accuracy: 0.6609 seconds
-Model: vgg_torch_model, size: 64, Time taken: 3.6199 seconds, Accuracy: 0.6629 seconds
-Model: torch_model, size: 128, Time taken: 0.4481 seconds, Accuracy: 0.7607 seconds
-Model: torch_model_naive, size: 128, Time taken: 0.4253 seconds, Accuracy: 0.6740 seconds
-Model: random_forest_model, size: 128, Time taken: 0.1501 seconds, Accuracy: 0.6667 seconds
-Model: codpy_convolutional_model, size: 128, Time taken: 1.3923 seconds, Accuracy: 0.6858 seconds
-Model: codpy_model, size: 128, Time taken: 0.2909 seconds, Accuracy: 0.7386 seconds
-Model: vgg_torch_model, size: 128, Time taken: 4.8747 seconds, Accuracy: 0.7793 seconds
-Model: torch_model, size: 256, Time taken: 0.7610 seconds, Accuracy: 0.8211 seconds
-Model: torch_model_naive, size: 256, Time taken: 0.7064 seconds, Accuracy: 0.7293 seconds
-Model: random_forest_model, size: 256, Time taken: 0.1817 seconds, Accuracy: 0.8247 seconds
-Model: codpy_convolutional_model, size: 256, Time taken: 2.6834 seconds, Accuracy: 0.8131 seconds
-Model: codpy_model, size: 256, Time taken: 0.3942 seconds, Accuracy: 0.8434 seconds
-Model: vgg_torch_model, size: 256, Time taken: 8.9528 seconds, Accuracy: 0.8653 seconds
-Model: torch_model, size: 512, Time taken: 1.4751 seconds, Accuracy: 0.8658 seconds
-Model: torch_model_naive, size: 512, Time taken: 1.4483 seconds, Accuracy: 0.8419 seconds
-Model: random_forest_model, size: 512, Time taken: 0.2217 seconds, Accuracy: 0.8558 seconds
-Model: codpy_convolutional_model, size: 512, Time taken: 5.3608 seconds, Accuracy: 0.8967 seconds
-Model: codpy_model, size: 512, Time taken: 0.5871 seconds, Accuracy: 0.8912 seconds
-Model: vgg_torch_model, size: 512, Time taken: 16.8246 seconds, Accuracy: 0.9066 seconds
-Model: torch_model, size: 1024, Time taken: 2.9569 seconds, Accuracy: 0.9039 seconds
-Model: torch_model_naive, size: 1024, Time taken: 2.8353 seconds, Accuracy: 0.8341 seconds
-Model: random_forest_model, size: 1024, Time taken: 0.3645 seconds, Accuracy: 0.8956 seconds
-Model: codpy_convolutional_model, size: 1024, Time taken: 11.0273 seconds, Accuracy: 0.9206 seconds
-Model: codpy_model, size: 1024, Time taken: 1.0473 seconds, Accuracy: 0.9225 seconds
-Model: vgg_torch_model, size: 1024, Time taken: 32.5938 seconds, Accuracy: 0.9325 seconds
-Model: torch_model, size: 2048, Time taken: 5.7476 seconds, Accuracy: 0.9300 seconds
-Model: torch_model_naive, size: 2048, Time taken: 5.9437 seconds, Accuracy: 0.8678 seconds
-Model: random_forest_model, size: 2048, Time taken: 0.6066 seconds, Accuracy: 0.9212 seconds
-Model: codpy_convolutional_model, size: 2048, Time taken: 24.1491 seconds, Accuracy: 0.9398 seconds
-Model: codpy_model, size: 2048, Time taken: 2.0570 seconds, Accuracy: 0.9462 seconds
-Model: vgg_torch_model, size: 2048, Time taken: 63.6261 seconds, Accuracy: 0.9554 seconds
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Model: RKHS_conv_model, size: 256, Time taken: 0.8587 seconds, Accuracy: 0.9119 %
+Model: RKHS_ridge_regression, size: 256, Time taken: 0.3842 seconds, Accuracy: 0.8578 %
+Model: Perceptron, size: 256, Time taken: 0.3200 seconds, Accuracy: 0.7780 %
+Model: vgg_torch_model, size: 256, Time taken: 1.4865 seconds, Accuracy: 0.8313 %
+Model: RKHS_conv_model, size: 512, Time taken: 1.5440 seconds, Accuracy: 0.9321 %
+Model: RKHS_ridge_regression, size: 512, Time taken: 0.5735 seconds, Accuracy: 0.8929 %
+Model: Perceptron, size: 512, Time taken: 0.3603 seconds, Accuracy: 0.7994 %
+Model: vgg_torch_model, size: 512, Time taken: 2.2845 seconds, Accuracy: 0.8823 %
+Model: RKHS_conv_model, size: 1024, Time taken: 3.3486 seconds, Accuracy: 0.9545 %
+Model: RKHS_ridge_regression, size: 1024, Time taken: 1.0122 seconds, Accuracy: 0.9238 %
+Model: Perceptron, size: 1024, Time taken: 0.4119 seconds, Accuracy: 0.8671 %
+Model: vgg_torch_model, size: 1024, Time taken: 3.8322 seconds, Accuracy: 0.9190 %
+Model: RKHS_conv_model, size: 2048, Time taken: 9.3553 seconds, Accuracy: 0.9663 %
+Model: RKHS_ridge_regression, size: 2048, Time taken: 2.0154 seconds, Accuracy: 0.9462 %
+Model: Perceptron, size: 2048, Time taken: 0.4969 seconds, Accuracy: 0.8767 %
+Model: vgg_torch_model, size: 2048, Time taken: 6.7345 seconds, Accuracy: 0.9432 %
 </pre></div>
 </div>
 <dl class="simple">
@@ -586,35 +748,15 @@ Model: vgg_torch_model, size: 2048, Time taken: 63.6261 seconds, Accuracy: 0.955
     <span class="n">ax</span> <span class="o">=</span> <span class="n">inputs</span><span class="p">[</span><span class="s2">&quot;ax&quot;</span><span class="p">]</span>
     <span class="n">legend</span> <span class="o">=</span> <span class="n">inputs</span><span class="p">[</span><span class="s2">&quot;legend&quot;</span><span class="p">]</span>
 
-    <span class="n">model_aliases</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s2">&quot;torch_model&quot;</span><span class="p">:</span> <span class="s2">&quot;FFN&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;torch_model_naive&quot;</span><span class="p">:</span> <span class="s2">&quot;FFN: basic&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;codpy_model&quot;</span><span class="p">:</span> <span class="s2">&quot;KRR&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;codpy_convolutional_model&quot;</span><span class="p">:</span> <span class="s2">&quot;CKRR&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;random_forest_model&quot;</span><span class="p">:</span> <span class="s2">&quot;RF&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;vgg_torch_model&quot;</span><span class="p">:</span> <span class="s2">&quot;VGG&quot;</span><span class="p">,</span>
-    <span class="p">}</span>
-
-    <span class="n">model_markers</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s2">&quot;torch_model&quot;</span><span class="p">:</span> <span class="s2">&quot;o&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;torch_model_naive&quot;</span><span class="p">:</span> <span class="s2">&quot;s&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;codpy_model&quot;</span><span class="p">:</span> <span class="s2">&quot;D&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;codpy_convolutional_model&quot;</span><span class="p">:</span> <span class="s2">&quot;^&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;random_forest_model&quot;</span><span class="p">:</span> <span class="s2">&quot;v&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;vgg_torch_model&quot;</span><span class="p">:</span> <span class="s2">&quot;X&quot;</span><span class="p">,</span>
-    <span class="p">}</span>
-
     <span class="n">x_vals</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">results</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
     <span class="k">for</span> <span class="n">model_name</span> <span class="ow">in</span> <span class="nb">next</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="n">results</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
         <span class="n">y_vals</span> <span class="o">=</span> <span class="p">[</span><span class="n">results</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="n">model_name</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">x_vals</span><span class="p">]</span>
         <span class="n">label</span> <span class="o">=</span> <span class="n">model_aliases</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">model_name</span><span class="p">,</span> <span class="n">model_name</span><span class="p">)</span>
-        <span class="n">marker</span> <span class="o">=</span> <span class="n">model_markers</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">model_name</span><span class="p">,</span> <span class="s2">&quot;o&quot;</span><span class="p">)</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_vals</span><span class="p">,</span> <span class="n">y_vals</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="n">marker</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_vals</span><span class="p">,</span> <span class="n">y_vals</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">)</span>
 
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Number of Training Examples&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">legend</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s2">&quot;both&quot;</span><span class="p">,</span> <span class="n">labelsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Number of Training Examples&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">legend</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">ax</span>
@@ -624,16 +766,15 @@ Model: vgg_torch_model, size: 2048, Time taken: 63.6261 seconds, Accuracy: 0.955
     <span class="n">res</span><span class="p">,</span>
     <span class="n">plot_one</span><span class="p">,</span>
     <span class="n">mp_nrows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-    <span class="n">mp_ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>  <span class="c1"># 3</span>
+    <span class="n">mp_ncols</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
     <span class="n">legends</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Accuracy&quot;</span><span class="p">,</span> <span class="s2">&quot;Times&quot;</span><span class="p">],</span>
-    <span class="c1"># legends=[&quot;Accuracy&quot;, &quot;MMD&quot;, &quot;Times&quot;],</span>
     <span class="n">mp_figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span>
 <span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 <span class="k">pass</span>
 </pre></div>
 </div>
-<img src="../_images/sphx_glr_ch6_mnist_001.png" srcset="../_images/sphx_glr_ch6_mnist_001.png" alt="ch6 mnist" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (3 minutes 32.425 seconds)</p>
+<img src="../_images/sphx_glr_ch6_mnist_001.png" srcset="../_images/sphx_glr_ch6_mnist_001.png" alt="ch6 mnist" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 50.348 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-ch6-ch6-mnist-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/373895fb89815a7be6f36214d3c9bbed/ch6_mnist.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">ch6_mnist.ipynb</span></code></a></p>

@@ -3,7 +3,7 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to the Codpy, the book
+Welcome to Codpy, the book !
 ===============================
 
 This site is the companion site to the book *Reproducing Kernel Methods for Machine Learning, PDEs, and Statistics with Python*,
