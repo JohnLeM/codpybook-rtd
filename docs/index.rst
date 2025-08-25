@@ -47,7 +47,7 @@ Create a virtual environment:
 
 .. code-block:: bash
 
-   git clone https://github.com/smiryusupov2/codpybook.git
+   git clone https://https://github.com/JohnLeM/codpybook-rtd.git
 
 3. Install the dependencies
 
@@ -75,11 +75,11 @@ Alternatively, you can also install the package directly from GitHub:
 
 .. code-block:: bash
 
-   pip install git+https://github.com/smiryusupov2/codpybook.git
+   pip install git+https://github.com/JohnLeM/codpybook-rtd.git
 
 Report Issues
 ================
-Please reposrt bug tracking and enhancement requests to our `GitHub page <https://github.com/JohnLeM/codpybook-rtd/issues>`_
+Please report bug tracking and enhancement requests to our `GitHub page <https://github.com/JohnLeM/codpybook-rtd/issues>`_
 
 .. toctree::
    :maxdepth: 2
