@@ -3,12 +3,7 @@
 5.2 Optimal Transport: LSAP (Linear Sum Assignment Problem)
 ===========================================================
 
-This section introduces the concept of partition of unity in the context of
-kernel methods and how CodPy implements it via projection operators.
-
-Overview
---------
-
+This section illustrates the application of the Linear Sum Assignment Problem (LSAP) using the CodPy library.
 
 """
 #########################################################################
@@ -27,8 +22,8 @@ from codpy.plot_utils import multi_plot
 
 #########################################################################
 # Usefull functions
-#We define the cost function for the LSAP problem.
-#And the reordering function which will give back the lsap reordered columns.
+# We define the cost function for the LSAP problem.
+# And the reordering function which will give back the lsap reordered columns.
 #
 #########################################################################
 def cost(M):
@@ -104,7 +99,7 @@ def LSAP_2(x0, y0):
 
 #########################################################################
 # Running experiments
-#Here we generate some random data points and apply the LSAP methods.
+# Here we generate some random data points and apply the LSAP methods.
 #
 #########################################################################
 

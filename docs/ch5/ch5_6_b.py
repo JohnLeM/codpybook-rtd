@@ -2,14 +2,9 @@
 ======================================================
 5.6.b Application of OT in Disitribution Sampling : 2D
 ======================================================
-
-This section introduces the concept of partition of unity in the context of
-kernel methods and how CodPy implements it via projection operators.
-
-Overview
---------
-
-
+We repeat the previous test in one dimension with two-dimensional data, 
+and present scatter plots of the original and generated data for each of the two cases, 
+allowing a visual comparison of the fidelity of the generative process.
 """
 
 import numpy as np

@@ -1,6 +1,6 @@
 """
 ====================================================================================================
-9.9 Heston Process - Reproducibility
+9.09 Heston Process - Reproducibility
 ====================================================================================================
 We reproduce here the figure 9.10 and 9.11 of the book.
 We show a reproducibility test for a Heston process as well as a comparison of the generated noise with a generative method.

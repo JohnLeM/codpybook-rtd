@@ -22,6 +22,64 @@ About CodPy
 CodPy (Curse Of Dimensionality in Python) is an open-source, RKHS dedicated, Python library designed for numerical algorithms, machine learning, and computational statistics. It has a wide range of applications in finance, engineering, and industry, 
 and its technical documentation is located at this `url <https://codpy.readthedocs.io/en/latest>`_.  
 
+Installation
+============
+
+This has been tested on Windows 11.
+
+1. Make a python 3.9 virtual environment
+
+**Note:** Python 3.9 is required
+
+.. code-block:: bash
+
+   python --version
+   python 3.9.13
+
+Create a virtual environment:
+
+.. code-block:: bash
+
+   python -m venv venv
+   venv\Scripts\activate
+
+2. Clone the github repository:
+
+.. code-block:: bash
+
+   git clone https://github.com/smiryusupov2/codpybook.git
+
+3. Install the dependencies
+
+.. code-block:: bash
+
+   cd codpybook
+   pip install -e .
+
+The python files can be found at: ``codpybook/docs/chX``
+
+You can already run the files to reproduce the experiments available at `Readthedocs <https://codpybook-read-the-docs.readthedocs.io/en/latest/index.html>`_
+
+4. Compiling with sphinx
+
+If you want to re-compile all the experiments, as you see them on the `website <https://codpybook-read-the-docs.readthedocs.io/en/latest/index.html>`_, you can:
+
+.. code-block:: bash
+
+   cd docs
+   sphinx-build html -b . _build
+
+Once done, you can find the **index.html** file in: ``codpybook/docs/_build/index.html``
+
+Alternatively, you can also install the package directly from GitHub:
+
+.. code-block:: bash
+
+   pip install git+https://github.com/smiryusupov2/codpybook.git
+
+Report Issues
+================
+If you encounter any issues or have suggestions for improvements, please report them on the `GitHub Issues page <https://github.com/JohnLeM/codpybook-rtd/issues>'
 
 .. toctree::
    :maxdepth: 2
@@ -44,22 +102,12 @@ and its technical documentation is located at this `url <https://codpy.readthedo
 
    auto_ch4/index
 
-Chapter 5: Optimal Transport
-----------------------------
-This section reproduces and explains the numerical experiments from **Chapter 5** of the book,  
-showing how CodPy implements and applies optimal transport methods.
-
 .. toctree::
    :maxdepth: 2
    :caption: Chapter 5:
    :titlesonly:
 
    auto_ch5/index
-
-Chapter 6: Supervised and Unsupervised Learning
------------------------------------------------
-This section reproduces the experiments from **Chapter 6**,  
-using CodPy for supervised and unsupervised learning tasks.
 
 .. toctree::
    :maxdepth: 2
@@ -68,22 +116,12 @@ using CodPy for supervised and unsupervised learning tasks.
 
    auto_ch6/index
 
-Chapter 7: Partial Differential Equations (PDEs)
-------------------------------------------------
-This section reproduces the experiments from **Chapter 7**,  
-focusing on PDE solvers built on RKHS and CodPy implementations.
-
 .. toctree::
    :maxdepth: 2
    :caption: Chapter 7:
    :titlesonly:
 
    auto_ch7/index
-
-Chapter 8: Reinforcement Learning
----------------------------------
-This section reproduces the experiments from **Chapter 8**,  
-where CodPy is applied to reinforcement learning (including kernel Q-learning, etc.).
 
 .. toctree::
    :maxdepth: 2
@@ -93,20 +131,12 @@ where CodPy is applied to reinforcement learning (including kernel Q-learning, e
    kqlearning
    auto_ch8/index
 
-Chapter 9: Mathematical Finance
--------------------------------
-This section reproduces the experiments from **Chapter 9**,  
-with applications of RKHS and OT methods to financial mathematics.
-
 .. toctree::
    :maxdepth: 2
    :caption: Chapter 9:
    :titlesonly:
 
-   auto_ch9/index
-   utils/ch9/ch9_utils
-   
-
+   auto_ch9/index 
 
 Indices and Tables
 ==================

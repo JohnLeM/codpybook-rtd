@@ -2,7 +2,7 @@
 =============================================
 2.3.2 Applying maps to kernels
 =============================================
-In this experiment,
+In this experiment, we show how applying different maps car ruin your results. 
 """
 
 # Importing necessary modules

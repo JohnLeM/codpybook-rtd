@@ -2,7 +2,10 @@
 =============================================
 4.2 Clustering
 =============================================
-In this section, we will explore clustering methods using the CodPy library.
+In this section, we will explore clustering methods using the CodPy library. 
+We illustrate the behaviour of various clustering strategies, including our proposed methods, in comparison to the standard k-means algorithm.
+We generate a synthetic dataset in $\mathbb{R}^2$ consisting of five well-separated Gaussian blobs (i.e., a mixture of five equally weighted Gaussian components). 
+Each clustering algorithm is applied to partition the dataset into $N_y$ clusters.
 """
 
 # Import necessary modules and setup the environment

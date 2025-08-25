@@ -3,7 +3,7 @@
 5.3.4 Kernel Conditional Expectation
 ==================================================
 
-Specifically, we benchmark the performance of different conditional density estimators:
+We benchmark the performance of different conditional density estimators:
 - Nadaraya–Watson (standard with bw = 13)
 - Nadaraya–Watson with mean scaled Matern kernel
 - CodPy's projection-based ConditionerKernel

@@ -1,6 +1,6 @@
 """
 ===================================================================
-5.8. Conditional Sampling
+5.7. Conditional Sampling
 ===================================================================
 Example of using the `codpy.conditioning` module to sample from a conditional heteroscedastic distribution.
 """
