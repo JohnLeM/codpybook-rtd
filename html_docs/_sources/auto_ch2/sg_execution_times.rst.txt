@@ -6,7 +6,7 @@
 
 Computation times
 =================
-**00:12.189** total execution time for 5 files **from auto_ch2**:
+**00:12.871** total execution time for 5 files **from auto_ch2**:
 
 .. container::
 
@@ -33,17 +33,17 @@ Computation times
      - Time
      - Mem (MB)
    * - :ref:`sphx_glr_auto_ch2_ch2_2.py` (``ch2_2.py``)
-     - 00:06.349
-     - 0.0
-   * - :ref:`sphx_glr_auto_ch2_ch2_ex1D.py` (``ch2_ex1D.py``)
-     - 00:04.135
-     - 0.0
-   * - :ref:`sphx_glr_auto_ch2_ch2_ex2D.py` (``ch2_ex2D.py``)
-     - 00:01.161
+     - 00:12.053
      - 0.0
    * - :ref:`sphx_glr_auto_ch2_ch2_discrepancy_functional.py` (``ch2_discrepancy_functional.py``)
-     - 00:00.362
+     - 00:00.522
      - 0.0
    * - :ref:`sphx_glr_auto_ch2_ch2_5.py` (``ch2_5.py``)
-     - 00:00.182
+     - 00:00.296
+     - 0.0
+   * - :ref:`sphx_glr_auto_ch2_ch2_ex1D.py` (``ch2_ex1D.py``)
+     - 00:00.000
+     - 0.0
+   * - :ref:`sphx_glr_auto_ch2_ch2_ex2D.py` (``ch2_ex2D.py``)
+     - 00:00.000
      - 0.0

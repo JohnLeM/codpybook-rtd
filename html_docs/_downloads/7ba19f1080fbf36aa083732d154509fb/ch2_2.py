@@ -3,7 +3,7 @@
 2.2 Reproducing kernels and transformation maps
 ===============================================
 
-In this experiment,
+In this experiment, we plot in 2D and 3D various kernels available in CodPy.
 """
 
 # Importing necessary modules

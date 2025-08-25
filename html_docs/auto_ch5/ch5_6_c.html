@@ -96,8 +96,8 @@
 <li class="toctree-l2"><a class="reference internal" href="ch5_6_b.html">5.6.b Application of OT in Disitribution Sampling : 2D</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">5.6.c Application of OT in Disitribution Sampling : High-Dimensional case</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ch5_6_d.html">5.6.d Exploration Data Analysis of the Latent Space: Spherical Data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ch5_7.html">5.7. Conditional Sampling</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ch5_8.html">5.8. Conditional Sampling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ch5_7.html">5.6.e Exploration Data Analysis of the Latent Space: Spherical Data - 2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ch5_8.html">5.7. Conditional Sampling</a></li>
 </ul>
 </li>
 </ul>
@@ -106,7 +106,6 @@
 <li class="toctree-l1"><a class="reference internal" href="../auto_ch6/index.html">Chapter 6: Applications to machine learning : supervised, unsupervised and generative methods</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../auto_ch6/ch6_housing.html">6.1 Supervised learning: reproducibility illustration with housing prices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../auto_ch6/ch6_mnist.html">6.2 Supervised learning: benchmarks of methods with MNIST</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../auto_ch6/ch6_Clustering.html">6.3 Unsupervised learning: Clustering - MNIST</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../auto_ch6/ch6_ClustMNIST.html">6.3 Unsupervised learning: Clustering - MNIST</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../auto_ch6/ch6_CreditCardFraud.html">6.4 Unsupervised learning: Clustering - Fraud detection</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../auto_ch6/ch6_9_CelebA_reconstruction.html">6.4.1 Generating complex distributions</a></li>
@@ -135,6 +134,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../auto_ch8/index.html">Chapter 8: Reinforcement learning.</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../auto_ch8/ch8_example.html">8.1 Using KAgents</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../auto_ch8/ch8_cartpole.html">8.2 Experiments - Cartpole</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch8/ch8_lunarlander.html">8.3 Experiments - LunarLander</a></li>
 </ul>
 </li>
 </ul>
@@ -149,15 +149,14 @@
 <li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_additive.html">9.06 Additive noise map</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_conditionning.html">9.07 Conditionning model</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_stoch_vol.html">9.08 Stochastic volatility model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_HestonRepro.html">9.09 Heston Process - Reproducibility</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_HestonCompare.html">9.10 Heston Process - Path comparison</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_isocontours.html">9.11 Heston Process - Intraday interpolation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_priceExtrapolation.html">9.12 Price extrapolation using KRR and Taylor</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_greeks.html">9.13 Greeks output after correction</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_rst.html">9.13 Reverse Stress Test</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_HestonRepro.html">9.9 Heston Process - Reproducibility</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../utils/ch9/ch9_utils.html">Chapter 9 utility functions</a></li>
 </ul>
 
         </div>
@@ -192,10 +191,13 @@ to download the full example code.</p>
 </div>
 <section class="sphx-glr-example-title" id="c-application-of-ot-in-disitribution-sampling-high-dimensional-case">
 <span id="sphx-glr-auto-ch5-ch5-6-c-py"></span><h1>5.6.c Application of OT in Disitribution Sampling : High-Dimensional case<a class="headerlink" href="#c-application-of-ot-in-disitribution-sampling-high-dimensional-case" title="Link to this heading"></a></h1>
-<p>This section introduces the concept of partition of unity in the context of
-kernel methods and how CodPy implements it via projection operators.</p>
-<section id="overview">
-<h2>Overview<a class="headerlink" href="#overview" title="Link to this heading"></a></h2>
+<p>We now repeat a similar test (see 5.6a &amp; 5.6b) with a bi-modal Gaussian distribution,
+in fifteen dimensions, comparing Monge and Gromov-Monge methods.
+The figure plots for each of these two methods the two best and worst axis combinations,
+according to the Kolmogorov-Smirnov test. As can be seen in the picture,
+Gromov Wasserstein-based generative method leads to distributions
+that are close to the original space, which can pass two samples tests as
+Kolmogorov Smirnov ones. This property is interesting for industrial applications.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
@@ -582,15 +584,15 @@ kernel methods and how CodPy implements it via projection operators.</p>
 <li><img src="../_images/sphx_glr_ch5_6_c_002.png" srcset="../_images/sphx_glr_ch5_6_c_002.png" alt="Monge best, Gromov-Monge best, Monge worst, Gromov-Monge worst" class = "sphx-glr-multi-img"/></li>
 </ul>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>                                    Mean   Variance         Skewness    Kurtosis         KS test
-Monge (Max)              0.013 (-0.0096)  9.2 (5.5)   0.004 (-0.074)   -2 (-0.1)  2.2e-16 (0.05)
-Monge (Median)          -0.0026 (-0.022)    9 (5.4)  0.0028 (-0.083)  -2 (-0.11)  5.1e-17 (0.05)
-Monge (Min)             -0.0051 (-0.021)  9.2 (5.4)  0.0056 (-0.074)  -2 (-0.14)  1.2e-17 (0.05)
-Gromov-Monge (Max)     -0.0026 (-0.0031)      9 (9)  0.0028 (0.0032)     -2 (-2)        1 (0.05)
-Gromov-Monge (Median)  -0.0026 (-0.0031)      9 (9)  0.0028 (0.0032)     -2 (-2)        1 (0.05)
-Gromov-Monge (Min)     -0.0026 (-0.0031)      9 (9)  0.0028 (0.0032)     -2 (-2)        1 (0.05)
+Monge (Max)               0.018 (-0.063)    9 (5.4)   0.0053 (-0.08)  -2 (-0.24)  1.1e-16 (0.05)
+Monge (Median)            0.013 (-0.078)  9.2 (5.5)  0.0042 (-0.049)  -2 (-0.26)  5.4e-18 (0.05)
+Monge (Min)              0.0049 (-0.077)    9 (5.4)  0.0054 (-0.036)  -2 (-0.21)  2.4e-19 (0.05)
+Gromov-Monge (Max)     -0.0026 (-0.0081)      9 (9)  0.0028 (0.0027)     -2 (-2)        1 (0.05)
+Gromov-Monge (Median)  -0.0026 (-0.0081)      9 (9)  0.0028 (0.0027)     -2 (-2)        1 (0.05)
+Gromov-Monge (Min)     -0.0026 (-0.0081)      9 (9)  0.0028 (0.0027)     -2 (-2)        1 (0.05)
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.572 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 0.642 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-ch5-ch5-6-c-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/715e576077e0813a2a42d5a5d432d075/ch5_6_c.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">ch5_6_c.ipynb</span></code></a></p>
@@ -603,7 +605,6 @@ Gromov-Monge (Min)     -0.0026 (-0.0031)      9 (9)  0.0028 (0.0032)     -2 (-2)
 </div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
-</section>
 </section>
 
 

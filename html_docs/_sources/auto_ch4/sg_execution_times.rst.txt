@@ -6,7 +6,7 @@
 
 Computation times
 =================
-**00:01.899** total execution time for 1 file **from auto_ch4**:
+**00:02.187** total execution time for 1 file **from auto_ch4**:
 
 .. container::
 
@@ -33,5 +33,5 @@ Computation times
      - Time
      - Mem (MB)
    * - :ref:`sphx_glr_auto_ch4_ch4_2.py` (``ch4_2.py``)
-     - 00:01.899
+     - 00:02.187
      - 0.0

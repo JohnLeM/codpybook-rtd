@@ -2,9 +2,12 @@
 ==================================================
 5.3.3 Kernel Conditional Density
 ==================================================
-In this experiment, we reproduce the results from the chapter 5.3.3 of the book.
-Spefically, we will benchmark the performance of different conditional density estimators.
-We will use generated data and compare Nadaraya-Watson with the Projection-based estimator from CodPy.
+We illustrate in this experiment the difference in density models
+of both the kernel-ridge and the Nadaraya-Watson approaches.
+To assess the ability to capture nonlinear patterns while estimating conditional densities, 
+this experiment considers synthetic data from a heteroskedastic model,
+involving a uniform law $X \sim \mathcal{U}(-1, 1)$, and a Gaussian one for $Y$ with data
+$$Y \mid X = x \sim \mathcal{N}(\mu(x), \sigma^2(x)),  \quad \sigma(x) = 0.1 \cdot \cos\left(\\frac{\pi x}{2}\\right), \quad \mu(x) =  \sin\left(\pi x\\right).$$
 """
 
 #########################################################################

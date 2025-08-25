@@ -3,13 +3,14 @@
 5.6.a Application of OT in Disitribution Sampling : 1D
 =======================================================
 
-This section introduces the concept of partition of unity in the context of
-kernel methods and how CodPy implements it via projection operators.
-
-Overview
---------
-
-
+We start illustrating the encoding/decoding procedure using a simple interface, 
+which we refer to as the sampling procedure. 
+This procedure is designed to generate new samples that approximate the distribution 
+of a given dataset $Y \in \mathbb{R}^{N_y \\times D_y}$ 
+by constructing a kernel-based regressor and using a latent representation.
+We begin with a simple one-dimensional Monge problem to demonstrate the generative capabilities of the model. 
+In this experiment, we consider two types of target distributions: 
+a bimodal Gaussian distribution and a bimodal Student's $t$-distribution.
 """
 
 import numpy as np

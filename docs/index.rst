@@ -79,7 +79,7 @@ Alternatively, you can also install the package directly from GitHub:
 
 Report Issues
 ================
-If you encounter any issues or have suggestions for improvements, please report them on the `GitHub Issues page <https://github.com/JohnLeM/codpybook-rtd/issues>'
+Please reposrt bug tracking and enhancement requests to our `GitHub page <https://github.com/JohnLeM/codpybook-rtd/issues>`_
 
 .. toctree::
    :maxdepth: 2

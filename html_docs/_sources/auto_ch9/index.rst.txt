@@ -158,6 +158,23 @@ Below are the examples for this chapter:
 
 .. raw:: html
 
+    <div class="sphx-glr-thumbcontainer" tooltip="9.09 Heston Process - Reproducibility">
+
+.. only:: html
+
+  .. image:: /auto_ch9/images/thumb/sphx_glr_ch9_HestonRepro_thumb.png
+    :alt:
+
+  :ref:`sphx_glr_auto_ch9_ch9_HestonRepro.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">9.09 Heston Process - Reproducibility</div>
+    </div>
+
+
+.. raw:: html
+
     <div class="sphx-glr-thumbcontainer" tooltip="9.10 Heston Process - Path comparison">
 
 .. only:: html
@@ -241,23 +258,6 @@ Below are the examples for this chapter:
     </div>
 
 
-.. raw:: html
-
-    <div class="sphx-glr-thumbcontainer" tooltip="9.9 Heston Process - Reproducibility">
-
-.. only:: html
-
-  .. image:: /auto_ch9/images/thumb/sphx_glr_ch9_HestonRepro_thumb.png
-    :alt:
-
-  :ref:`sphx_glr_auto_ch9_ch9_HestonRepro.py`
-
-.. raw:: html
-
-      <div class="sphx-glr-thumbnail-title">9.9 Heston Process - Reproducibility</div>
-    </div>
-
-
 .. thumbnail-parent-div-close
 
 .. raw:: html
@@ -276,12 +276,12 @@ Below are the examples for this chapter:
    /auto_ch9/ch9_additive
    /auto_ch9/ch9_conditionning
    /auto_ch9/ch9_stoch_vol
+   /auto_ch9/ch9_HestonRepro
    /auto_ch9/ch9_HestonCompare
    /auto_ch9/ch9_isocontours
    /auto_ch9/ch9_priceExtrapolation
    /auto_ch9/ch9_greeks
    /auto_ch9/ch9_rst
-   /auto_ch9/ch9_HestonRepro
 
 
 

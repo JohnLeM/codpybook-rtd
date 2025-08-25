@@ -61,23 +61,6 @@ Below are the examples for this chapter:
 
 .. only:: html
 
-  .. image:: /auto_ch6/images/thumb/sphx_glr_ch6_Clustering_thumb.png
-    :alt:
-
-  :ref:`sphx_glr_auto_ch6_ch6_Clustering.py`
-
-.. raw:: html
-
-      <div class="sphx-glr-thumbnail-title">6.3 Unsupervised learning: Clustering - MNIST</div>
-    </div>
-
-
-.. raw:: html
-
-    <div class="sphx-glr-thumbcontainer" tooltip="We show how to reproduce the results of the chapter 6.3.2 - Application to supervised machine learning - Classification problem: handwritten digits of the book. We will compare the codpy MMD minimization-based algorithm with scikit learn k-means in an unsupervised setting. The goal is to show the different scores as we increase the number of centroids Ny used for clustering.">
-
-.. only:: html
-
   .. image:: /auto_ch6/images/thumb/sphx_glr_ch6_ClustMNIST_thumb.png
     :alt:
 
@@ -203,7 +186,6 @@ Below are the examples for this chapter:
 
    /auto_ch6/ch6_housing
    /auto_ch6/ch6_mnist
-   /auto_ch6/ch6_Clustering
    /auto_ch6/ch6_ClustMNIST
    /auto_ch6/ch6_CreditCardFraud
    /auto_ch6/ch6_9_CelebA_reconstruction

@@ -22,13 +22,12 @@
 5.6.d Exploration Data Analysis of the Latent Space: Spherical Data
 ===================================================================
 
-This section introduces the concept of partition of unity in the context of
-kernel methods and how CodPy implements it via projection operators.
+We demonstrate how to tackle the problem of conditional sampling using the Sampler and KernelClassifier
+classes from CodPy.
+We generate synthetic spherical data with two cluster, define a Sampler to map a latent representation
+to the data space, and use a KernelClassifier to assign labels to the generated data.
 
-Overview
---------
-
-.. GENERATED FROM PYTHON SOURCE LINES 14-191
+.. GENERATED FROM PYTHON SOURCE LINES 12-189
 
 
 
@@ -236,7 +235,7 @@ Overview
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.919 seconds)
+   **Total running time of the script:** (0 minutes 1.135 seconds)
 
 
 .. _sphx_glr_download_auto_ch5_ch5_6_d.py:

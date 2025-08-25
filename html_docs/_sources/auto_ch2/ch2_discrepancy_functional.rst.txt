@@ -22,35 +22,7 @@
 2.6.2 A study of the discrepancy functional
 ===============================================
 
-In this experiment,
-
-.. GENERATED FROM PYTHON SOURCE LINES 8-23
-
-.. code-block:: Python
-
-
-    # Importing necessary modules
-    import os
-    import sys
-
-    from matplotlib import pyplot as plt
-
-    from codpy.kernel import Kernel
-
-    curr_f = os.path.join(os.getcwd(), "codpy-book", "utils")
-    sys.path.insert(0, curr_f)
-
-
-    import numpy as np
-
-
-
-
-
-
-
-
-.. GENERATED FROM PYTHON SOURCE LINES 24-37
+.. GENERATED FROM PYTHON SOURCE LINES 8-21
 
 **Discrepancy Functionals and Kernel Smoothness**
 
@@ -66,23 +38,27 @@ or ill-posed. Visual experiments with these kernels illustrate how the geometry 
 the kernel's regularity.
 import CodPy's core module and Kernel class
 
-.. GENERATED FROM PYTHON SOURCE LINES 37-109
+.. GENERATED FROM PYTHON SOURCE LINES 21-97
 
 .. code-block:: Python
 
-    from codpy import core
 
+    # Importing necessary modules
+    import os
+    import sys
+
+    from matplotlib import pyplot as plt
+
+    from codpy.kernel import Kernel
+    from codpy import core
     # from codpy.plotting import plot1D
     # Lets import multi_plot function from codpy utils
     from codpy.plot_utils import compare_plot_lists, multi_plot
 
-    # x = np.random.randn(10, 1)
-    # kernel = Kernel(
-    #     set_kernel=core.kernel_setter("gaussian", None),
-    #     x=x,
-    #     order=1,
-    # )
+    curr_f = os.path.join(os.getcwd(), "codpy-book", "utils")
+    sys.path.insert(0, curr_f)
 
+    import numpy as np
 
     def graphicMMD1(datas, **kwargs):
         multi_plot(datas, compare_plot_lists, mp_nrows=1, mp_figsize=(12, 3), **kwargs)
@@ -154,12 +130,12 @@ import CodPy's core module and Kernel class
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 110-112
+.. GENERATED FROM PYTHON SOURCE LINES 98-100
 
 **2D Example**
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 112-207
+.. GENERATED FROM PYTHON SOURCE LINES 100-195
 
 .. code-block:: Python
 
@@ -273,7 +249,7 @@ import CodPy's core module and Kernel class
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.362 seconds)
+   **Total running time of the script:** (0 minutes 0.522 seconds)
 
 
 .. _sphx_glr_download_auto_ch2_ch2_discrepancy_functional.py:

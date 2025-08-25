@@ -3,23 +3,7 @@
 2.6.2 A study of the discrepancy functional
 ===============================================
 
-In this experiment,
 """
-
-# Importing necessary modules
-import os
-import sys
-
-from matplotlib import pyplot as plt
-
-from codpy.kernel import Kernel
-
-curr_f = os.path.join(os.getcwd(), "codpy-book", "utils")
-sys.path.insert(0, curr_f)
-
-
-import numpy as np
-
 ######################################################
 # **Discrepancy Functionals and Kernel Smoothness**
 #
@@ -34,19 +18,23 @@ import numpy as np
 # or ill-posed. Visual experiments with these kernels illustrate how the geometry of $d_k(X, y)$ changes depending on
 # the kernel's regularity.
 # import CodPy's core module and Kernel class
-from codpy import core
 
+# Importing necessary modules
+import os
+import sys
+
+from matplotlib import pyplot as plt
+
+from codpy.kernel import Kernel
+from codpy import core
 # from codpy.plotting import plot1D
 # Lets import multi_plot function from codpy utils
 from codpy.plot_utils import compare_plot_lists, multi_plot
 
-# x = np.random.randn(10, 1)
-# kernel = Kernel(
-#     set_kernel=core.kernel_setter("gaussian", None),
-#     x=x,
-#     order=1,
-# )
+curr_f = os.path.join(os.getcwd(), "codpy-book", "utils")
+sys.path.insert(0, curr_f)
 
+import numpy as np
 
 def graphicMMD1(datas, **kwargs):
     multi_plot(datas, compare_plot_lists, mp_nrows=1, mp_figsize=(12, 3), **kwargs)

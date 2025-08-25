@@ -1,12 +1,13 @@
 """
-5.7. Conditional Sampling
-===============================
+=======================================================================
+5.6.e Exploration Data Analysis of the Latent Space: Spherical Data - 2
+=======================================================================
 
 In this tutorial, we introduce the problem of conditional sampling, i.e., generating samples from a distribution \( p(y|x) \) using kernel-based models.
 
-We’ll use the classic Iris dataset to demonstrate two approaches:
-- **Nadaraya-Watson Estimator**
-- **Optimal Transport-based Conditioner**
+We use the ConditionnerKernel class from Codpy to perform conditional sampling on synthetic spherical data with two clusters. 
+We define a custom CircleConditionner class that inherits from ConditionerKernel and implements the sampling procedure.
+
 """
 
 import numpy as np

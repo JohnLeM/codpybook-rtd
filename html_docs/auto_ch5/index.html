@@ -98,8 +98,8 @@
 <li class="toctree-l2"><a class="reference internal" href="ch5_6_b.html">5.6.b Application of OT in Disitribution Sampling : 2D</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ch5_6_c.html">5.6.c Application of OT in Disitribution Sampling : High-Dimensional case</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ch5_6_d.html">5.6.d Exploration Data Analysis of the Latent Space: Spherical Data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ch5_7.html">5.7. Conditional Sampling</a></li>
-<li class="toctree-l2"><a class="reference internal" href="ch5_8.html">5.8. Conditional Sampling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ch5_7.html">5.6.e Exploration Data Analysis of the Latent Space: Spherical Data - 2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ch5_8.html">5.7. Conditional Sampling</a></li>
 </ul>
 </li>
 </ul>
@@ -108,7 +108,6 @@
 <li class="toctree-l1"><a class="reference internal" href="../auto_ch6/index.html">Chapter 6: Applications to machine learning : supervised, unsupervised and generative methods</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../auto_ch6/ch6_housing.html">6.1 Supervised learning: reproducibility illustration with housing prices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../auto_ch6/ch6_mnist.html">6.2 Supervised learning: benchmarks of methods with MNIST</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../auto_ch6/ch6_Clustering.html">6.3 Unsupervised learning: Clustering - MNIST</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../auto_ch6/ch6_ClustMNIST.html">6.3 Unsupervised learning: Clustering - MNIST</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../auto_ch6/ch6_CreditCardFraud.html">6.4 Unsupervised learning: Clustering - Fraud detection</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../auto_ch6/ch6_9_CelebA_reconstruction.html">6.4.1 Generating complex distributions</a></li>
@@ -137,6 +136,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../auto_ch8/index.html">Chapter 8: Reinforcement learning.</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../auto_ch8/ch8_example.html">8.1 Using KAgents</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../auto_ch8/ch8_cartpole.html">8.2 Experiments - Cartpole</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch8/ch8_lunarlander.html">8.3 Experiments - LunarLander</a></li>
 </ul>
 </li>
 </ul>
@@ -151,15 +151,14 @@
 <li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_additive.html">9.06 Additive noise map</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_conditionning.html">9.07 Conditionning model</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_stoch_vol.html">9.08 Stochastic volatility model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_HestonRepro.html">9.09 Heston Process - Reproducibility</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_HestonCompare.html">9.10 Heston Process - Path comparison</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_isocontours.html">9.11 Heston Process - Intraday interpolation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_priceExtrapolation.html">9.12 Price extrapolation using KRR and Taylor</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_greeks.html">9.13 Greeks output after correction</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_rst.html">9.13 Reverse Stress Test</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_HestonRepro.html">9.9 Heston Process - Reproducibility</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../utils/ch9/ch9_utils.html">Chapter 9 utility functions</a></li>
 </ul>
 
         </div>
@@ -189,37 +188,37 @@
   <section id="chapter-5-optimal-transport-and-statistical-kernel-methods">
 <h1>Chapter 5: Optimal transport and statistical kernel methods<a class="headerlink" href="#chapter-5-optimal-transport-and-statistical-kernel-methods" title="Link to this heading"></a></h1>
 <p>This gallery contains examples and tutorials for Chapter 5. The examples demonstrate how to use
-the CodPy library for various machine learning and regression tasks.</p>
+the CodPy library for various optimal transport experiments.</p>
 <p>Each example includes code and outputs, such as plots or results, to help you understand
 how the library works.</p>
 <p>Below are the examples for this chapter:</p>
-<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="This section introduces the concept of partition of unity in the context of kernel methods and how CodPy implements it via projection operators."><img alt="" src="../_images/sphx_glr_ch5_2_thumb.png" />
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="This section illustrates the application of the Linear Sum Assignment Problem (LSAP) using the CodPy library."><img alt="" src="../_images/sphx_glr_ch5_2_thumb.png" />
 <p><a class="reference internal" href="ch5_2.html#sphx-glr-auto-ch5-ch5-2-py"><span class="std std-ref">5.2 Optimal Transport: LSAP (Linear Sum Assignment Problem)</span></a></p>
   <div class="sphx-glr-thumbnail-title">5.2 Optimal Transport: LSAP (Linear Sum Assignment Problem)</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="5.3.3 Kernel Conditional Density"><img alt="" src="../_images/sphx_glr_ch5_33_thumb.png" />
 <p><a class="reference internal" href="ch5_33.html#sphx-glr-auto-ch5-ch5-33-py"><span class="std std-ref">5.3.3 Kernel Conditional Density</span></a></p>
   <div class="sphx-glr-thumbnail-title">5.3.3 Kernel Conditional Density</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="Specifically, we benchmark the performance of different conditional density estimators: - Nadaraya–Watson (standard with bw = 13) - Nadaraya–Watson with mean scaled Matern kernel - CodPy&#x27;s projection-based ConditionerKernel"><img alt="" src="../_images/sphx_glr_ch5_34_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="We benchmark the performance of different conditional density estimators: - Nadaraya–Watson (standard with bw = 13) - Nadaraya–Watson with mean scaled Matern kernel - CodPy&#x27;s projection-based ConditionerKernel"><img alt="" src="../_images/sphx_glr_ch5_34_thumb.png" />
 <p><a class="reference internal" href="ch5_34.html#sphx-glr-auto-ch5-ch5-34-py"><span class="std std-ref">5.3.4 Kernel Conditional Expectation</span></a></p>
   <div class="sphx-glr-thumbnail-title">5.3.4 Kernel Conditional Expectation</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This section introduces the concept of partition of unity in the context of kernel methods and how CodPy implements it via projection operators."><img alt="" src="../_images/sphx_glr_ch5_6_a_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="We start illustrating the encoding/decoding procedure using a simple interface,  which we refer to as the sampling procedure.  This procedure is designed to generate new samples that approximate the distribution  of a given dataset $Y \in \mathbb{R}^{N_y \times D_y}$  by constructing a kernel-based regressor and using a latent representation. We begin with a simple one-dimensional Monge problem to demonstrate the generative capabilities of the model.  In this experiment, we consider two types of target distributions:  a bimodal Gaussian distribution and a bimodal Student&#x27;s $t$-distribution."><img alt="" src="../_images/sphx_glr_ch5_6_a_thumb.png" />
 <p><a class="reference internal" href="ch5_6_a.html#sphx-glr-auto-ch5-ch5-6-a-py"><span class="std std-ref">5.6.a Application of OT in Disitribution Sampling : 1D</span></a></p>
   <div class="sphx-glr-thumbnail-title">5.6.a Application of OT in Disitribution Sampling : 1D</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This section introduces the concept of partition of unity in the context of kernel methods and how CodPy implements it via projection operators."><img alt="" src="../_images/sphx_glr_ch5_6_b_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="5.6.b Application of OT in Disitribution Sampling : 2D"><img alt="" src="../_images/sphx_glr_ch5_6_b_thumb.png" />
 <p><a class="reference internal" href="ch5_6_b.html#sphx-glr-auto-ch5-ch5-6-b-py"><span class="std std-ref">5.6.b Application of OT in Disitribution Sampling : 2D</span></a></p>
   <div class="sphx-glr-thumbnail-title">5.6.b Application of OT in Disitribution Sampling : 2D</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This section introduces the concept of partition of unity in the context of kernel methods and how CodPy implements it via projection operators."><img alt="" src="../_images/sphx_glr_ch5_6_c_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="We now repeat a similar test (see 5.6a &amp; 5.6b) with a bi-modal Gaussian distribution,  in fifteen dimensions, comparing Monge and Gromov-Monge methods.  The figure plots for each of these two methods the two best and worst axis combinations,  according to the Kolmogorov-Smirnov test. As can be seen in the picture,  Gromov Wasserstein-based generative method leads to distributions  that are close to the original space, which can pass two samples tests as  Kolmogorov Smirnov ones. This property is interesting for industrial applications. "><img alt="" src="../_images/sphx_glr_ch5_6_c_thumb.png" />
 <p><a class="reference internal" href="ch5_6_c.html#sphx-glr-auto-ch5-ch5-6-c-py"><span class="std std-ref">5.6.c Application of OT in Disitribution Sampling : High-Dimensional case</span></a></p>
   <div class="sphx-glr-thumbnail-title">5.6.c Application of OT in Disitribution Sampling : High-Dimensional case</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This section introduces the concept of partition of unity in the context of kernel methods and how CodPy implements it via projection operators."><img alt="" src="../_images/sphx_glr_ch5_6_d_thumb.png" />
+</div><div class="sphx-glr-thumbcontainer" tooltip="We demonstrate how to tackle the problem of conditional sampling using the Sampler and KernelClassifier classes from CodPy. We generate synthetic spherical data with two cluster, define a Sampler to map a latent representation to the data space, and use a KernelClassifier to assign labels to the generated data."><img alt="" src="../_images/sphx_glr_ch5_6_d_thumb.png" />
 <p><a class="reference internal" href="ch5_6_d.html#sphx-glr-auto-ch5-ch5-6-d-py"><span class="std std-ref">5.6.d Exploration Data Analysis of the Latent Space: Spherical Data</span></a></p>
   <div class="sphx-glr-thumbnail-title">5.6.d Exploration Data Analysis of the Latent Space: Spherical Data</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="In this tutorial, we introduce the problem of conditional sampling, i.e., generating samples from a distribution \( p(y|x) \) using kernel-based models."><img alt="" src="../_images/sphx_glr_ch5_7_thumb.png" />
-<p><a class="reference internal" href="ch5_7.html#sphx-glr-auto-ch5-ch5-7-py"><span class="std std-ref">5.7. Conditional Sampling</span></a></p>
+<p><a class="reference internal" href="ch5_7.html#sphx-glr-auto-ch5-ch5-7-py"><span class="std std-ref">5.6.e Exploration Data Analysis of the Latent Space: Spherical Data - 2</span></a></p>
+  <div class="sphx-glr-thumbnail-title">5.6.e Exploration Data Analysis of the Latent Space: Spherical Data - 2</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="5.7. Conditional Sampling"><img alt="" src="../_images/sphx_glr_ch5_8_thumb.png" />
+<p><a class="reference internal" href="ch5_8.html#sphx-glr-auto-ch5-ch5-8-py"><span class="std std-ref">5.7. Conditional Sampling</span></a></p>
   <div class="sphx-glr-thumbnail-title">5.7. Conditional Sampling</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="5.8. Conditional Sampling"><img alt="" src="../_images/sphx_glr_ch5_8_thumb.png" />
-<p><a class="reference internal" href="ch5_8.html#sphx-glr-auto-ch5-ch5-8-py"><span class="std std-ref">5.8. Conditional Sampling</span></a></p>
-  <div class="sphx-glr-thumbnail-title">5.8. Conditional Sampling</div>
 </div></div><div class="toctree-wrapper compound">
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>

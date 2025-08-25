@@ -98,8 +98,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../auto_ch5/ch5_6_b.html">5.6.b Application of OT in Disitribution Sampling : 2D</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../auto_ch5/ch5_6_c.html">5.6.c Application of OT in Disitribution Sampling : High-Dimensional case</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../auto_ch5/ch5_6_d.html">5.6.d Exploration Data Analysis of the Latent Space: Spherical Data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../auto_ch5/ch5_7.html">5.7. Conditional Sampling</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../auto_ch5/ch5_8.html">5.8. Conditional Sampling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch5/ch5_7.html">5.6.e Exploration Data Analysis of the Latent Space: Spherical Data - 2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch5/ch5_8.html">5.7. Conditional Sampling</a></li>
 </ul>
 </li>
 </ul>
@@ -108,7 +108,6 @@
 <li class="toctree-l1"><a class="reference internal" href="../auto_ch6/index.html">Chapter 6: Applications to machine learning : supervised, unsupervised and generative methods</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../auto_ch6/ch6_housing.html">6.1 Supervised learning: reproducibility illustration with housing prices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../auto_ch6/ch6_mnist.html">6.2 Supervised learning: benchmarks of methods with MNIST</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../auto_ch6/ch6_Clustering.html">6.3 Unsupervised learning: Clustering - MNIST</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../auto_ch6/ch6_ClustMNIST.html">6.3 Unsupervised learning: Clustering - MNIST</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../auto_ch6/ch6_CreditCardFraud.html">6.4 Unsupervised learning: Clustering - Fraud detection</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../auto_ch6/ch6_9_CelebA_reconstruction.html">6.4.1 Generating complex distributions</a></li>
@@ -137,6 +136,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../auto_ch8/index.html">Chapter 8: Reinforcement learning.</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../auto_ch8/ch8_example.html">8.1 Using KAgents</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../auto_ch8/ch8_cartpole.html">8.2 Experiments - Cartpole</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch8/ch8_lunarlander.html">8.3 Experiments - LunarLander</a></li>
 </ul>
 </li>
 </ul>
@@ -151,15 +151,14 @@
 <li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_additive.html">9.06 Additive noise map</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_conditionning.html">9.07 Conditionning model</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_stoch_vol.html">9.08 Stochastic volatility model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_HestonRepro.html">9.09 Heston Process - Reproducibility</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_HestonCompare.html">9.10 Heston Process - Path comparison</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_isocontours.html">9.11 Heston Process - Intraday interpolation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_priceExtrapolation.html">9.12 Price extrapolation using KRR and Taylor</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_greeks.html">9.13 Greeks output after correction</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_rst.html">9.13 Reverse Stress Test</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_HestonRepro.html">9.9 Heston Process - Reproducibility</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../utils/ch9/ch9_utils.html">Chapter 9 utility functions</a></li>
 </ul>
 
         </div>
@@ -194,7 +193,7 @@ to download the full example code.</p>
 </div>
 <section class="sphx-glr-example-title" id="reproducing-kernels-and-transformation-maps">
 <span id="sphx-glr-auto-ch2-ch2-2-py"></span><h1>2.2 Reproducing kernels and transformation maps<a class="headerlink" href="#reproducing-kernels-and-transformation-maps" title="Link to this heading"></a></h1>
-<p>In this experiment,</p>
+<p>In this experiment, we plot in 2D and 3D various kernels available in CodPy.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Importing necessary modules</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">sys</span>
@@ -288,19 +287,17 @@ to download the full example code.</p>
 <span class="nb">print</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">kernel</span><span class="o">.</span><span class="n">knm</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="p">)))</span>
 </pre></div>
 </div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>          0         1             2             3  ...             6         7         8             9
-0  1.000000  0.693498  3.843789e-01  2.585185e-04  ...  6.599699e-04  0.675676  0.748489  8.468201e-02
-1  0.693498  1.000000  8.165424e-02  5.805453e-03  ...  1.731917e-05  0.999553  0.270643  8.773385e-03
-2  0.384379  0.081654  1.000000e+00  3.599179e-07  ...  5.042954e-02  0.076333  0.824292  7.031590e-01
-3  0.000259  0.005805  3.599179e-07  1.000000e+00  ...  2.994209e-14  0.006387  0.000009  2.616699e-09
-4  0.220172  0.034464  9.382984e-01  4.832816e-08  ...  1.132086e-01  0.031876  0.619535  8.901780e-01
-5  0.896226  0.927682  1.803222e-01  1.553221e-03  ...  9.860632e-05  0.916584  0.469739  2.682027e-02
-6  0.000660  0.000017  5.042954e-02  2.994209e-14  ...  1.000000e+00  0.000015  0.009096  2.758196e-01
-7  0.675676  0.999553  7.633282e-02  6.387366e-03  ...  1.504919e-05  1.000000  0.257753  7.998329e-03
-8  0.748489  0.270643  8.242920e-01  8.770158e-06  ...  9.096183e-03  0.257753  1.000000  3.439937e-01
-9  0.084682  0.008773  7.031590e-01  2.616699e-09  ...  2.758196e-01  0.007998  0.343994  1.000000e+00
-
-[10 rows x 10 columns]
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>          0         1         2         3         4         5         6         7         8         9
+0  1.000000  0.039997  0.485097  0.001687  0.969665  0.163022  0.626316  0.810604  0.881845  0.746901
+1  0.039997  1.000000  0.000917  0.584600  0.020660  0.818636  0.291607  0.167854  0.009882  0.207555
+2  0.485097  0.000917  1.000000  0.000011  0.634033  0.008000  0.094904  0.180349  0.781960  0.144546
+3  0.001687  0.584600  0.000011  1.000000  0.000674  0.248462  0.033511  0.013855  0.000248  0.019319
+4  0.969665  0.020660  0.634033  0.000674  1.000000  0.098526  0.477680  0.669228  0.968437  0.599145
+5  0.163022  0.818636  0.008000  0.248462  0.098526  1.000000  0.644512  0.454047  0.055313  0.521736
+6  0.626316  0.291607  0.094904  0.033511  0.477680  0.644512  1.000000  0.950292  0.340020  0.979527
+7  0.810604  0.167854  0.180349  0.013855  0.669228  0.454047  0.950292  1.000000  0.516495  0.993303
+8  0.881845  0.009882  0.781960  0.000248  0.968437  0.055313  0.340020  0.516495  1.000000  0.449026
+9  0.746901  0.207555  0.144546  0.019319  0.599145  0.521736  0.979527  0.993303  0.449026  1.000000
 </pre></div>
 </div>
 <p><strong>MMD Matrix</strong></p>
@@ -313,16 +310,16 @@ For positive kernels, <span class="math notranslate nohighlight">\(d_k(\cdot,\cd
 </pre></div>
 </div>
 <div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>          0         1         2         3         4         5         6         7         8         9
-0  0.000000  0.613003  1.231242  1.999483  1.559655  0.207549  1.998680  0.648647  0.503023  1.830636
-1  0.613003  0.000000  1.836692  1.988389  1.931071  0.144635  1.999965  0.000894  1.458715  1.982453
-2  1.231242  1.836692  0.000000  1.999999  0.123403  1.639356  1.899141  1.847334  0.351416  0.593682
-3  1.999483  1.988389  1.999999  0.000000  2.000000  1.996894  2.000000  1.987225  1.999982  2.000000
-4  1.559655  1.931071  0.123403  2.000000  0.000000  1.825206  1.773583  1.936248  0.760929  0.219644
-5  0.207549  0.144635  1.639356  1.996894  1.825206  0.000000  1.999803  0.166831  1.060523  1.946359
-6  1.998680  1.999965  1.899141  2.000000  1.773583  1.999803  0.000000  1.999970  1.981808  1.448361
-7  0.648647  0.000894  1.847334  1.987225  1.936248  0.166831  1.999970  0.000000  1.484495  1.984003
-8  0.503023  1.458715  0.351416  1.999982  0.760929  1.060523  1.981808  1.484495  0.000000  1.312013
-9  1.830636  1.982453  0.593682  2.000000  0.219644  1.946359  1.448361  1.984003  1.312013  0.000000
+0  0.000000  1.920006  1.029805  1.996626  0.060669  1.673956  0.747368  0.378793  0.236310  0.506198
+1  1.920006  0.000000  1.998166  0.830799  1.958679  0.362728  1.416785  1.664292  1.980237  1.584890
+2  1.029805  1.998166  0.000000  1.999978  0.731933  1.983999  1.810192  1.639303  0.436080  1.710907
+3  1.996626  0.830799  1.999978  0.000000  1.998652  1.503076  1.932979  1.972290  1.999504  1.961362
+4  0.060669  1.958679  0.731933  1.998652  0.000000  1.802948  1.044641  0.661543  0.063126  0.801710
+5  1.673956  0.362728  1.983999  1.503076  1.802948  0.000000  0.710976  1.091906  1.889375  0.956529
+6  0.747368  1.416785  1.810192  1.932979  1.044641  0.710976  0.000000  0.099416  1.319960  0.040947
+7  0.378793  1.664292  1.639303  1.972290  0.661543  1.091906  0.099416  0.000000  0.967011  0.013395
+8  0.236310  1.980237  0.436080  1.999504  0.063126  1.889375  1.319960  0.967011  0.000000  1.101947
+9  0.506198  1.584890  1.710907  1.961362  0.801710  0.956529  0.040947  0.013395  1.101947  0.000000
 </pre></div>
 </div>
 <p>Kernels 2D visualisation</p>
@@ -398,7 +395,7 @@ For positive kernels, <span class="math notranslate nohighlight">\(d_k(\cdot,\cd
 <span class="k">pass</span>
 </pre></div>
 </div>
-<img src="../_images/sphx_glr_ch2_2_002.png" srcset="../_images/sphx_glr_ch2_2_002.png" alt="gaussian, tensornorm, absnorm, matern, multiquadricnorm, sincardtensor, gaussianper, maternnorm, scalarproduct" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 6.349 seconds)</p>
+<img src="../_images/sphx_glr_ch2_2_002.png" srcset="../_images/sphx_glr_ch2_2_002.png" alt="gaussian, tensornorm, absnorm, matern, multiquadricnorm, sincardtensor, gaussianper, maternnorm, scalarproduct" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 12.053 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-ch2-ch2-2-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/40e4d72f03e091240e39dd0272b72478/ch2_2.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">ch2_2.ipynb</span></code></a></p>

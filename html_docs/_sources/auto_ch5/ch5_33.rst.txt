@@ -21,16 +21,19 @@
 ==================================================
 5.3.3 Kernel Conditional Density
 ==================================================
-In this experiment, we reproduce the results from the chapter 5.3.3 of the book.
-Spefically, we will benchmark the performance of different conditional density estimators.
-We will use generated data and compare Nadaraya-Watson with the Projection-based estimator from CodPy.
+We illustrate in this experiment the difference in density models
+of both the kernel-ridge and the Nadaraya-Watson approaches.
+To assess the ability to capture nonlinear patterns while estimating conditional densities, 
+this experiment considers synthetic data from a heteroskedastic model,
+involving a uniform law $X \sim \mathcal{U}(-1, 1)$, and a Gaussian one for $Y$ with data
+$$Y \mid X = x \sim \mathcal{N}(\mu(x), \sigma^2(x)),  \quad \sigma(x) = 0.1 \cdot \cos\left(\frac{\pi x}{2}\right), \quad \mu(x) =  \sin\left(\pi x\right).$$
 
-.. GENERATED FROM PYTHON SOURCE LINES 11-13
+.. GENERATED FROM PYTHON SOURCE LINES 14-16
 
 Required imports
 --------------------
 
-.. GENERATED FROM PYTHON SOURCE LINES 15-25
+.. GENERATED FROM PYTHON SOURCE LINES 18-28
 
 .. code-block:: Python
 
@@ -51,13 +54,13 @@ Required imports
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 26-29
+.. GENERATED FROM PYTHON SOURCE LINES 29-32
 
 Generating the data
 --------------------
 The data is generated according to the chapter 5.3.3 of the book. - Illustrative example.
 
-.. GENERATED FROM PYTHON SOURCE LINES 32-104
+.. GENERATED FROM PYTHON SOURCE LINES 35-107
 
 .. code-block:: Python
 
@@ -140,13 +143,13 @@ The data is generated according to the chapter 5.3.3 of the book. - Illustrative
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 105-108
+.. GENERATED FROM PYTHON SOURCE LINES 108-111
 
 Plotting the data
 --------------------
 We plot the data with the test points z and true conditional density p(y | z).
 
-.. GENERATED FROM PYTHON SOURCE LINES 111-130
+.. GENERATED FROM PYTHON SOURCE LINES 114-133
 
 .. code-block:: Python
 
@@ -181,13 +184,13 @@ We plot the data with the test points z and true conditional density p(y | z).
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 131-134
+.. GENERATED FROM PYTHON SOURCE LINES 134-137
 
 Estimators
 --------------------
 We now use Nadaraya-Watson, CodPy's Conditioner, and KDE to estimate the conditional density.
 
-.. GENERATED FROM PYTHON SOURCE LINES 136-183
+.. GENERATED FROM PYTHON SOURCE LINES 139-186
 
 .. code-block:: Python
 
@@ -245,12 +248,12 @@ We now use Nadaraya-Watson, CodPy's Conditioner, and KDE to estimate the conditi
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 184-186
+.. GENERATED FROM PYTHON SOURCE LINES 187-189
 
 Plotting the results
 --------------------
 
-.. GENERATED FROM PYTHON SOURCE LINES 189-256
+.. GENERATED FROM PYTHON SOURCE LINES 192-259
 
 .. code-block:: Python
 
@@ -336,7 +339,7 @@ Plotting the results
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.470 seconds)
+   **Total running time of the script:** (0 minutes 3.737 seconds)
 
 
 .. _sphx_glr_download_auto_ch5_ch5_33.py:

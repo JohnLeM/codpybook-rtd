@@ -6,7 +6,7 @@
 
 Computation times
 =================
-**21:01.483** total execution time for 56 files **from all galleries**:
+**00:19.803** total execution time for 55 files **from all galleries**:
 
 .. container::
 
@@ -32,8 +32,17 @@ Computation times
    * - Example
      - Time
      - Mem (MB)
-   * - :ref:`sphx_glr_auto_ch8_ch8_lunarlander.py` (``ch8\ch8_lunarlander.py``)
-     - 21:01.483
+   * - :ref:`sphx_glr_auto_ch9_ch9_HestonRepro.py` (``ch9\ch9_HestonRepro.py``)
+     - 00:13.809
+     - 0.0
+   * - :ref:`sphx_glr_auto_ch5_ch5_33.py` (``ch5\ch5_33.py``)
+     - 00:03.737
+     - 0.0
+   * - :ref:`sphx_glr_auto_ch5_ch5_7.py` (``ch5\ch5_7.py``)
+     - 00:01.501
+     - 0.0
+   * - :ref:`sphx_glr_auto_ch5_ch5_8.py` (``ch5\ch5_8.py``)
+     - 00:00.756
      - 0.0
    * - :ref:`sphx_glr_auto_ch2_ch2_2.py` (``ch2\ch2_2.py``)
      - 00:00.000
@@ -80,9 +89,6 @@ Computation times
    * - :ref:`sphx_glr_auto_ch5_ch5_2.py` (``ch5\ch5_2.py``)
      - 00:00.000
      - 0.0
-   * - :ref:`sphx_glr_auto_ch5_ch5_33.py` (``ch5\ch5_33.py``)
-     - 00:00.000
-     - 0.0
    * - :ref:`sphx_glr_auto_ch5_ch5_34.py` (``ch5\ch5_34.py``)
      - 00:00.000
      - 0.0
@@ -98,12 +104,6 @@ Computation times
    * - :ref:`sphx_glr_auto_ch5_ch5_6_d.py` (``ch5\ch5_6_d.py``)
      - 00:00.000
      - 0.0
-   * - :ref:`sphx_glr_auto_ch5_ch5_7.py` (``ch5\ch5_7.py``)
-     - 00:00.000
-     - 0.0
-   * - :ref:`sphx_glr_auto_ch5_ch5_8.py` (``ch5\ch5_8.py``)
-     - 00:00.000
-     - 0.0
    * - :ref:`sphx_glr_auto_ch6_ch6_9_CelebA.py` (``ch6\ch6_9_CelebA.py``)
      - 00:00.000
      - 0.0
@@ -114,9 +114,6 @@ Computation times
      - 00:00.000
      - 0.0
    * - :ref:`sphx_glr_auto_ch6_ch6_ClustMNIST.py` (``ch6\ch6_ClustMNIST.py``)
-     - 00:00.000
-     - 0.0
-   * - :ref:`sphx_glr_auto_ch6_ch6_Clustering.py` (``ch6\ch6_Clustering.py``)
      - 00:00.000
      - 0.0
    * - :ref:`sphx_glr_auto_ch6_ch6_CreditCardFraud.py` (``ch6\ch6_CreditCardFraud.py``)
@@ -158,10 +155,10 @@ Computation times
    * - :ref:`sphx_glr_auto_ch8_ch8_example.py` (``ch8\ch8_example.py``)
      - 00:00.000
      - 0.0
-   * - :ref:`sphx_glr_auto_ch9_ch9_HestonCompare.py` (``ch9\ch9_HestonCompare.py``)
+   * - :ref:`sphx_glr_auto_ch8_ch8_lunarlander.py` (``ch8\ch8_lunarlander.py``)
      - 00:00.000
      - 0.0
-   * - :ref:`sphx_glr_auto_ch9_ch9_HestonRepro.py` (``ch9\ch9_HestonRepro.py``)
+   * - :ref:`sphx_glr_auto_ch9_ch9_HestonCompare.py` (``ch9\ch9_HestonCompare.py``)
      - 00:00.000
      - 0.0
    * - :ref:`sphx_glr_auto_ch9_ch9_additive.py` (``ch9\ch9_additive.py``)

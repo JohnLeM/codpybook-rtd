@@ -3,12 +3,13 @@
 5.6.c Application of OT in Disitribution Sampling : High-Dimensional case
 =========================================================================
 
-This section introduces the concept of partition of unity in the context of
-kernel methods and how CodPy implements it via projection operators.
-
-Overview
---------
-
+We now repeat a similar test (see 5.6a & 5.6b) with a bi-modal Gaussian distribution, 
+in fifteen dimensions, comparing Monge and Gromov-Monge methods. 
+The figure plots for each of these two methods the two best and worst axis combinations, 
+according to the Kolmogorov-Smirnov test. As can be seen in the picture, 
+Gromov Wasserstein-based generative method leads to distributions 
+that are close to the original space, which can pass two samples tests as 
+Kolmogorov Smirnov ones. This property is interesting for industrial applications. 
 
 """
 

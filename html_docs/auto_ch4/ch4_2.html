@@ -28,6 +28,8 @@
       <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
       <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
       <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+      <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "displayMath": [["$$", "$$"], ["\\[", "\\]"]]}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -96,8 +98,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../auto_ch5/ch5_6_b.html">5.6.b Application of OT in Disitribution Sampling : 2D</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../auto_ch5/ch5_6_c.html">5.6.c Application of OT in Disitribution Sampling : High-Dimensional case</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../auto_ch5/ch5_6_d.html">5.6.d Exploration Data Analysis of the Latent Space: Spherical Data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../auto_ch5/ch5_7.html">5.7. Conditional Sampling</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../auto_ch5/ch5_8.html">5.8. Conditional Sampling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch5/ch5_7.html">5.6.e Exploration Data Analysis of the Latent Space: Spherical Data - 2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch5/ch5_8.html">5.7. Conditional Sampling</a></li>
 </ul>
 </li>
 </ul>
@@ -106,7 +108,6 @@
 <li class="toctree-l1"><a class="reference internal" href="../auto_ch6/index.html">Chapter 6: Applications to machine learning : supervised, unsupervised and generative methods</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../auto_ch6/ch6_housing.html">6.1 Supervised learning: reproducibility illustration with housing prices</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../auto_ch6/ch6_mnist.html">6.2 Supervised learning: benchmarks of methods with MNIST</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../auto_ch6/ch6_Clustering.html">6.3 Unsupervised learning: Clustering - MNIST</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../auto_ch6/ch6_ClustMNIST.html">6.3 Unsupervised learning: Clustering - MNIST</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../auto_ch6/ch6_CreditCardFraud.html">6.4 Unsupervised learning: Clustering - Fraud detection</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../auto_ch6/ch6_9_CelebA_reconstruction.html">6.4.1 Generating complex distributions</a></li>
@@ -135,6 +136,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../auto_ch8/index.html">Chapter 8: Reinforcement learning.</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../auto_ch8/ch8_example.html">8.1 Using KAgents</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../auto_ch8/ch8_cartpole.html">8.2 Experiments - Cartpole</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch8/ch8_lunarlander.html">8.3 Experiments - LunarLander</a></li>
 </ul>
 </li>
 </ul>
@@ -149,15 +151,14 @@
 <li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_additive.html">9.06 Additive noise map</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_conditionning.html">9.07 Conditionning model</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_stoch_vol.html">9.08 Stochastic volatility model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_HestonRepro.html">9.09 Heston Process - Reproducibility</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_HestonCompare.html">9.10 Heston Process - Path comparison</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_isocontours.html">9.11 Heston Process - Intraday interpolation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_priceExtrapolation.html">9.12 Price extrapolation using KRR and Taylor</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_greeks.html">9.13 Greeks output after correction</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_rst.html">9.13 Reverse Stress Test</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../auto_ch9/ch9_HestonRepro.html">9.9 Heston Process - Reproducibility</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../utils/ch9/ch9_utils.html">Chapter 9 utility functions</a></li>
 </ul>
 
         </div>
@@ -192,7 +193,10 @@ to download the full example code.</p>
 </div>
 <section class="sphx-glr-example-title" id="clustering">
 <span id="sphx-glr-auto-ch4-ch4-2-py"></span><h1>4.2 Clustering<a class="headerlink" href="#clustering" title="Link to this heading"></a></h1>
-<p>In this section, we will explore clustering methods using the CodPy library.</p>
+<p>In this section, we will explore clustering methods using the CodPy library.
+We illustrate the behaviour of various clustering strategies, including our proposed methods, in comparison to the standard k-means algorithm.
+We generate a synthetic dataset in <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span> consisting of five well-separated Gaussian blobs (i.e., a mixture of five equally weighted Gaussian components).
+Each clustering algorithm is applied to partition the dataset into <span class="math notranslate nohighlight">\(N_y\)</span> clusters.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import necessary modules and setup the environment</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">random</span>
@@ -480,23 +484,23 @@ to download the full example code.</p>
     <span class="k">pass</span>
 </pre></div>
 </div>
-<img src="../_images/sphx_glr_ch4_2_001.png" srcset="../_images/sphx_glr_ch4_2_001.png" alt="greedy,  5 clusters, sharp,  5 clusters, kmeans,  5 clusters, random,  5 clusters, balanced_greedy,  5 clusters, balanced_sharp,  5 clusters, balanced_kmeans,  5 clusters, balanced_random,  5 clusters" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Method: greedy N_partition: 128  inertia: 1028.1806670214105  mmd: 2.5316890621018828e-05  time: 0.03193831443786621
-Method: sharp N_partition: 128  inertia: 1146.8388431787353  mmd: 9.754031664699347e-06  time: 0.3435838222503662
-Method: kmeans N_partition: 128  inertia: 408.9355288897731  mmd: 0.0007832229673651048  time: 0.2130594253540039
-Method: random N_partition: 128  inertia: 1096.5885053412876  mmd: 0.002945514704439045  time: 0.011059284210205078
-Method: balanced_greedy N_partition: 128  inertia: 615.9082479641891  mmd: 3.751833095366752e-05  time: 0.04102635383605957
-Method: balanced_sharp N_partition: 128  inertia: 553.8836308099916  mmd: 1.7685258723698638e-05  time: 0.03777718544006348
-Method: balanced_kmeans N_partition: 128  inertia: 425.76756358906573  mmd: 0.0005274990821971803  time: 0.2419731616973877
-Method: balanced_random N_partition: 128  inertia: 959.9591013088739  mmd: 0.001341897741871878  time: 0.013532876968383789
+<img src="../_images/sphx_glr_ch4_2_001.png" srcset="../_images/sphx_glr_ch4_2_001.png" alt="greedy,  5 clusters, sharp,  5 clusters, kmeans,  5 clusters, random,  5 clusters, balanced_greedy,  5 clusters, balanced_sharp,  5 clusters, balanced_kmeans,  5 clusters, balanced_random,  5 clusters" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Method: greedy N_partition: 128  inertia: 1028.1806670214105  mmd: 2.5316890621018828e-05  time: 0.03305506706237793
+Method: sharp N_partition: 128  inertia: 872.1889210223746  mmd: 1.021470157003268e-05  time: 0.3940112590789795
+Method: kmeans N_partition: 128  inertia: 408.9355288897727  mmd: 0.0007832229673651048  time: 0.2814466953277588
+Method: random N_partition: 128  inertia: 983.0693953246964  mmd: 0.0035552788501812538  time: 0.010027170181274414
+Method: balanced_greedy N_partition: 128  inertia: 615.9082479641891  mmd: 3.751833095366752e-05  time: 0.04045867919921875
+Method: balanced_sharp N_partition: 128  inertia: 560.8627457110313  mmd: 1.4521889322494097e-05  time: 0.04314613342285156
+Method: balanced_kmeans N_partition: 128  inertia: 425.76756358906573  mmd: 0.0005274990821971803  time: 0.27652573585510254
+Method: balanced_random N_partition: 128  inertia: 1072.0714110525303  mmd: 0.0031675871040046655  time: 0.013687610626220703
             Method    Nx   Ny  Execution Time (s)      inertia       mmd
-0           greedy  1024  128            0.031938  1028.180667  0.000025
-1            sharp  1024  128            0.343584  1146.838843  0.000010
-2           kmeans  1024  128            0.213059   408.935529  0.000783
-3           random  1024  128            0.011059  1096.588505  0.002946
-4  balanced_greedy  1024  128            0.041026   615.908248  0.000038
-5   balanced_sharp  1024  128            0.037777   553.883631  0.000018
-6  balanced_kmeans  1024  128            0.241973   425.767564  0.000527
-7  balanced_random  1024  128            0.013533   959.959101  0.001342
+0           greedy  1024  128            0.033055  1028.180667  0.000025
+1            sharp  1024  128            0.394011   872.188921  0.000010
+2           kmeans  1024  128            0.281447   408.935529  0.000783
+3           random  1024  128            0.010027   983.069395  0.003555
+4  balanced_greedy  1024  128            0.040459   615.908248  0.000038
+5   balanced_sharp  1024  128            0.043146   560.862746  0.000015
+6  balanced_kmeans  1024  128            0.276526   425.767564  0.000527
+7  balanced_random  1024  128            0.013688  1072.071411  0.003168
 Method: greedy N_partition: 5
 Method: sharp N_partition: 5
 Method: kmeans N_partition: 5
@@ -507,7 +511,7 @@ Method: balanced_kmeans N_partition: 5
 Method: balanced_random N_partition: 5
 </pre></div>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 1.899 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 2.187 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-ch4-ch4-2-py">
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/1ff5088b85d8eb9fe3da6926273e0e55/ch4_2.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">ch4_2.ipynb</span></code></a></p>

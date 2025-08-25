@@ -22,7 +22,7 @@
 5.3.4 Kernel Conditional Expectation
 ==================================================
 
-Specifically, we benchmark the performance of different conditional density estimators:
+We benchmark the performance of different conditional density estimators:
 - Nadaraya–Watson (standard with bw = 13)
 - Nadaraya–Watson with mean scaled Matern kernel
 - CodPy's projection-based ConditionerKernel
@@ -217,7 +217,7 @@ Full curve: conditional mean across a grid
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.161 seconds)
+   **Total running time of the script:** (0 minutes 0.260 seconds)
 
 
 .. _sphx_glr_download_auto_ch5_ch5_34.py:

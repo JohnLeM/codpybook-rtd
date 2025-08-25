@@ -21,9 +21,12 @@
 =============================================
 4.2 Clustering
 =============================================
-In this section, we will explore clustering methods using the CodPy library.
+In this section, we will explore clustering methods using the CodPy library. 
+We illustrate the behaviour of various clustering strategies, including our proposed methods, in comparison to the standard k-means algorithm.
+We generate a synthetic dataset in $\mathbb{R}^2$ consisting of five well-separated Gaussian blobs (i.e., a mixture of five equally weighted Gaussian components). 
+Each clustering algorithm is applied to partition the dataset into $N_y$ clusters.
 
-.. GENERATED FROM PYTHON SOURCE LINES 7-40
+.. GENERATED FROM PYTHON SOURCE LINES 10-43
 
 .. code-block:: Python
 
@@ -67,11 +70,11 @@ In this section, we will explore clustering methods using the CodPy library.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 41-42
+.. GENERATED FROM PYTHON SOURCE LINES 44-45
 
 **Define Functions for Generating Blob Data and Clustering**
 
-.. GENERATED FROM PYTHON SOURCE LINES 42-70
+.. GENERATED FROM PYTHON SOURCE LINES 45-73
 
 .. code-block:: Python
 
@@ -110,14 +113,14 @@ In this section, we will explore clustering methods using the CodPy library.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 71-75
+.. GENERATED FROM PYTHON SOURCE LINES 74-78
 
 Clustering Models
  This section defines the K-means and CodPy clustering models.
 
 ########################################################################
 
-.. GENERATED FROM PYTHON SOURCE LINES 75-158
+.. GENERATED FROM PYTHON SOURCE LINES 78-161
 
 .. code-block:: Python
 
@@ -211,14 +214,14 @@ Clustering Models
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 159-163
+.. GENERATED FROM PYTHON SOURCE LINES 162-166
 
 Running the Experiment
  This section runs the experiment to compare K-means and various CodPy clustering.
 
 ########################################################################
 
-.. GENERATED FROM PYTHON SOURCE LINES 163-299
+.. GENERATED FROM PYTHON SOURCE LINES 166-302
 
 .. code-block:: Python
 
@@ -371,23 +374,23 @@ Running the Experiment
 
  .. code-block:: none
 
-    Method: greedy N_partition: 128  inertia: 1028.1806670214105  mmd: 2.5316890621018828e-05  time: 0.03193831443786621
-    Method: sharp N_partition: 128  inertia: 1146.8388431787353  mmd: 9.754031664699347e-06  time: 0.3435838222503662
-    Method: kmeans N_partition: 128  inertia: 408.9355288897731  mmd: 0.0007832229673651048  time: 0.2130594253540039
-    Method: random N_partition: 128  inertia: 1096.5885053412876  mmd: 0.002945514704439045  time: 0.011059284210205078
-    Method: balanced_greedy N_partition: 128  inertia: 615.9082479641891  mmd: 3.751833095366752e-05  time: 0.04102635383605957
-    Method: balanced_sharp N_partition: 128  inertia: 553.8836308099916  mmd: 1.7685258723698638e-05  time: 0.03777718544006348
-    Method: balanced_kmeans N_partition: 128  inertia: 425.76756358906573  mmd: 0.0005274990821971803  time: 0.2419731616973877
-    Method: balanced_random N_partition: 128  inertia: 959.9591013088739  mmd: 0.001341897741871878  time: 0.013532876968383789
+    Method: greedy N_partition: 128  inertia: 1028.1806670214105  mmd: 2.5316890621018828e-05  time: 0.03305506706237793
+    Method: sharp N_partition: 128  inertia: 872.1889210223746  mmd: 1.021470157003268e-05  time: 0.3940112590789795
+    Method: kmeans N_partition: 128  inertia: 408.9355288897727  mmd: 0.0007832229673651048  time: 0.2814466953277588
+    Method: random N_partition: 128  inertia: 983.0693953246964  mmd: 0.0035552788501812538  time: 0.010027170181274414
+    Method: balanced_greedy N_partition: 128  inertia: 615.9082479641891  mmd: 3.751833095366752e-05  time: 0.04045867919921875
+    Method: balanced_sharp N_partition: 128  inertia: 560.8627457110313  mmd: 1.4521889322494097e-05  time: 0.04314613342285156
+    Method: balanced_kmeans N_partition: 128  inertia: 425.76756358906573  mmd: 0.0005274990821971803  time: 0.27652573585510254
+    Method: balanced_random N_partition: 128  inertia: 1072.0714110525303  mmd: 0.0031675871040046655  time: 0.013687610626220703
                 Method    Nx   Ny  Execution Time (s)      inertia       mmd
-    0           greedy  1024  128            0.031938  1028.180667  0.000025
-    1            sharp  1024  128            0.343584  1146.838843  0.000010
-    2           kmeans  1024  128            0.213059   408.935529  0.000783
-    3           random  1024  128            0.011059  1096.588505  0.002946
-    4  balanced_greedy  1024  128            0.041026   615.908248  0.000038
-    5   balanced_sharp  1024  128            0.037777   553.883631  0.000018
-    6  balanced_kmeans  1024  128            0.241973   425.767564  0.000527
-    7  balanced_random  1024  128            0.013533   959.959101  0.001342
+    0           greedy  1024  128            0.033055  1028.180667  0.000025
+    1            sharp  1024  128            0.394011   872.188921  0.000010
+    2           kmeans  1024  128            0.281447   408.935529  0.000783
+    3           random  1024  128            0.010027   983.069395  0.003555
+    4  balanced_greedy  1024  128            0.040459   615.908248  0.000038
+    5   balanced_sharp  1024  128            0.043146   560.862746  0.000015
+    6  balanced_kmeans  1024  128            0.276526   425.767564  0.000527
+    7  balanced_random  1024  128            0.013688  1072.071411  0.003168
     Method: greedy N_partition: 5
     Method: sharp N_partition: 5
     Method: kmeans N_partition: 5
@@ -403,7 +406,7 @@ Running the Experiment
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 1.899 seconds)
+   **Total running time of the script:** (0 minutes 2.187 seconds)
 
 
 .. _sphx_glr_download_auto_ch4_ch4_2.py:

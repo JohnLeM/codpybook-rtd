@@ -6,12 +6,13 @@ Chapter 5: Optimal transport and statistical kernel methods
 ==========================================================================================
 
 This gallery contains examples and tutorials for Chapter 5. The examples demonstrate how to use
-the CodPy library for various machine learning and regression tasks.
+the CodPy library for various optimal transport experiments.
 
 Each example includes code and outputs, such as plots or results, to help you understand
 how the library works.
 
 Below are the examples for this chapter:
+
 
 
 .. raw:: html
@@ -22,7 +23,7 @@ Below are the examples for this chapter:
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="This section introduces the concept of partition of unity in the context of kernel methods and how CodPy implements it via projection operators.">
+    <div class="sphx-glr-thumbcontainer" tooltip="This section illustrates the application of the Linear Sum Assignment Problem (LSAP) using the CodPy library.">
 
 .. only:: html
 
@@ -56,7 +57,7 @@ Below are the examples for this chapter:
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="Specifically, we benchmark the performance of different conditional density estimators: - Nadaraya–Watson (standard with bw = 13) - Nadaraya–Watson with mean scaled Matern kernel - CodPy&#x27;s projection-based ConditionerKernel">
+    <div class="sphx-glr-thumbcontainer" tooltip="We benchmark the performance of different conditional density estimators: - Nadaraya–Watson (standard with bw = 13) - Nadaraya–Watson with mean scaled Matern kernel - CodPy&#x27;s projection-based ConditionerKernel">
 
 .. only:: html
 
@@ -73,7 +74,7 @@ Below are the examples for this chapter:
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="This section introduces the concept of partition of unity in the context of kernel methods and how CodPy implements it via projection operators.">
+    <div class="sphx-glr-thumbcontainer" tooltip="We start illustrating the encoding/decoding procedure using a simple interface,  which we refer to as the sampling procedure.  This procedure is designed to generate new samples that approximate the distribution  of a given dataset $Y \in \mathbb{R}^{N_y \times D_y}$  by constructing a kernel-based regressor and using a latent representation. We begin with a simple one-dimensional Monge problem to demonstrate the generative capabilities of the model.  In this experiment, we consider two types of target distributions:  a bimodal Gaussian distribution and a bimodal Student&#x27;s $t$-distribution.">
 
 .. only:: html
 
@@ -90,7 +91,7 @@ Below are the examples for this chapter:
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="This section introduces the concept of partition of unity in the context of kernel methods and how CodPy implements it via projection operators.">
+    <div class="sphx-glr-thumbcontainer" tooltip="5.6.b Application of OT in Disitribution Sampling : 2D">
 
 .. only:: html
 
@@ -107,7 +108,7 @@ Below are the examples for this chapter:
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="This section introduces the concept of partition of unity in the context of kernel methods and how CodPy implements it via projection operators.">
+    <div class="sphx-glr-thumbcontainer" tooltip="We now repeat a similar test (see 5.6a &amp; 5.6b) with a bi-modal Gaussian distribution,  in fifteen dimensions, comparing Monge and Gromov-Monge methods.  The figure plots for each of these two methods the two best and worst axis combinations,  according to the Kolmogorov-Smirnov test. As can be seen in the picture,  Gromov Wasserstein-based generative method leads to distributions  that are close to the original space, which can pass two samples tests as  Kolmogorov Smirnov ones. This property is interesting for industrial applications. ">
 
 .. only:: html
 
@@ -124,7 +125,7 @@ Below are the examples for this chapter:
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="This section introduces the concept of partition of unity in the context of kernel methods and how CodPy implements it via projection operators.">
+    <div class="sphx-glr-thumbcontainer" tooltip="We demonstrate how to tackle the problem of conditional sampling using the Sampler and KernelClassifier classes from CodPy. We generate synthetic spherical data with two cluster, define a Sampler to map a latent representation to the data space, and use a KernelClassifier to assign labels to the generated data.">
 
 .. only:: html
 
@@ -152,13 +153,13 @@ Below are the examples for this chapter:
 
 .. raw:: html
 
-      <div class="sphx-glr-thumbnail-title">5.7. Conditional Sampling</div>
+      <div class="sphx-glr-thumbnail-title">5.6.e Exploration Data Analysis of the Latent Space: Spherical Data - 2</div>
     </div>
 
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="5.8. Conditional Sampling">
+    <div class="sphx-glr-thumbcontainer" tooltip="5.7. Conditional Sampling">
 
 .. only:: html
 
@@ -169,7 +170,7 @@ Below are the examples for this chapter:
 
 .. raw:: html
 
-      <div class="sphx-glr-thumbnail-title">5.8. Conditional Sampling</div>
+      <div class="sphx-glr-thumbnail-title">5.7. Conditional Sampling</div>
     </div>
 
 

@@ -3,7 +3,7 @@
 Chapter 7: Application to partial differential equations
 ========================================================
 
-This gallery contains examples and tutorials for Chapter 3. The examples demonstrate how to use
+This gallery contains examples and tutorials for Chapter 7. The examples demonstrate how to use
 the CodPy library for various machine learning and regression tasks.
 
 Each example includes code and outputs, such as plots or results, to help you understand

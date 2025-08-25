@@ -6,7 +6,7 @@
 
 Computation times
 =================
-**00:55.090** total execution time for 14 files **from auto_ch9**:
+**00:13.809** total execution time for 14 files **from auto_ch9**:
 
 .. container::
 
@@ -33,44 +33,44 @@ Computation times
      - Time
      - Mem (MB)
    * - :ref:`sphx_glr_auto_ch9_ch9_HestonRepro.py` (``ch9_HestonRepro.py``)
-     - 00:14.078
+     - 00:13.809
      - 0.0
    * - :ref:`sphx_glr_auto_ch9_ch9_HestonCompare.py` (``ch9_HestonCompare.py``)
-     - 00:10.268
-     - 0.0
-   * - :ref:`sphx_glr_auto_ch9_ch9_garch.py` (``ch9_garch.py``)
-     - 00:04.835
-     - 0.0
-   * - :ref:`sphx_glr_auto_ch9_ch9_stoch_vol.py` (``ch9_stoch_vol.py``)
-     - 00:04.266
+     - 00:00.000
      - 0.0
    * - :ref:`sphx_glr_auto_ch9_ch9_additive.py` (``ch9_additive.py``)
-     - 00:04.208
+     - 00:00.000
      - 0.0
    * - :ref:`sphx_glr_auto_ch9_ch9_arma.py` (``ch9_arma.py``)
-     - 00:04.019
+     - 00:00.000
      - 0.0
    * - :ref:`sphx_glr_auto_ch9_ch9_conditionning.py` (``ch9_conditionning.py``)
-     - 00:03.772
+     - 00:00.000
      - 0.0
-   * - :ref:`sphx_glr_auto_ch9_ch9_random_walk_log_normal.py` (``ch9_random_walk_log_normal.py``)
-     - 00:03.260
-     - 0.0
-   * - :ref:`sphx_glr_auto_ch9_ch9_lagrange.py` (``ch9_lagrange.py``)
-     - 00:03.211
-     - 0.0
-   * - :ref:`sphx_glr_auto_ch9_ch9_isocontours.py` (``ch9_isocontours.py``)
-     - 00:00.901
-     - 0.0
-   * - :ref:`sphx_glr_auto_ch9_ch9_greeks.py` (``ch9_greeks.py``)
-     - 00:00.820
-     - 0.0
-   * - :ref:`sphx_glr_auto_ch9_ch9_priceExtrapolation.py` (``ch9_priceExtrapolation.py``)
-     - 00:00.703
-     - 0.0
-   * - :ref:`sphx_glr_auto_ch9_ch9_rst.py` (``ch9_rst.py``)
-     - 00:00.691
+   * - :ref:`sphx_glr_auto_ch9_ch9_garch.py` (``ch9_garch.py``)
+     - 00:00.000
      - 0.0
    * - :ref:`sphx_glr_auto_ch9_ch9_get_market_data.py` (``ch9_get_market_data.py``)
-     - 00:00.059
+     - 00:00.000
+     - 0.0
+   * - :ref:`sphx_glr_auto_ch9_ch9_greeks.py` (``ch9_greeks.py``)
+     - 00:00.000
+     - 0.0
+   * - :ref:`sphx_glr_auto_ch9_ch9_isocontours.py` (``ch9_isocontours.py``)
+     - 00:00.000
+     - 0.0
+   * - :ref:`sphx_glr_auto_ch9_ch9_lagrange.py` (``ch9_lagrange.py``)
+     - 00:00.000
+     - 0.0
+   * - :ref:`sphx_glr_auto_ch9_ch9_priceExtrapolation.py` (``ch9_priceExtrapolation.py``)
+     - 00:00.000
+     - 0.0
+   * - :ref:`sphx_glr_auto_ch9_ch9_random_walk_log_normal.py` (``ch9_random_walk_log_normal.py``)
+     - 00:00.000
+     - 0.0
+   * - :ref:`sphx_glr_auto_ch9_ch9_rst.py` (``ch9_rst.py``)
+     - 00:00.000
+     - 0.0
+   * - :ref:`sphx_glr_auto_ch9_ch9_stoch_vol.py` (``ch9_stoch_vol.py``)
+     - 00:00.000
      - 0.0

@@ -6,7 +6,7 @@
 
 Computation times
 =================
-**00:05.141** total execution time for 9 files **from auto_ch5**:
+**00:05.994** total execution time for 9 files **from auto_ch5**:
 
 .. container::
 
@@ -32,30 +32,30 @@ Computation times
    * - Example
      - Time
      - Mem (MB)
-   * - :ref:`sphx_glr_auto_ch5_ch5_7.py` (``ch5_7.py``)
-     - 00:01.747
+   * - :ref:`sphx_glr_auto_ch5_ch5_33.py` (``ch5_33.py``)
+     - 00:03.737
      - 0.0
-   * - :ref:`sphx_glr_auto_ch5_ch5_6_d.py` (``ch5_6_d.py``)
-     - 00:00.919
+   * - :ref:`sphx_glr_auto_ch5_ch5_7.py` (``ch5_7.py``)
+     - 00:01.501
      - 0.0
    * - :ref:`sphx_glr_auto_ch5_ch5_8.py` (``ch5_8.py``)
-     - 00:00.758
-     - 0.0
-   * - :ref:`sphx_glr_auto_ch5_ch5_6_c.py` (``ch5_6_c.py``)
-     - 00:00.572
-     - 0.0
-   * - :ref:`sphx_glr_auto_ch5_ch5_33.py` (``ch5_33.py``)
-     - 00:00.470
-     - 0.0
-   * - :ref:`sphx_glr_auto_ch5_ch5_6_a.py` (``ch5_6_a.py``)
-     - 00:00.223
-     - 0.0
-   * - :ref:`sphx_glr_auto_ch5_ch5_6_b.py` (``ch5_6_b.py``)
-     - 00:00.202
-     - 0.0
-   * - :ref:`sphx_glr_auto_ch5_ch5_34.py` (``ch5_34.py``)
-     - 00:00.161
+     - 00:00.756
      - 0.0
    * - :ref:`sphx_glr_auto_ch5_ch5_2.py` (``ch5_2.py``)
-     - 00:00.089
+     - 00:00.000
+     - 0.0
+   * - :ref:`sphx_glr_auto_ch5_ch5_34.py` (``ch5_34.py``)
+     - 00:00.000
+     - 0.0
+   * - :ref:`sphx_glr_auto_ch5_ch5_6_a.py` (``ch5_6_a.py``)
+     - 00:00.000
+     - 0.0
+   * - :ref:`sphx_glr_auto_ch5_ch5_6_b.py` (``ch5_6_b.py``)
+     - 00:00.000
+     - 0.0
+   * - :ref:`sphx_glr_auto_ch5_ch5_6_c.py` (``ch5_6_c.py``)
+     - 00:00.000
+     - 0.0
+   * - :ref:`sphx_glr_auto_ch5_ch5_6_d.py` (``ch5_6_d.py``)
+     - 00:00.000
      - 0.0
